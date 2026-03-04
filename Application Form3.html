@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Form 3</title>
+    <link rel="stylesheet" href="Application Form3.css">
+</head>
+<body>
+    <header>
+    <div class="background-image">
+        <div class="line">
+            <img src="LOGO CICOT.png" alt="CICOT Logo" class="logo1">
+            <img src="Halal English.png" alt="HALAL MARK" class="logo2">
+            <img src="Patterned Thai Flag.png" alt="Thailand Flag" class="logo3">
+        </div>
+        <div class="h2-container">
+        <h2>The Central Islamic Council of Thailand (CICOT)</h2>
+        </div>
+    </div>
+    <nav class="navbar">
+            <a href="index.html">CICOT Website</a>
+            <a href="index.html">Home</a>
+            <a href="About.html">About Us</a>
+            <a href="Contact.html">Contact Us</a>
+            <a href="Login.html">Login to apply</a>
+    </nav>
+    </header>
+    <h1 class="form-title">FHCB Recognition Application Form - Internal Audit Practices, Ownership, and Affliations</h1>
+    <div class="form-container">
+    <form action="#" method="post">
+        <h2> Internal Audit Procedures</h2>
+        <h4> Please provide details about your internal audit procedures for Halal certification.</h4>
+        <label for="audit-frequency">Frequency of Internal Audits:</label><br>
+        <input type="radio" id="audit-frequency" name="audit-frequency" value="Monthly" required> Monthly 
+        <input type="radio" id="audit-frequency" name="audit-frequency" value="Quarterly"> Quarterly
+        <input type="radio" id="audit-frequency" name="audit-frequency" value="Bi-Annually"> Bi-Annually
+        <input type="radio" id="audit-frequency" name="audit-frequency" value="Annually"> Annually<br><br>  
+    
+
+        <label for="audit-team">Internal Audit Reports:</label>
+        <input type="text" id="audit-team" name="audit-team" placeholder="Describe the composition of your internal audit and attach an example audit report file as .pdf" required>
+        <input type="file" id="pdfFile" name="pdfFile" accept="application/pdf" required> <br><br>
+
+        <h2> Ownership and Affiliations</h2>
+        <h4> Please provide information about the ownership structure and any affiliations your organisation has</h4>
+        <select id="ownership-structure" name="ownership-structure" required>
+            <option value="">--Select Ownership and Affliations--</option>
+            <option value="Private">Organisation is muslim-owned</option>
+            <option value="Public">Parent organisation is muslim-owned</option>
+            <option value="Non-Profit">Neither organisation nor parent organisation is mulslim-owned</option>
+            <option value="Government">Organisation/Department/Section is under government</option>   
+        </select><br><br>
+        
+        <label for="affiliations">Is your organisation affiliated with any non-muslim organisation or entity?</label><br><br>        
+        <input type="radio" id="affiliations" name="affiliations" value="Yes"> Yes<br>
+        <input type="radio" id="affiliations" name="affiliations" value="No"> No<br><br>
+        
+        <label for="affiliation-details">If yes, please provide details of the affiliations:</label>
+        <textarea id="details" name="details" style="width:99%; height:120px; padding:10px;" placeholder="Please describe in details"></textarea>
+
+        <br><br>
+
+        <label for="halal-certification-service-outside-country">Does your organisation provide Halal certification services outside your country of registration?</label><br><br>
+        <input type="radio" id="halal-certification-service-outside-country" name="halal-certification-service-outside-country" value="Yes" onchange="toggleOutsideCountry('Yes')"> Yes<br>
+        <input type="radio" id="halal-certification-service-outside-country" name="halal-certification-service-outside-country" value="No" onchange="toggleOutsideCountry('No')"> No<br><br>
+        
+        <div id="abattoirDetailsSection1">
+
+        <label for="service-details">If yes, please provide details of the countries and scope of services</label>
+        <h5>Press the green button to add the company information separately</h5>
+
+            <button type="button" class="add-btn" onclick="addOutsideCountryItem()">+ Add certified outside-country company</button>
+
+                <div class="itemsContainer"></div>
+        </div>
+                <script>
+                function addOutsideCountryItem() {
+    
+                    let container = document.querySelector(".itemsContainer");
+
+                    let box = document.createElement("div");
+                    box.className = "item-box";
+
+                    box.innerHTML = `
+                        <label>Company name</label>
+                        <input type="text" placeholder="Enter company name">
+
+                        <label>Scope of Certification</label>
+                        <select>
+                            <option value="">-- Select Type of Scope --</option>
+                            <option>Food and Beverage products</option>
+                            <option>Abattoirs</option>
+                            <option>Pharmaceuticals</option>
+                            <option>Cosmetics</option>
+                            <option>Logistics and Warehousing</option>
+                            <option>Halal Kitchen</option>
+                            <option>Biochemical/Chemical products</option>
+                            <option>Micro-organism</option>
+                            <option>Processed-meat products</option>
+                            <option>Plant-based products</option>
+                            <option>Textile products</option>
+                            <option>Dairy products</option>
+                            <option>Others</option>
+                        </select>
+                        <label for="Attach-Halal-certificate-proof">Please Attach Halal Certificate Proof:</label>
+                        <input type="file" class="attach-halal-certificate-proof" id="Attach-Halal-certificate-proof" name="Attach-Halal-certificate-proof" accept="image/*,application/pdf" required><br>
+                        <button type="button" class="remove-btn" onclick="removeItem(this)">Delete the added information</button>
+                    `;
+
+                    container.appendChild(box);
+        }
+        function removeItem(button) {
+            button.parentElement.remove();
+        }
+        function toggleOutsideCountry(value) {
+    const section = document.getElementById('abattoirDetailsSection1');
+
+    if (value === 'Yes') {
+        section.style.display = 'block';
+    } else {
+        section.style.display = 'none';
+
+        // (เสริม) ลบข้อมูลที่เคย add ไว้ เมื่อเลือก No
+        document.querySelector('.itemsContainer').innerHTML = '';
+    }
+}
+                </script>
+
+                <br>  
+        <label for="Abattoirs">Does your organisation certify abattoirs?</label><br><br>
+        <input type="radio" id="Abattoirs" name="Abattoirs" value="Yes" required> Yes<br>
+        <input type="radio" id="Abattoirs" name="Abattoirs" value="No"> No<br><br>
+        <label for="abattoirs-for-Thailand">Does your organisation certify abattoirs that export to Thailand?</label><br><br>
+        <input type="radio" name="abattoirs-for-Thailand" value="Yes" onchange="toggleAddButton(this.value)">Yes<br>
+        <input type="radio" name="abattoirs-for-Thailand" value="No" onchange="toggleAddButton(this.value)"> No<br><br>
+    
+<div id="abattoirDetailsSection">
+
+    <label for="company-details">
+        If yes, please provide details of abattoirs exporting to Thailand
+    </label>
+
+    <h5>
+        Press the green button to add the company information separately
+    </h5>
+
+    <button type="button" id="addBtn2" class="add-btn2" onclick="addAbattoirItem()">
+        + Add certified abattoirs exporting to Thailand
+    </button>
+
+    <div class="itemsContainer2"></div>
+
+</div>
+
+                <script>
+                function addAbattoirItem() {
+    
+                    let container = document.querySelector(".itemsContainer2");
+
+                    let box = document.createElement("div");
+                    box.className = "item-box";
+
+                    box.innerHTML = `
+                        <label>Company name</label>
+        <input type="text" placeholder="Enter company name which is illustrated on the Halal Certificate">
+
+        <label>How much weight per year did they export to Thailand?</label>
+        <input type="text" placeholder="Enter weight in kg/year">
+
+        <label>Please Attach Halal Certificate Proof:</label>
+        <input type="file" accept="image/*,application/pdf" required>
+
+        <button type="button" class="remove-btn" onclick="removeItem(this)">
+            Delete the added information
+        </button>
+                    `;
+
+                    container.appendChild(box);
+        }
+
+        function removeItem(button) {
+            button.parentElement.remove();
+        }
+        function toggleAddButton(value) {
+    const section = document.getElementById('abattoirDetailsSection');
+
+    if (value === 'Yes') {
+        section.style.display = 'block';
+    } else {
+        section.style.display = 'none';
+
+        // (เสริม) ลบข้อมูลที่เคย add ไว้ เมื่อเลือก No
+        document.querySelector('.itemsContainer2').innerHTML = '';
+    }
+}
+</script> 
+    <form>
+    <label>Has your organisation attained any international standards accreditation? (e.g., ISO, etc.) </label><br>
+
+    <div id="fileContainer">
+        <div class="file-row">
+            <input type="file" name="pdfFiles[]" accept="application/pdf">
+        </div>
+    </div>
+
+    <button type="button" onclick="addFile()">+ Add pdf file </button>
+</form>
+
+<script>
+function addFile() {
+const container = document.getElementById("fileContainer");
+
+    const div = document.createElement("div");
+    div.className = "file-row";
+
+    div.innerHTML = `
+        <input type="file" name="pdfFiles[]" accept="application/pdf">
+    `;
+
+        container.appendChild(div);
+}
+</script>
+<form>
+    <label>Has your organisation attained any recognition from any other country? (e.g., JAKIM, MUIS, BPJPH, etc.) </label><br>
+
+    <div id="fileContainer2">
+        <div class="file-row2">
+            <input type="file" name="pdfFiles[]" accept="application/pdf">
+        </div>
+    </div><br>
+
+    <button type="button" onclick="addFile2()">+ Add pdf file </button>
+</form>
+
+<script>
+function addFile2() {
+const container = document.getElementById("fileContainer2");
+
+    const div = document.createElement("div");
+    div.className = "file-row";
+
+    div.innerHTML = `
+        <input type="file" name="pdfFiles[]" accept="application/pdf">
+    `;
+
+        container.appendChild(div);
+}
+</script>
+                   
+        <div class="btn-group">
+            <input type="submit" value="Previous" class="Previous-btn">
+            <input type="submit" value="Next" class="Next-btn">
+        </div>
+        
+    </form>
+    </div>
+</body>
+</html>

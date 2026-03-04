@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Form</title>
+    <link rel="stylesheet" href="Application Form.css">
+</head>
+<body>
+     <header>
+
+    <div class="background-image">
+        
+        <div class="line">
+            <img src="LOGO CICOT.png" alt="CICOT Logo" class="logo1">
+            <img src="Halal English.png" alt="HALAL MARK" class="logo2">
+            <img src="Patterned Thai Flag.png" alt="Thailand Flag" class="logo3">
+        </div>
+        <div class="h2-container">
+        <h2>The Central Islamic Council of Thailand (CICOT)</h2>
+        </div>
+    </div>
+    <nav class="navbar">
+            <a href="index.html">CICOT Website</a>
+            <a href="index.html">Home</a>
+            <a href="About.html">About Us</a>
+            <a href="Contact.html">Contact Us</a>
+            <a href="Login.html">Login to apply</a>
+    </nav>
+    </header>
+    <div class="application-intro">
+        <h1>FHCB Recognition Application Form</h1>
+        <p>Please fill out the form below to apply for FHCB recognition.</p>
+    </div>
+    <div class="status-table">
+    <table class="application-table">
+        <tr>
+            <th>Application ID</th>
+            <th>Company/Organisation Name</th>
+            <th>Application Date</th>
+        </tr>
+        <tr>
+            <td>001</td>
+            <td>AAA Co.,Ltd.</td>
+            <td>1 January 2026</td>
+        </tr>
+    </table>
+    </div><br>
+    <div class="application-form">
+    <form action="#" method="post">
+        <label for="application-logo">Organisation/Companys Logo:</label>
+        <input type="file" class="custom-btn" id="application-logo" name="application-logo" accept="image/*"  required hidden><br><br>
+    
+        <label for="company-name">Company/Organisation Name:</label>
+        <input type="text" id="company-name" name="company-name" placeholder="Given name will be illustrated in certificate and CICOT website" required><br><br>
+
+        <label for="Organisation type">Organisation Type:</label>
+        <select id="organisation-type" name="organisation-type" required>
+            <option value="">--Select Type--</option>
+            <option value="Government">Government</option>
+            <option value="Non-Profit Organisation">Non-Profit Organisation</option>
+            <option value="Company Limited">Company Limited</option>
+            <option value="Commercial">Commercial</option>
+            <option value="Religious Organisation">Religious Organisation</option>
+            <option value="Independent organisation under Government">Independent organisation under Government</option>
+            <option value="others">others</option>
+            <label for="please specify">Please specify:</label>
+            <input type="text" id="please specify" name="please specify" placeholder="Others-Please specify">
+        </select><br><br>
+        <label for="Country">Country:</label>
+        <select id="country" name="country" required>
+            <option value="">--Select Country--</option>
+            <option value="Thailand">Thailand</option>
+            <option value="Malaysia">Malaysia</option>
+            <option value="Indonesia">Indonesia</option>
+            <option value="Singapore">Singapore</option>
+            <option value="Brunei">Brunei</option>
+            <option value="Cambodia">Cambodia</option>
+            <option value="Vietnam">Vietnam</option>
+            <option value="Laos">Laos</option>
+            <option value="Myanmar">Myanmar</option>
+            <option value="Philippines">Philippines</option>
+            <option value="China">China</option>
+            <option value="Japan">Japan</option>
+            <option value="South Korea">South Korea</option>
+            <option value="India">India</option>
+            <option value="Taiwan">Taiwan</option>
+            <option value="Australia">Australia</option>
+            <option value="New Zealand">New Zealand</option>
+            <option value="United States">United States</option>
+            <option value="United Kingdom">United Kingdom</option>
+            <option value="Germany">Germany</option>
+            <option value="France">France</option>
+            <option value="Canada">Canada</option>
+            <option value="Spain">Spain</option>
+            <option value="Italy">Italy</option>
+            <option value="Turkey">Turkey</option>
+            <option value="Saudi Arabia">Saudi Arabia</option>
+            <option value="UAE">UAE</option>
+            <option value="Sweden">Sweden</option>
+            <option value="Switzerland">Switzerland</option>
+            <option value="Netherlands">Netherlands</option>
+            <option value="Russia">Russia</option>
+            <option value="others">others</option>
+            <label for="please specify">Please specify:</label>
+            <input type="text" id="please specify" name="please specify" placeholder="Others-Please specify">
+        </select><br><br>
+
+        <label for="address">Address:</label>
+        <input type="text" id="address" name="address" required><br><br>
+
+        <label for="contact-person">Contact Person:</label>
+        <input type="text" id="contact-person" name="contact-person" placeholder="Please type the contact-person name" required> *Main Contact Person and the person that will be illustrated on CICOT website*<br><br>
+
+        <label for="Designation">Designation:</label>
+        <input type="text" id="position" name="position" placeholder="The position of contact person"><br><br>  
+
+        <label for="phone-number">Phone Number:</label>
+        <input type="tel" id="phone-number" name="phone-number" placeholder="Official phone number of your organisation"><br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="Official organisation Email"><br><br>
+
+        <label for="islamic school of thaought">Islamic School of Thought Adapted:</label>
+        <select id="islamic school of thaought" name="islamic school of thaought" required>
+            <option value="">--Select School of Thought--</option>
+            <option value="Sunni - Hanafi">Sunni - Hanafi</option>
+            <option value="Sunni - Maliki">Sunni - Maliki</option>
+            <option value="Sunni - Shafi'i">Sunni - Shafi'i</option>
+            <option value="Sunni - Hanifi">Sunni - Hanifi</option>
+            <option value="Sunni - Thahiri">Sunni - Thahiri</option>
+            <option value="Sunni - Zahiri">Sunni - Zahiri</option>
+            <option value="Sunni - Salafi">Sunni - Salafi</option>
+            <option value="Sunni - Wahhabi">Sunni - Wahhabi</option>
+            <option value="Sunni - Other">Sunni Other</option>
+            <option value="Sunni - Hanbali">Sunni - Hanbali</option>
+            <option value="Shia - Zaidi">Shia Zaidi</option>
+            <option value="Shia - Ja'fari">Shia Ja'fari</option>
+            <option value="Shia - Ismaili">Shia Ismaili</option>
+            <option value="Shia - Zaydi">Shia Zaydi</option>
+            <option value="Shia - Other">Shia Other</option>
+            <option value="others">others</option>
+            <label for="please specify">Please specify:</label>
+            <input type="text" id="please specify" name="please specify" placeholder="Others-Please specify">
+        </select>    
+        <div class="website-upload">
+        <label for="enter-website">Website:</label>
+        <input type="url" id="enter-website" class="enter-website" name="enter-website" placeholder="Website of your organisation (https://www.example.com)">
+        </div>
+    </form><br><br>
+    <div class="click-next"> Please click Next to proceed to the next step.</div>
+    <div class="tooltip">
+    <input type="submit" value="Next"><br><br><br>
+    
+    </div>
+    </div>
+    <p>&copy; 2026 The Central Islamic Council of Thailand (CICOT). All rights reserved.</p>    
+
+    
+</body>
+</html>

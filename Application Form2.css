@@ -1,0 +1,148 @@
+.background-image {
+    padding: 10px 20px;
+   
+    left: 0;
+    display: flex;
+    background-color: darkgreen;
+    align-items: center;
+}
+.line{
+    display: flex;
+    align-items: center;
+}
+.logo1{
+    margin-right: 10px;
+    width: auto;
+    height: 100px;
+}
+.logo2{
+    width: auto;
+    height: 100px;
+}
+body{
+    margin: 0;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+    height: 100vh;
+    overflow-y: auto;
+}
+.h2-container{
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: white;
+    flex-grow: 1;
+}
+.navbar {
+    background-color: rgb(162, 235, 236);
+    overflow: hidden;
+    font-weight: bold;
+}
+.navbar a {
+    
+    display: inline-block;
+    color: rgb(10, 10, 9);
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+.navbar a:hover {
+    background-color: #ddd;
+    color: rgb(206, 36, 36);
+}
+.form-container {
+    width: 80%;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    
+}
+.form-container label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+.form-container input[type="text"],
+.form-container input[type="number"],
+.form-container input[type="date"]{
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+.form-title {
+    text-align: left;
+    color: darkgreen;
+    margin-left: 132px;
+}
+.tooltip {
+  position: relative; /* ให้ tooltip อ้างอิงตำแหน่งปุ่ม */
+  background-color: none;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 100%;
+  justify-content: center; /* จัดกึ่งกลางในแนวนอน */
+    align-items: center; 
+    display: flex;
+}
+
+/* สร้าง tooltip */
+.tooltip::after {
+  content: "Press here to proceed the next step"; /* ข้อความ tooltip */
+  position: absolute;
+  bottom: -50%;  /* อยู่เหนือปุ่ม */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #fff;   /* พื้นหลังสีขาว */
+  color: red;               /* ตัวอักษรสีแดง */
+  padding: 6px 10px;
+  border: 1px solid red;
+  border-radius: 4px;
+  white-space: nowrap;
+  opacity: 0;               /* ซ่อนตอนเริ่มต้น */
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+/* แสดง tooltip เมื่อ hover */
+.tooltip:hover::after {
+  opacity: 1;
+}
+input[type="Next"] {
+    width: 10%;
+    height: 30px;
+    padding: auto;
+    background-color: rgb(21, 127, 21);
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+    align-items: center;
+    text-align: center;
+}
+p {
+    text-align: center;
+    font-size: 0.9em;
+    color: #555;
+}
+#date-of-registration {
+    width: 50%;
+    
+}
+.logo3{
+    margin-right: 0.1px;
+    margin-right: 0;
+    
+    width: auto;
+    height: 100px;
+}

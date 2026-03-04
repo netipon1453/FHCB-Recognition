@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Form 4</title>
+    <link rel="stylesheet" href="Application Form4.css">
+</head>
+<body>
+    <header>
+    <div class="background-image">
+        <div class="line">
+            <img src="LOGO CICOT.png" alt="CICOT Logo" class="logo1">
+            <img src="Halal English.png" alt="HALAL MARK" class="logo2">
+            <img src="Patterned Thai Flag.png" alt="Thailand Flag" class="logo3">
+        </div>
+        <div class="h2-container">
+        <h2>The Central Islamic Council of Thailand (CICOT)</h2>
+        </div>
+    </div>
+    <nav class="navbar">
+            <a href="index.html">CICOT Website</a>
+            <a href="index.html">Home</a>
+            <a href="About.html">About Us</a>
+            <a href="Contact.html">Contact Us</a>
+            <a href="Login.html">Login to apply</a>
+    </nav>
+    </header>
+    <div class="main-content">
+    <h3>FHCB Recognition Application Form - Halal Regulation/Standards/Guideline, Certification Process, Management System, and Supporting Documents</h3>
+    </div>
+    <div class="form-container">
+    <form action="#" method="post">
+        <h2> Halal Regulation/Fatwa/Standards/Guidelines</h2>
+        <form onsubmit="return validateForm()">
+        <h4> Is there any standards/guidelines of your organisation on Halal certification? </h4>
+        <label for="halal-regulation-yes">
+            <input type="radio" id="halal-regulation-yes" name="halal-regulation" value="yes" onchange="toggleAddButton(this.value)"> Yes<br>
+        
+            <input type="radio" id="halal-regulation-no" name="halal-regulation" value="no" onchange="toggleAddButton(this.value)"> No<br>
+        </label><br>
+        <div id="standardsSection" style="display:none;">
+            <label for="halal-regulation-file"> If yes, please upload the document (PDF only)
+            </label><br><br>
+        <div class="standardsGuidelinesUpload">
+            <label> **Note that: you can upload multiple files with pressing the button of "+Add Standards/Guidelines" below** </label><br><br>
+            <button type="button" class="addFileBtn" onclick="addItem()">+ Add Standards/Guidelines</button><br><br>
+            <div class="itemsContainer2"></div>
+        </div>
+        <button type="submit">Submit</button>
+        </form>
+        </div> 
+        <script> 
+        function addItem() {
+            const container = document.querySelector('.itemsContainer2');
+            const div = document.createElement('div');
+            div.innerHTML = `
+                <input type="file" name="halal-regulation-file[]" accept="application/pdf" required>
+                <button type="button" class="remove-btn" onclick="removeItem(this)">Remove</button><br><br>
+            `;
+            container.appendChild(div);
+         }
+
+
+         function removeItem(button) {
+            button.parentElement.remove();
+        }
+        function toggleAddButton(value) {
+    const section = document.getElementById('standardsSection');
+
+    if (value === 'yes') {
+        section.style.display = 'block';
+    } else {
+        section.style.display = 'none';
+
+        // (เสริม) ลบข้อมูลที่เคย add ไว้ เมื่อเลือก No
+        document.querySelector('.itemsContainer2').innerHTML = '';
+    }
+    function validateForm() {
+    const selected = document.querySelector('input[name="halal-regulation"]:checked');
+
+    if (!selected) {
+        alert("Please select Yes or No.");
+        return false;
+    }
+
+    if (selected.value === 'yes') {
+        const files = document.querySelectorAll('.itemsContainer2 input[type="file"]');
+
+        if (files.length === 0) {
+            alert("Please upload at least one Halal standard/guideline document.");
+            return false;
+        }
+
+        for (let f of files) {
+            if (!f.files.length) {
+                alert("Please select a PDF file before submitting.");
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+}
+</script>
+        <h2> Certification Process and Management System</h2>
+        <label for="certification-process-file"> Please upload your organisation's Halal certification process and management system document (PDF only): </label>
+        <input type="file" id="certification-process-file" name="certification-process-file" accept="application/pdf" required><br><br>
+        <h2> Supporting Documents</h2>
+            
