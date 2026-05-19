@@ -77,18 +77,6 @@ header{
 .remove-btn{
 background-color:red;
 }
-.btn-group{
-    display: flex;
-    justify-content: center; /* จัดกลางแนวนอน */
-    gap: 20px; /* ระยะห่างระหว่างปุ่ม */
-    margin-top: 20px;
-}
-.button-group{
-display:flex;
-gap:10px;
-margin-top:10px;
-align-items: center;
-}
 #pdfFile::file-selector-button{
     background-color: darkgreen;
     color:white;
@@ -97,10 +85,9 @@ align-items: center;
     border-radius:5px;
     cursor:pointer;
 }
-.fhcb-item{
-    margin-bottom:20px;
+.remove-btn{
+background-color:red;
 }
-
 .delete-btn{
     background-color:red;
     color:white;
@@ -124,20 +111,150 @@ input[type="file"]{
     border-radius:6px;
     width:100%;
     background-color:#ffffff;
-    box-sizing:border-box;
+    box-sizing:border-box;}
+.upload-container{
+    width:80%;
+    max-width:700px;
+    margin:30px auto;
 }
-h5{
+
+#drop-area{
+
+    border:3px dashed #999;
+
+    border-radius:12px;
+
+    padding:40px;
+
+    text-align:center;
+
+    background-color:#fafafa;
+
+    transition:0.3s;
+}
+
+#drop-area.highlight{
+    border-color:#0b7dda;
+    background-color:#eef7ff;
+}
+
+#drop-area p{
+    margin:10px 0;
+    font-size:18px;
+}
+
+#drop-area button{
+
+    padding:10px 20px;
+
+    border:none;
+
+    border-radius:6px;
+
+    background-color:#0b7dda;
+
+    color:white;
+
+    cursor:pointer;
+}
+
+#drop-area button:hover{
+    background-color:#095c9d;
+}
+
+#fileList{
+
     margin-top:20px;
-    font-size: medium;
-    font-weight: 400;
-}
-#halal-schemes{
-    border:1px solid #ccc;
+
     padding:15px;
+
+    background:#f5f5f5;
+
     border-radius:8px;
-    background-color:#fefcfc;
-    width:867px;
-    font-style: calibri;
+}
+.preview-image{
+
+    width:200px;
+
+    max-width:100%;
+
+    border-radius:10px;
+
+    border:1px solid #ccc;
+
+    padding:5px;
+
+    background-color:white;
+
+    margin-top:10px;
+}
+.preview-image{
+
+    max-width:100%;
+
+    max-height:300px;
+
+    border-radius:10px;
+
+    object-fit:contain;
+}
+.preview-image{
+
+    max-width:100%;
+
+    max-height:250px;
+
+    margin-top:20px;
+
+    border-radius:10px;
+
+    object-fit:contain;
+}
+.file-upload-row{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+}
+
+.upload-row{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:50px;
+}
+
+.upload-row input[type="file"]{
+
+    width:auto;
+}
+
+.trash-btn{
+
+    width:35px;
+
+    height:35px;
+
+    border:none;
+
+    border-radius:8px;
+
+    background-color:rgb(220, 24, 24);
+
+    color:white;
+
+    font-size:20px;
+
+    cursor:pointer;
+}
+
+.trash-btn:hover{
+
+    background-color:rgb(243, 207, 28);
 }
 .btn-group{
     display: flex;
@@ -173,50 +290,4 @@ p{
     text-align:center;
     font-size:0.9em;
     color:#666;
-}
-.file-upload-row{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:50px;
-}
-
-.upload-row{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:50px;
-}
-
-.upload-row input[type="file"]{
-
-    width:auto;
-}
-
-.trash-btn{
-
-    width:35px;
-
-    height:35px;
-
-    border:none;
-
-    border-radius:8px;
-
-    background-color:rgb(215, 26, 26);
-
-    color:rgb(226, 27, 27);
-
-    font-size:20px;
-
-    cursor:pointer;
-}
-
-.trash-btn:hover{
-
-    background-color:rgb(241, 146, 51);
 }

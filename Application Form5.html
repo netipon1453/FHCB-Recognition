@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Application Form 5</title>
+
+    <link rel="stylesheet"
+          href="Application Form5.css">
+</head>
+
+<body>
+
+<header>
+
+    <div class="background-image">
+
+        <div class="logo-left">
+            <img src="Patterned Thai Flag.png"
+                 alt="Thailand Flag"
+                 class="logo3">
+        </div>
+
+        <div class="h2-container">
+            <h2>
+                The Central Islamic Council of Thailand (CICOT)
+            </h2>
+        </div>
+
+        <div class="logo-right">
+
+            <img src="Halal English.png"
+                 alt="HALAL MARK"
+                 class="logo2">
+
+            <img src="LOGO CICOT.png"
+                 alt="CICOT Logo"
+                 class="logo1">
+
+        </div>
+
+    </div>
+
+
+    <nav class="navbar">
+
+        <a href="index.html">CICOT Website</a>
+        <a href="index.html">Home</a>
+        <a href="About.html">About Us</a>
+        <a href="Contact.html">Contact Us</a>
+        <a href="Login.html">Login to apply</a>
+
+    </nav>
+
+</header>
+
+
+
+<div class="main-content">
+
+    <h1>
+        FHCB Recognition Application Form - Supporting Documents
+    </h1>
+
+</div>
+
+
+
+<div class="form-container">
+
+<form action="#" method="post">
+
+<!-- ================================================= -->
+<!-- Supporting Documents -->
+<!-- ================================================= -->
+
+<h1>Supporting Documents</h1>
+
+
+<!-- ================================================= -->
+<!-- Halal Certification Application Form -->
+<!-- ================================================= -->
+
+<h3>
+    Halal Certification Application Form for Your Clients
+</h3>
+
+<div id="supportingDocumentsContainer">
+
+    <div class="supporting-document-item">
+
+        <label>
+            Please upload your Halal certification application form for your clients (PDF only):
+        </label>
+
+        <br><br>
+
+        <input type="file"
+               name="pdfFiles[]"
+               accept="application/pdf"
+               required>
+
+        <button type="button"
+                class="add-btn"
+                onclick="addSupportingDocument()">
+
+            + Add PDF File
+
+        </button>
+
+        <button type="button"
+                class="delete-btn"
+                onclick="removeItem(this)">
+
+            Remove
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- ================================================= -->
+<!-- Official Halal Certificate -->
+<!-- ================================================= -->
+
+<h3>Official Halal Certificate</h3>
+
+<div id="officialCertificateContainer">
+
+    <div class="official-certificate-item">
+
+        <label>
+            Please upload your official halal certificate (PDF only):
+        </label>
+
+        <br><br>
+
+        <input type="file"
+               name="officialCertificate[]"
+               accept="application/pdf"
+               required>
+
+        <button type="button"
+                class="add-btn"
+                onclick="addOfficialCertificate()">
+
+            + Add PDF File
+
+        </button>
+
+        <button type="button"
+                class="delete-btn"
+                onclick="removeItem(this)">
+
+            Remove
+
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<!-- ================================================= -->
+<!-- Official Halal Logo -->
+<!-- ================================================= -->
+
+<h3>Official Halal Logo</h3>
+
+<label>
+    Supported format: PNG, JPEG with minimum size of 300x300 pixels
+</label>
+
+<br><br>
+
+<div class="upload-container">
+
+    <div id="drop-area">
+
+        <p>
+            Drop PNG or JPEG file here to upload your official Halal logo
+        </p>
+
+        <input type="file"
+               id="fileInput"
+               accept=".png,.jpg,.jpeg,image/png,image/jpeg"
+               hidden>
+
+    </div>
+
+    <div id="fileList"></div>
+
+</div>
+
+
+
+<!-- ================================================= -->
+<!-- Statutory Declaration -->
+<!-- ================================================= -->
+
+<h3>Statutory Declaration</h3>
+
+<label>
+    Please upload your statutory declaration (PDF only):
+</label>
+
+<br><br>
+
+<div class="upload-row">
+
+    <input type="file"
+           id="statutoryDeclaration"
+           accept="application/pdf">
+
+    <button type="button"
+            class="trash-btn"
+            onclick="document.getElementById('statutoryDeclaration').value = null">
+
+        🗑️
+
+    </button>
+
+</div>
+
+
+
+<!-- ================================================= -->
+<!-- Certificate Registration -->
+<!-- ================================================= -->
+
+<h3>Certificate Registration</h3>
+
+<label>
+    Please upload your certificate registration document (PDF only):
+</label>
+
+<br><br>
+
+<div class="upload-row">
+
+    <input type="file"
+           id="certificateRegistration"
+           accept="application/pdf">
+
+    <button type="button"
+            class="trash-btn"
+            onclick="document.getElementById('certificateRegistration').value = null">
+
+        🗑️
+
+    </button>
+
+</div>
+
+
+
+<!-- ================================================= -->
+<!-- Proof of Billing -->
+<!-- ================================================= -->
+
+<h3>Proof of Billing</h3>
+
+<label>
+    Please upload your proof of billing (PDF only):
+</label>
+
+<br><br>
+
+<div class="upload-row">
+
+    <input type="file"
+           id="proofBilling"
+           accept="application/pdf">
+
+    <button type="button"
+            class="trash-btn"
+            onclick="document.getElementById('proofBilling').value = null">
+
+        🗑️
+
+    </button>
+
+</div>
+
+
+
+<!-- ================================================= -->
+<!-- Others -->
+<!-- ================================================= -->
+
+<h3>Others</h3>
+
+<label>
+    Organisation chart, statute, constitution or memorandum or articles or other instrument defining its constitution (PDF only):
+</label>
+
+<br><br>
+
+<div id="otherDocumentsContainer">
+
+    <div class="other-document-item">
+
+        <input type="file"
+               name="otherDocuments[]"
+               accept="application/pdf"
+               required>
+
+        <button type="button"
+                class="add-btn"
+                onclick="addOtherDocument()">
+
+            + Add PDF File
+
+        </button>
+
+        <button type="button"
+                class="delete-btn"
+                onclick="removeItem(this)">
+
+            Remove
+
+        </button>
+
+    </div>
+
+</div>
+
+<h2> Auditors</h2>
+Is there any auditor who has been appointed by third-party company to conduct audit for your clients?
+<br>
+<input type="radio"
+       id="auditorYes"
+       name="auditor"
+       value="yes">
+<label for="auditorYes">Yes</label>
+<input type="radio"
+       id="auditorNo"
+       name="auditor"
+       value="no">
+<label for="auditorNo">No</label>
+
+
+<!-- ================================================= -->
+<!-- Navigation Buttons -->
+<!-- ================================================= -->
+
+<div class="btn-group">
+
+    <button type="button"
+            class="Previous-btn"
+            onclick="window.location.href='Application Form4.html'">
+
+        Previous
+
+    </button>
+
+
+    <button type="button"
+            class="Next-btn"
+            onclick="window.location.href='Application Form6.html'">
+
+        Next
+
+    </button>
+
+</div>
+
+
+<p>
+    &copy; 2026 The Central Islamic Council of Thailand (CICOT). All rights reserved.
+</p>
+
+</form>
+
+</div>
+
+
+
+<!-- ================================================= -->
+<!-- JavaScript -->
+<!-- ================================================= -->
+
+<script>
+
+
+// =====================================================
+// Remove Item
+// =====================================================
+
+function removeItem(button){
+
+    button.parentElement.remove();
+}
+
+
+
+// =====================================================
+// Add Supporting Document
+// =====================================================
+
+function addSupportingDocument(){
+
+    const container =
+        document.getElementById(
+            "supportingDocumentsContainer"
+        );
+
+    const div =
+        document.createElement("div");
+
+    div.className =
+        "supporting-document-item";
+
+    div.innerHTML = `
+
+        <input type="file"
+               name="pdfFiles[]"
+               accept="application/pdf">
+
+        <button type="button"
+                class="add-btn"
+                onclick="addSupportingDocument()">
+
+            + Add PDF File
+
+        </button>
+
+        <button type="button"
+                class="delete-btn"
+                onclick="removeItem(this)">
+
+            Remove
+
+        </button>
+    `;
+
+    container.appendChild(div);
+}
+
+
+
+// =====================================================
+// Add Official Certificate
+// =====================================================
+
+function addOfficialCertificate(){
+
+    const container =
+        document.getElementById(
+            "officialCertificateContainer"
+        );
+
+    const div =
+        document.createElement("div");
+
+    div.className =
+        "official-certificate-item";
+
+    div.innerHTML = `
+
+        <input type="file"
+               name="officialCertificate[]"
+               accept="application/pdf">
+
+        <button type="button"
+                class="add-btn"
+                onclick="addOfficialCertificate()">
+
+            + Add PDF File
+
+        </button>
+
+        <button type="button"
+                class="delete-btn"
+                onclick="removeItem(this)">
+
+            Remove
+
+        </button>
+    `;
+
+    container.appendChild(div);
+}
+
+
+
+// =====================================================
+// Add Other Documents
+// =====================================================
+
+function addOtherDocument(){
+
+    const container =
+        document.getElementById(
+            "otherDocumentsContainer"
+        );
+
+    const div =
+        document.createElement("div");
+
+    div.className =
+        "other-document-item";
+
+    div.innerHTML = `
+
+        <input type="file"
+               name="otherDocuments[]"
+               accept="application/pdf">
+
+        <button type="button"
+                class="add-btn"
+                onclick="addOtherDocument()">
+
+            + Add PDF File
+
+        </button>
+
+        <button type="button"
+                class="delete-btn"
+                onclick="removeItem(this)">
+
+            Remove
+
+        </button>
+    `;
+
+    container.appendChild(div);
+}
+
+
+
+// =====================================================
+// Drag and Drop Upload
+// =====================================================
+
+const dropArea =
+    document.getElementById("drop-area");
+
+const fileInput =
+    document.getElementById("fileInput");
+
+const fileList =
+    document.getElementById("fileList");
+
+
+
+["dragenter","dragover","dragleave","drop"]
+
+.forEach(eventName => {
+
+    dropArea.addEventListener(
+        eventName,
+        preventDefaults,
+        false
+    );
+});
+
+
+function preventDefaults(e){
+
+    e.preventDefault();
+
+    e.stopPropagation();
+}
+
+
+
+["dragenter","dragover"]
+
+.forEach(eventName => {
+
+    dropArea.addEventListener(
+        eventName,
+        () => dropArea.classList.add("highlight"),
+        false
+    );
+});
+
+
+["dragleave","drop"]
+
+.forEach(eventName => {
+
+    dropArea.addEventListener(
+        eventName,
+        () => dropArea.classList.remove("highlight"),
+        false
+    );
+});
+
+
+
+dropArea.addEventListener(
+    "drop",
+    handleDrop,
+    false
+);
+
+
+function handleDrop(e){
+
+    const dt = e.dataTransfer;
+
+    const files = dt.files;
+
+    handleFiles(files);
+}
+
+
+
+function handleFiles(files){
+
+    fileList.innerHTML = "";
+
+    [...files].forEach(file => {
+
+        if(
+            file.type !== "image/png" &&
+            file.type !== "image/jpeg"
+        ){
+
+            alert(
+                "Only PNG and JPEG files are allowed"
+            );
+
+            return;
+        }
+
+
+        const reader =
+            new FileReader();
+
+        reader.onload = function(e){
+
+            const div =
+                document.createElement("div");
+
+            div.className =
+                "file-item";
+
+            div.innerHTML = `
+                <img src="${e.target.result}"
+                     class="preview-image">
+            `;
+
+            fileList.appendChild(div);
+        };
+
+        reader.readAsDataURL(file);
+    });
+}
+
+</script>
+
+</body>
+</html>

@@ -9,14 +9,19 @@
 <body>
     <header>
     <div class="background-image">
-        <div class="line">
-            <img src="LOGO CICOT.png" alt="CICOT Logo" class="logo1">
-            <img src="Halal English.png" alt="HALAL MARK" class="logo2">
+        
+            <div class="logo-left">
             <img src="Patterned Thai Flag.png" alt="Thailand Flag" class="logo3">
-        </div>
-        <div class="h2-container">
-        <h2>The Central Islamic Council of Thailand (CICOT)</h2>
-        </div>
+            </div>
+            <div class="h2-container">
+                 <h2>The Central Islamic Council of Thailand (CICOT)</h2>
+            </div>
+            <div class="logo-right">
+            <img src="Halal English.png" alt="HALAL MARK" class="logo2">
+            <img src="LOGO CICOT.png" alt="CICOT Logo" class="logo1">
+            </div>
+        
+        
     </div>
     <nav class="navbar">
             <a href="index.html">CICOT Website</a>
@@ -31,17 +36,62 @@
     <form action="#" method="post">
         <h2> Internal Audit Procedures</h2>
         <h4> Please provide details about your internal audit procedures for Halal certification.</h4>
-        <label for="audit-frequency">Frequency of Internal Audits:</label><br>
-        <input type="radio" id="audit-frequency" name="audit-frequency" value="Monthly" required> Monthly 
-        <input type="radio" id="audit-frequency" name="audit-frequency" value="Quarterly"> Quarterly
-        <input type="radio" id="audit-frequency" name="audit-frequency" value="Bi-Annually"> Bi-Annually
-        <input type="radio" id="audit-frequency" name="audit-frequency" value="Annually"> Annually<br><br>  
+        <label for="audit-frequency">Frequency of Internal Audits:</label>
+        
+
+<label>
+    <input type="radio" name="audit-frequency" value="Monthly" required>
+    Monthly
+</label>
+
+<label>
+    <input type="radio" name="audit-frequency" value="Quarterly">
+    Quarterly
+</label>
+
+<label>
+    <input type="radio" name="audit-frequency" value="Bi-Annually">
+    Bi-Annually
+</label>
+
+<label>
+    <input type="radio" name="audit-frequency" value="Annually">
+    Annually
+</label>
     
 
         <label for="audit-team">Internal Audit Reports:</label>
         <input type="text" id="audit-team" name="audit-team" placeholder="Describe the composition of your internal audit and attach an example audit report file as .pdf" required>
-        <input type="file" id="pdfFile" name="pdfFile" accept="application/pdf" required> <br><br>
+<div id="fileContainer1">
+    <div class="file-row">
+        <input type="file" name="pdfFiles[]" accept="application/pdf" required>
+        <button type="button" class="add-btn" onclick="addFile1()">+ Add</button>
+        <button type="button" class="remove-btn" onclick="removeFile(this)">Remove</button>
+    </div>
+</div>
+<script>
 
+function addFile1(){
+
+    const container = document.getElementById("fileContainer1");
+
+    const div = document.createElement("div");
+    div.className = "file-row";
+
+    div.innerHTML = `
+        <input type="file" name="pdfFiles[]" accept="application/pdf">
+        <button type="button" class="add-btn" onclick="addFile1()">+ Add</button>
+        <button type="button" class="remove-btn" onclick="removeFile(this)">Remove</button>
+    `;
+
+    container.appendChild(div);
+}
+
+function removeFile(button){
+    button.parentElement.remove();
+}
+
+</script>
         <h2> Ownership and Affiliations</h2>
         <h4> Please provide information about the ownership structure and any affiliations your organisation has</h4>
         <select id="ownership-structure" name="ownership-structure" required>
@@ -106,6 +156,7 @@
                         <label for="Attach-Halal-certificate-proof">Please Attach Halal Certificate Proof:</label>
                         <input type="file" class="attach-halal-certificate-proof" id="Attach-Halal-certificate-proof" name="Attach-Halal-certificate-proof" accept="image/*,application/pdf" required><br>
                         <button type="button" class="remove-btn" onclick="removeItem(this)">Delete the added information</button>
+                        <button type="button" class="add-btnXYZ" onclick="addOutsideCountryItem()">Add Certified Outside-Country Company</button>
                     `;
 
                     container.appendChild(box);
@@ -128,9 +179,233 @@
                 </script>
 
                 <br>  
-        <label for="Abattoirs">Does your organisation certify abattoirs?</label><br><br>
-        <input type="radio" id="Abattoirs" name="Abattoirs" value="Yes" required> Yes<br>
-        <input type="radio" id="Abattoirs" name="Abattoirs" value="No"> No<br><br>
+        <label for="Abattoirs">Does your organisation certify abattoirs?</label><br>
+        <input type="radio"
+       name="slaughterhouse"
+       value="yes"
+       onchange="toggleAnimalSection(this.value)">
+Yes
+
+<br>
+
+<input type="radio"
+       name="slaughterhouse"
+       value="no"
+       onchange="toggleAnimalSection(this.value)">
+No
+
+
+<!-- Animal Section -->
+
+<div id="animalSection" style="display:none; margin-top:20px;">
+
+    <label>
+        Please select animal type(s):
+    </label>
+
+    <br><br>
+
+    <input type="checkbox"
+           name="animalType[]"
+           value="Cattle">
+    Cattle (Cow/Buffalo)
+
+    <br>
+
+    <input type="checkbox"
+           name="animalType[]"
+           value="Sheep">
+    Sheep
+
+    <br>
+
+    <input type="checkbox"
+           name="animalType[]"
+           value="Goat">
+    Goat
+
+    <br>
+
+    <input type="checkbox"
+           name="animalType[]"
+           value="Chicken">
+    Chicken
+
+    <br>
+
+    <input type="checkbox"
+           name="animalType[]"
+           value="Duck">
+    Duck
+
+    <br>
+
+    <input type="checkbox"
+           name="animalType[]"
+           value="Camel">
+    Camel
+
+</div>
+
+
+<script>
+
+function toggleAnimalSection(value){
+
+    const section = document.getElementById("animalSection");
+
+    if(value === "yes"){
+
+        section.style.display = "block";
+
+    }else{
+
+        section.style.display = "none";
+
+        // ล้าง checkbox เมื่อเลือก No
+        const checkboxes =
+            document.querySelectorAll('input[name="animalType[]"]');
+
+        checkboxes.forEach(cb => cb.checked = false);
+    }
+}
+
+</script>
+
+        <label for="Stunning">Is stunning applied in your certified abattoirs?</label><br>
+        
+        <input type="radio"
+       name="stunning"
+       value="yes"
+       onchange="toggleStunningSection(this.value)">
+Yes
+
+<br>
+
+<input type="radio"
+       name="stunning"
+       value="no"
+       onchange="toggleStunningSection(this.value)">
+No
+
+
+<!-- Stunning Options -->
+
+<div id="stunningSection"
+     style="display:none; margin-top:20px;">
+
+    <label>
+        Please select stunning method(s):
+    </label>
+
+    <br><br>
+
+    <input type="checkbox"
+           name="stunningMethod[]"
+           value="Pneumatic Gun Stunning">
+    Pneumatic Gun Stunning / Non-penetrating percussive stunning
+
+    <br><br>
+
+    <input type="checkbox"
+           name="stunningMethod[]"
+           value="Penetrating percussive stunning">
+    Penetrating percussive stunning
+
+    <br><br>
+
+    <input type="checkbox"
+           name="stunningMethod[]"
+           value="Gas Stunning">
+    Gas Stunning
+
+    <br><br>
+
+    <input type="checkbox"
+           name="stunningMethod[]"
+           value="Electric Stunning">
+    Electric Stunning for Goat, Sheep, and Cattle
+
+    <br><br>
+
+    <input type="checkbox"
+           name="stunningMethod[]"
+           value="Water-bath electrical stunning">
+    Water-bath electrical stunning for Poultry
+
+    <br><br>
+
+    <input type="checkbox"
+           name="stunningMethod[]"
+           value="Others"
+           onchange="toggleOtherInput(this)">
+    Others
+
+    <br>
+
+    <!-- Other Input -->
+
+    <div id="otherStunningDiv"
+         style="display:none;">
+
+        <input type="text"
+               name="otherStunning"
+               placeholder="Please specify other stunning method"
+               style="width:300px; padding:8px;">
+
+    </div>
+
+</div>
+
+
+<script>
+
+function toggleStunningSection(value){
+
+    const section =
+        document.getElementById("stunningSection");
+
+    if(value === "yes"){
+
+        section.style.display = "block";
+
+    }else{
+
+        section.style.display = "none";
+
+        // Reset checkbox
+        const checkboxes =
+            document.querySelectorAll(
+                'input[name="stunningMethod[]"]'
+            );
+
+        checkboxes.forEach(cb => cb.checked = false);
+
+        // Hide Others input
+        document.getElementById(
+            "otherStunningDiv"
+        ).style.display = "none";
+    }
+}
+
+
+function toggleOtherInput(checkbox){
+
+    const otherDiv =
+        document.getElementById("otherStunningDiv");
+
+    if(checkbox.checked){
+
+        otherDiv.style.display = "block";
+
+    }else{
+
+        otherDiv.style.display = "none";
+    }
+}
+
+</script>
+
         <label for="abattoirs-for-Thailand">Does your organisation certify abattoirs that export to Thailand?</label><br><br>
         <input type="radio" name="abattoirs-for-Thailand" value="Yes" onchange="toggleAddButton(this.value)">Yes<br>
         <input type="radio" name="abattoirs-for-Thailand" value="No" onchange="toggleAddButton(this.value)"> No<br><br>
@@ -173,6 +448,7 @@
 
         <button type="button" class="remove-btn" onclick="removeItem(this)">
             Delete the added information
+             <button type="button" class="add-btnXYZ" onclick="addAbattoirItem()">Add certified abattoirs exporting to Thailand</button>
         </button>
                     `;
 
@@ -201,6 +477,7 @@
     <div id="fileContainer">
         <div class="file-row">
             <input type="file" name="pdfFiles[]" accept="application/pdf">
+            <button type="button" class="remove-btn" onclick="removeItem(this)">Delete</button>  
         </div>
     </div>
 
@@ -216,21 +493,27 @@ const container = document.getElementById("fileContainer");
 
     div.innerHTML = `
         <input type="file" name="pdfFiles[]" accept="application/pdf">
+        <button type="button" class="remove-btn" onclick="removeItem(this)">Delete</button>
     `;
 
         container.appendChild(div);
 }
+        function removeItem(button){
+    button.parentElement.remove();
+}
 </script>
 <form>
-    <label>Has your organisation attained any recognition from any other country? (e.g., JAKIM, MUIS, BPJPH, etc.) </label><br>
+    <label>Has your organisation attained any recognition from any other country? (e.g., JAKIM, MUIS, BPJPH, EIAC, GAC, Saudi Halal Center, etc.) </label><br>
 
     <div id="fileContainer2">
         <div class="file-row2">
             <input type="file" name="pdfFiles[]" accept="application/pdf">
+            <button type="button" class="remove-btn" onclick="removeItem(this)">Delete</button>
         </div>
-    </div><br>
+    </div>
 
     <button type="button" onclick="addFile2()">+ Add pdf file </button>
+    
 </form>
 
 <script>
@@ -238,22 +521,37 @@ function addFile2() {
 const container = document.getElementById("fileContainer2");
 
     const div = document.createElement("div");
-    div.className = "file-row";
+    div.className = "file-row2";
 
     div.innerHTML = `
         <input type="file" name="pdfFiles[]" accept="application/pdf">
+        <button type="button" class="remove-btn" onclick="removeItem(this)">Delete</button>
     `;
 
         container.appendChild(div);
 }
-</script>
+        function removeItem(button){
+    button.parentElement.remove();
+}
+
+</script><br>
                    
         <div class="btn-group">
-            <input type="submit" value="Previous" class="Previous-btn">
-            <input type="submit" value="Next" class="Next-btn">
-        </div>
-        
+
+<button class="Previous-btn"
+onclick="window.location.href='Application Form2.html'">
+Previous
+</button>
+
+<button class="Next-btn"
+onclick="window.location.href='Application Form4.html'">
+Next
+</button>
+
+</div>
+        <p>&copy; 2026 The Central Islamic Council of Thailand (CICOT). All rights reserved.</p>
     </form>
     </div>
+    
 </body>
 </html>

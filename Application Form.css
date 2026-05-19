@@ -1,244 +1,195 @@
-.background-image {
-    padding: 10px 20px;
-   
+/* ===== Global ===== */
+body{
+    margin:0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background-color:#f4f6f8;
+    color:#333;
+    padding-top:150px;
+}
+
+/* ===== Header ===== */
+.background-image{
+    padding:12px 25px;
+    display:flex;
+    align-items:center;
+    background-color:#0b6b3a;
+}
+header{
+    position: fixed;
+    top: 0;
     left: 0;
-    display: flex;
-    background-color: darkgreen;
-    align-items: center;
+    width: 100%;
+    z-index: 1000;
 }
 .line{
-    display: flex;
-    align-items: center;
+    display:flex;
+    align-items:center;
 }
-.logo1{
-    margin-right: 10px;
-    width: auto;
-    height: 100px;
+
+.logo1,.logo2,.logo3{
+    height:80px;
+    width:auto;
+    margin-right:10px;
 }
-.logo2{
-    width: auto;
-    height: 100px;
-}
-body{
-    margin: 0;
-    font-family: Arial, sans-serif;
-    overflow: hidden;
-    overflow-y: auto;
-}
+
 .h2-container{
-    text-align: center;
-    font-size: 1.2em;
-    font-weight: bold;
-    color: white;
-    flex-grow: 1;
+    text-align:center;
+    font-size:1.3em;
+    font-weight:600;
+    color:white;
+    flex-grow:1;
 }
-.navbar {
-    background-color: rgb(162, 235, 236);
-    overflow: hidden;
-    font-weight: bold;
+
+/* ===== Navbar ===== */
+.navbar{
+    background:#ffffff;
+    box-shadow:0 2px 6px rgba(0,0,0,0.1);
+    padding-left:10px;
 }
-.navbar a {
-    
-    display: inline-block;
-    color: rgb(10, 10, 9);
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
+
+.navbar a{
+    display:inline-block;
+    color:#333;
+    padding:14px 18px;
+    text-decoration:none;
+    font-weight:500;
 }
-.navbar a:hover {
-    background-color: #ddd;
-    color: rgb(206, 36, 36);
+
+.navbar a:hover{
+    background:#f1f1f1;
+    color:#0b6b3a;
 }
-.status-table {
-    width: 100%;
-    display: flex;
-    margin: 10px 10px 20px 10px;
-    margin-left: 33%;
-    
+
+/* ===== Form ===== */
+.application-form{
+    width:80%;
+    max-width:800px;
+    margin:30px auto;
+    padding:30px;
+    background:#ffffff;
+    border-radius:8px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
 }
-.application-table th {
-    border: 1px solid #060f07;
-    padding: 8px;
-    text-align: left;
-    justify-items: center;
-    align-items: center;
-    vertical-align: middle;
-    background-color: rgb(190, 196, 196);
-    
+
+.application-form label{
+    font-weight:600;
+    margin-bottom:6px;
 }
+
+.application-form input,
+.application-form select{
+    width:100%;
+    padding:10px;
+    margin-bottom:15px;
+    border:1px solid #ddd;
+    border-radius:5px;
+    font-size:14px;
+}
+
+.application-form input:focus,
+.application-form select:focus{
+    outline:none;
+    border-color:#0b6b3a;
+}
+
+/* ===== Button ===== */
+.custom-btn{
+    background:#0b6b3a;
+    color:white;
+    padding:12px;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+    font-size:15px;
+    width:100%;
+    transition:0.2s;
+}
+
+.custom-btn:hover{
+    background:#0f8f4b;
+}
+
+/* ===== Table ===== */
+.status-table{
+    width:90%;
+    margin:20px auto;
+}
+
+.application-table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.application-table th{
+    background:#e9ecef;
+    padding:10px;
+    border:1px solid #ddd;
+}
+
 .application-table td{
-    border: 1px solid #020e04;
-    padding: 8px;
-    text-align: center;
-    justify-items: center;
-    align-items: center;
-    vertical-align: middle;
-    background-color: rgb(247, 247, 247);
-    
+    padding:10px;
+    border:1px solid #ddd;
+    text-align:center;
 }
-.footer {
-    background-color: #f1f1f1;
-    text-align: center;
-    padding: 10px;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    font-size: 0.9em;
-    color: #555;
+
+/* ===== Footer ===== */
+.footer{
+    background:#ffffff;
+    text-align:center;
+    padding:12px;
+    font-size:13px;
+    color:#777;
+    margin-top:40px;
+    border-top:1px solid #eee;
 }
-.application-form {
-    width: 90%;
+
+/* ===== Tooltip ===== */
+.tooltip{
+    position:relative;
+}
+
+.tooltip::after{
+    content:"Press here to proceed the next step";
+    position:absolute;
+    bottom:-35px;
+    left:50%;
+    transform:translateX(-50%);
+    background:#fff;
+    color:#e53935;
+    border:1px solid #e53935;
+    padding:5px 10px;
+    border-radius:4px;
+    font-size:12px;
+    opacity:0;
+    transition:0.2s;
+}
+
+.tooltip:hover::after{
+    opacity:1;
+}
+button{
+    background:#077e31;
+    color:white;
+    padding:10px 20px;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+    font-size:15px;
+    transition:0.2s;
     margin: 20px auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-    
-}
-.application-form label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-    text-align: left;
-}
-.application-form input[type="text"],
-.application-form input[type="email"],
-.application-form input[type="tel"],
-.application-form select {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
     display: block;
 }
-.application-form input[type="submit"] {
-    background-color: darkgreen;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    align-items: center;
-    text-align: center;
-}
-input[type = "submit"]:hover {
-    background-color: green;
-    text-align: center;
-}
-#application-logo {
-    display: block;
-    margin: 10px auto 20px auto;
-    width: 500px;
-    height: auto;
-}
-.custom-btn {
-  background-color: #10b810;     /* สีพื้นหลัง */
-  color: white;                  /* สีตัวอักษร */
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  display: inline-block;
-  font-size: 14px;
-  text-align: center; 
-  align-items: center;
-  justify-content: center;
-  display: block;
-  align-items: center;
-  justify-content: center;
-  display: block;
-  width: 100%;
-  margin-left: 5%;
-
-}
-.custom-btn:hover {
-  background-color: #45a049;     /* สีพื้นหลังเมื่อ hover */
-}
-.custom-btn:active {
-  background-color: #3e8e41;     /* สีพื้นหลังเมื่อกดปุ่ม */
-}
-.tooltip {
-  position: relative; /* ให้ tooltip อ้างอิงตำแหน่งปุ่ม */
-  background-color: none;
-  color: white;
-  padding: 10px 16px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  width: 100%;
-  justify-content: center; /* จัดกึ่งกลางในแนวนอน */
-    align-items: center; 
-    display: flex;
-}
-
-/* สร้าง tooltip */
-.tooltip::after {
-  content: "Press here to proceed the next step"; /* ข้อความ tooltip */
-  position: absolute;
-  bottom: -50%;  /* อยู่เหนือปุ่ม */
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #fff;   /* พื้นหลังสีขาว */
-  color: red;               /* ตัวอักษรสีแดง */
-  padding: 6px 10px;
-  border: 1px solid red;
-  border-radius: 4px;
-  white-space: nowrap;
-  opacity: 0;               /* ซ่อนตอนเริ่มต้น */
-  pointer-events: none;
-  transition: opacity 0.2s ease;
-  font-size: 13px;
-  font-weight: bold;
-}
-
-/* แสดง tooltip เมื่อ hover */
-.tooltip:hover::after {
-  opacity: 1;
-}
-input[type="submit"] {
-    width: 10%;
-    height: 30px;
-    padding: auto;
-    background-color: rgb(61, 76, 240);
-    color: white;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-    font-size: 14px;
-    align-items: center;
-}
-p {
-    text-align: center;
-    font-size: 0.9em;
-    color: #555;
-}
-.logo3{
-    margin-right: 0.1px;
-    margin-right: 0;
-    
-    width: auto;
-    height: 100px;
-}
-.website-upload{
-    width: 100%;
-    height: 30px;
-    border-radius: 5px;
-    display: block;
-    align-items: left;
-    justify-content: left;
-    color: #0c0b0b;
-    cursor: pointer;
-    margin-bottom: 15px;
-    text-align: center;
-}
-.enter-website{
-    width: 100%;
-    padding: 15px;
-    margin-bottom: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    display: block;
+#preview{
+        margin-top:20px;
+        max-width:400px;
+        display:none;
+        border:1px solid #ccc;
+        padding:5px;
+        border-radius:4px;
+        background-image: green;
+    }
+p{
+    text-align:center;
+    font-size:0.9em;
+    color:#666;
 }

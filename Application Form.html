@@ -9,16 +9,20 @@
 <body>
      <header>
 
-    <div class="background-image">
+   <div class="background-image">
         
-        <div class="line">
-            <img src="LOGO CICOT.png" alt="CICOT Logo" class="logo1">
-            <img src="Halal English.png" alt="HALAL MARK" class="logo2">
+            <div class="logo-left">
             <img src="Patterned Thai Flag.png" alt="Thailand Flag" class="logo3">
-        </div>
-        <div class="h2-container">
-        <h2>The Central Islamic Council of Thailand (CICOT)</h2>
-        </div>
+            </div>
+            <div class="h2-container">
+                 <h2>The Central Islamic Council of Thailand (CICOT)</h2>
+            </div>
+            <div class="logo-right">
+            <img src="Halal English.png" alt="HALAL MARK" class="logo2">
+            <img src="LOGO CICOT.png" alt="CICOT Logo" class="logo1">
+            </div>
+        
+        
     </div>
     <nav class="navbar">
             <a href="index.html">CICOT Website</a>
@@ -50,7 +54,26 @@
     <form action="#" method="post">
         <label for="application-logo">Organisation/Companys Logo:</label>
         <input type="file" class="custom-btn" id="application-logo" name="application-logo" accept="image/*"  required hidden><br><br>
-    
+        <input type="file" id="imageUpload" accept="image/*">
+        <img id="preview">
+
+<script>
+document.getElementById("imageUpload").addEventListener("change", function(event){
+    const file = event.target.files[0];
+
+    if(file){
+        const reader = new FileReader();
+
+        reader.onload = function(e){
+            const img = document.getElementById("preview");
+            img.src = e.target.result;
+            img.style.display = "block";
+        }
+
+        reader.readAsDataURL(file);
+    }
+});
+</script>
         <label for="company-name">Company/Organisation Name:</label>
         <input type="text" id="company-name" name="company-name" placeholder="Given name will be illustrated in certificate and CICOT website" required><br><br>
 
@@ -147,15 +170,17 @@
         <label for="enter-website">Website:</label>
         <input type="url" id="enter-website" class="enter-website" name="enter-website" placeholder="Website of your organisation (https://www.example.com)">
         </div>
-    </form><br><br>
-    <div class="click-next"> Please click Next to proceed to the next step.</div>
-    <div class="tooltip">
-    <input type="submit" value="Next"><br><br><br>
+     
     
+    <button>
+        <span class="tooltiptext" onclick="window.location.href='Application Form2.html'" >Next
+        </span>
+    </button> 
+    <p>&copy; 2026 The Central Islamic Council of Thailand (CICOT). All rights reserved.</p>  
     </div>
     </div>
-    <p>&copy; 2026 The Central Islamic Council of Thailand (CICOT). All rights reserved.</p>    
-
+      
+    </form>
     
 </body>
 </html>

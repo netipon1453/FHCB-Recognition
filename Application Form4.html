@@ -9,14 +9,19 @@
 <body>
     <header>
     <div class="background-image">
-        <div class="line">
-            <img src="LOGO CICOT.png" alt="CICOT Logo" class="logo1">
-            <img src="Halal English.png" alt="HALAL MARK" class="logo2">
+        
+            <div class="logo-left">
             <img src="Patterned Thai Flag.png" alt="Thailand Flag" class="logo3">
-        </div>
-        <div class="h2-container">
-        <h2>The Central Islamic Council of Thailand (CICOT)</h2>
-        </div>
+            </div>
+            <div class="h2-container">
+                 <h2>The Central Islamic Council of Thailand (CICOT)</h2>
+            </div>
+            <div class="logo-right">
+            <img src="Halal English.png" alt="HALAL MARK" class="logo2">
+            <img src="LOGO CICOT.png" alt="CICOT Logo" class="logo1">
+            </div>
+        
+        
     </div>
     <nav class="navbar">
             <a href="index.html">CICOT Website</a>
@@ -27,11 +32,11 @@
     </nav>
     </header>
     <div class="main-content">
-    <h3>FHCB Recognition Application Form - Halal Regulation/Standards/Guideline, Certification Process, Management System, and Supporting Documents</h3>
+    <h1>FHCB Recognition Application Form - Halal Regulation/Standards/Guideline, Certification Process, and Management System</h1>
     </div>
     <div class="form-container">
     <form action="#" method="post">
-        <h2> Halal Regulation/Fatwa/Standards/Guidelines</h2>
+        <h1> Halal Regulation/Fatwa/Standards/Guidelines</h1>
         <form onsubmit="return validateForm()">
         <h4> Is there any standards/guidelines of your organisation on Halal certification? </h4>
         <label for="halal-regulation-yes">
@@ -44,11 +49,11 @@
             </label><br><br>
         <div class="standardsGuidelinesUpload">
             <label> **Note that: you can upload multiple files with pressing the button of "+Add Standards/Guidelines" below** </label><br><br>
-            <button type="button" class="addFileBtn" onclick="addItem()">+ Add Standards/Guidelines</button><br><br>
-            <div class="itemsContainer2"></div>
+            <button type="button" class="addFileBtn" onclick="addItem()">+ Add Standards/Guidelines</button><br>
+                        <div class="itemsContainer2"></div>
         </div>
         <button type="submit">Submit</button>
-        </form>
+    </form>
         </div> 
         <script> 
         function addItem() {
@@ -104,8 +109,254 @@
 }
 }
 </script>
-        <h2> Certification Process and Management System</h2>
+<form>
+        <h1> Halal Certification Process and Management System</h1>
         <label for="certification-process-file"> Please upload your organisation's Halal certification process and management system document (PDF only): </label>
-        <input type="file" id="certification-process-file" name="certification-process-file" accept="application/pdf" required><br><br>
-        <h2> Supporting Documents</h2>
-            
+    <div id="fileContainer2">
+        <div class="file-row2">
+            <input type="file" name="pdfFiles[]" accept="application/pdf" required><br><br>
+            <button type="button" class="add-btn" onclick="addFile2()">+ Add pdf file</button>
+            <button type="button" class="delete-btn" onclick="removeItem(this)">Remove</button>
+        </div>
+    </div>
+</form>
+<script>
+function addFile2() {
+const container = document.getElementById("fileContainer2");
+
+    const div = document.createElement("div");
+    div.className = "file-row2";
+
+    div.innerHTML = `
+        <input type="file" name="pdfFiles[]" accept="application/pdf">
+        <button type="button" class="add-btn" onclick="addFile2()">+ Add pdf file</button>
+        <button type="button" class="delete-btn" onclick="removeItem(this)">Remove</button>
+    `;
+
+        container.appendChild(div);
+}
+        function removeItem(button){
+    button.parentElement.remove();
+}
+
+</script>  
+<h3>FHCB Halal Processes</h3>
+<h5> Please upload your organisation's FHCB Halal processes document (PDF only): </h5>
+<div id="fhcbContainer">
+    <div class="fhcb-item">
+                <input type="file" name="fhcbProcesses[]" accept="application/pdf" required><br>
+                <button type="button" class="add-btn" onclick="addFHCB()">+ Add pdf file</button>
+                <button type="button" class="delete-btn" onclick="removeFHCB(this)"> Remove
+        </button>
+    </div>
+</div>
+
+<script>
+
+function addFHCB() {
+
+    const container = document.getElementById("fhcbContainer");
+
+    const div = document.createElement("div");
+
+    div.className = "fhcb-item";
+
+    div.innerHTML = `
+        <br>
+
+        <input type="file" name="fhcbProcesses[]" accept="application/pdf"><br>
+        <button type="button" class="add-btn" onclick="addFHCB()">+ Add pdf file</button>
+        <button type="button" class="delete-btn" onclick="removeFHCB(this)"> Remove
+        </button>
+    `;
+
+    container.appendChild(div);
+}
+function removeFHCB(button) {
+
+    button.parentElement.remove();
+}
+</script>
+<h3>FHCB Terms & Conditions/Requirements</h3>
+<h5> Please upload your Terms & Conditions/Requirements (PDF only): </h5>
+<div id="fhcbContainer2">
+    <div class="fhcb-item">
+                <input type="file" name="fhcbTermsConditions[]" accept="application/pdf" required><br>
+                <button type="button" class="add-btn" onclick="addFHCB2()">+ Add pdf file</button>
+                <button type="button" class="delete-btn" onclick="removeFHCB2(this)"> Remove
+        </button>
+    </div>
+</div>  
+<script>
+
+function addFHCB2() {
+
+    const container = document.getElementById("fhcbContainer2");
+
+    const div = document.createElement("div");
+
+    div.className = "fhcb-item";
+
+    div.innerHTML = `
+        <br>
+
+        <input type="file" name="fhcbTermsConditions[]" accept="application/pdf"><br>
+        <button type="button" class="add-btn" onclick="addFHCB2()">+ Add pdf file</button>
+        <button type="button" class="delete-btn" onclick="removeFHCB2(this)"> Remove
+        </button>
+    `;
+
+    container.appendChild(div);
+}
+function removeFHCB2(button) {
+
+    button.parentElement.remove();
+}
+</script>   
+<h4> Type of Halal certification schemes</h4>
+<textarea id="halal-schemes" name="halal-schemes" rows="2" cols="120" placeholder="Please describe the types of Halal certification schemes your organisation offers."></textarea><br><br>
+        <h2> Halal management system</h2>
+        <h4> Standard operating procedure for processing and approval of Halal certification applications </h4>
+       
+        <div class="upload-row">
+
+    <input type="file"
+           id="proofBilling"
+           accept="application/pdf">
+
+    <button type="button"
+            class="trash-btn"
+            onclick="removeFile()">
+
+        🗑️
+
+    </button>
+<script>
+
+function removeFile(){
+
+    const fileInput =
+        document.getElementById("proofBilling");
+
+    fileInput.value = null;
+}
+
+</script>
+</div>
+       
+    </form>
+        <h4> Frequency of pre- and post-certification audits for high-risk establishments (meat/poultry/flavourings and their derivetives)</h4>
+        <input type="radio" id="audit-frequency-high" name="audit-frequency" value="monthly">
+        <label for="audit-frequency-high">Monthly</label><br>
+        <input type="radio" id="audit-frequency-3months" name="audit-frequency" value="3 months">
+        <label for="audit-frequency-3months">Every 3 months</label><br>
+        <input type="radio" id="audit-frequency-6months" name="audit-frequency" value="6 months">
+        <label for="audit-frequency-6months">Every 6 months</label><br>
+        <input type="radio" id="audit-frequency-Yearly" name="audit-frequency" value="Yearly">      
+        <label for="audit-frequency-Yearly">Yearly</label><br>
+        
+        <input type="radio" id="audit-frequency-Validity period" name="audit-frequency" value="Validity period">
+        <label for="audit-frequency-Validity period">Validity period:</label><br>
+        <input type="radio" id="audit-frequency-No" name="audit-frequency" value="No">
+        <label for="audit-frequency-No">No frequency or records provided on internal audit</label><br>
+
+        <h4> Guidelines on use of Halal Certificate and Halal logo (Halal mark) by companies></h4>
+        <h5> Please upload Halal certificate and logo guidelines (PDF only): </h5>
+        <div class="upload-row">
+
+    <input type="file"
+           id="proofBilling"
+           accept="application/pdf">
+
+    <button type="button"
+            class="trash-btn"
+            onclick="removeFile()">
+
+        🗑️
+
+    </button>
+<script>
+
+function removeFile(){
+
+    const fileInput =
+        document.getElementById("proofBilling");
+
+    fileInput.value = null;
+}
+
+</script>
+</div>
+        <h4> Surveillance Procedures/Process</h4>
+        <h5> Please upload your organisation's surveillance procedures/process document (PDF only): </h5>
+        <div class="upload-row">
+
+    <input type="file"
+           id="proofBilling"
+           accept="application/pdf">
+
+    <button type="button"
+            class="trash-btn"
+            onclick="removeFile()">
+
+        🗑️
+
+    </button>
+<script>
+
+function removeFile(){
+
+    const fileInput =
+        document.getElementById("proofBilling");
+
+    fileInput.value = null;
+}
+
+</script>
+</div>
+        <h4> Sample of Internal Audit Documents and Corrective Action Reports</h4>
+        <h5> Please upload your organisation's sample of internal audit documents and corrective action reports (PDF only): </h5>
+        <div class="upload-row">
+
+    <input type="file"
+           id="proofBilling"
+           accept="application/pdf">
+
+    <button type="button"
+            class="trash-btn"
+            onclick="removeFile()">
+
+        🗑️
+
+    </button>
+<script>
+
+function removeFile(){
+
+    const fileInput =
+        document.getElementById("proofBilling");
+
+    fileInput.value = null;
+}
+
+</script>
+</div>
+<div class="btn-group">
+
+<button class="Previous-btn"
+onclick="window.location.href='Application Form3.html'">
+Previous
+</button>
+
+<button class="Next-btn"
+onclick="window.location.href='Application Form5.html'">
+Next
+</button>
+
+</div>
+        <p>&copy; 2026 The Central Islamic Council of Thailand (CICOT). All rights reserved.</p>
+    </form>
+    </div>
+    
+</body>
+</html>

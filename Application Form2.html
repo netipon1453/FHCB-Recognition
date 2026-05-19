@@ -4,19 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Application Form 2</title>
-    <link rel="stylesheet" href="Application Form2.css">
+    <link rel="stylesheet" href="Application Form-2.css">
 </head>
 <body>
     <header>
-    <div class="background-image">
-        <div class="line">
-            <img src="LOGO CICOT.png" alt="CICOT Logo" class="logo1">
-            <img src="Halal English.png" alt="HALAL MARK" class="logo2">
+   <div class="background-image">
+        
+            <div class="logo-left">
             <img src="Patterned Thai Flag.png" alt="Thailand Flag" class="logo3">
-        </div>
-        <div class="h2-container">
-        <h2>The Central Islamic Council of Thailand (CICOT)</h2>
-        </div>
+            </div>
+            <div class="h2-container">
+                 <h2>The Central Islamic Council of Thailand (CICOT)</h2>
+            </div>
+            <div class="logo-right">
+            <img src="Halal English.png" alt="HALAL MARK" class="logo2">
+            <img src="LOGO CICOT.png" alt="CICOT Logo" class="logo1">
+            </div>
+        
+        
     </div>
     <nav class="navbar">
             <a href="index.html">CICOT Website</a>
@@ -72,13 +77,21 @@
         <input type="text" id="Postal-Code" name="Postal-Code" placeholder="Enter postal code" required><br><br>
 
         <label for="Country">Country:</label>   
-        <input type="text" id="Country" name="Country" placeholder="Enter country" required><br><br>
+        <input type="text" id="Country" name="Country" placeholder="Enter country" required>
     </form>
     
-    <div class="tooltip">
-    <input type="Next" value="Next" class="Next-btn">    
-    </div>
-    </div>
+<div class="button-group">
+
+<button class="prev-btn" onclick="window.location.href='Application Form.html'">
+Previous
+</button>
+
+<button class="next-btn" onclick="window.location.href='Application Form3.html'">
+Next
+</button>
+
+</div>
+    
     <p>&copy; 2026 The Central Islamic Council of Thailand (CICOT). All rights reserved.</p>    
 </body>
 </html>

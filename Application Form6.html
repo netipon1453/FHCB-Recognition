@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Application Form 6</title>
+
+    <link rel="stylesheet"
+          href="Application Form6.css">
+</head>
+
+<body>
+
+<header>
+
+    <div class="background-image">
+
+        <div class="logo-left">
+            <img src="Patterned Thai Flag.png"
+                 alt="Thailand Flag"
+                 class="logo3">
+        </div>
+
+        <div class="h2-container">
+            <h2>
+                The Central Islamic Council of Thailand (CICOT)
+            </h2>
+        </div>
+
+        <div class="logo-right">
+
+            <img src="Halal English.png"
+                 alt="HALAL MARK"
+                 class="logo2">
+
+            <img src="LOGO CICOT.png"
+                 alt="CICOT Logo"
+                 class="logo1">
+
+        </div>
+
+    </div>
+
+
+    <nav class="navbar">
+
+        <a href="index.html">CICOT Website</a>
+        <a href="index.html">Home</a>
+        <a href="About.html">About Us</a>
+        <a href="Contact.html">Contact Us</a>
+        <a href="Login.html">Login to apply</a>
+
+    </nav>
+
+</header>
+
+
+
+<div class="main-content">
+
+    <h1>
+        FHCB Recognition Application Form - Declaration of FHCB's personal, 
+    </h1>
+<!-- ================================================= -->
+<!-- PERSONNEL INFORMATION SECTION -->
+<!-- ================================================= -->
+
+<div class="form-container">
+
+<form action="#" method="post">
+
+<h1>Personnel Information</h1>
+
+
+
+<!-- ================================================= -->
+<!-- 1. PRESIDENT / CHAIRMAN -->
+<!-- ================================================= -->
+
+<div class="section-box">
+
+    <h2>1. President / Chairman</h2>
+
+    <div id="presidentContainer"></div>
+
+    <button type="button"
+            class="add-btn"
+            onclick="addPerson('presidentContainer')">
+
+        + Add President / Chairman
+
+    </button>
+
+</div>
+
+
+
+<!-- ================================================= -->
+<!-- 2. HALAL CERTIFICATION OVERALL IN-CHARGE -->
+<!-- ================================================= -->
+
+<div class="section-box">
+
+    <h2>
+        2. Halal Certification Overall In-Charge
+    </h2>
+
+    <div id="overallContainer"></div>
+
+    <button type="button"
+            class="add-btn"
+            onclick="addPerson('overallContainer')">
+
+        + Add Overall In-Charge
+
+    </button>
+
+</div>
+
+
+
+<!-- ================================================= -->
+<!-- 3. SHARIAH ADVISORY BOARD -->
+<!-- ================================================= -->
+
+<div class="section-box">
+
+    <h2>3. Shariah Advisory Board</h2>
+
+    <div id="shariahContainer"></div>
+
+    <button type="button"
+            class="add-btn"
+            onclick="addPerson('shariahContainer')">
+
+        + Add Shariah Advisory Board Member
+
+    </button>
+
+</div>
+
+
+
+<!-- ================================================= -->
+<!-- 4. TECHNICAL AUDITORS -->
+<!-- ================================================= -->
+
+<div class="section-box">
+
+    <h2>4. Technical Auditors</h2>
+
+    <div id="technicalContainer"></div>
+
+    <button type="button"
+            class="add-btn"
+            onclick="addPerson('technicalContainer')">
+
+        + Add Technical Auditor
+
+    </button>
+
+</div>
+
+
+
+<!-- ================================================= -->
+<!-- 5. HALAL AUDITORS -->
+<!-- ================================================= -->
+
+<div class="section-box">
+
+    <h2>5. Halal Auditors</h2>
+
+    <div id="halalContainer"></div>
+
+    <button type="button"
+            class="add-btn"
+            onclick="addPerson('halalContainer')">
+
+        + Add Halal Auditor
+
+    </button>
+
+</div>
+
+
+
+<!-- ================================================= -->
+<!-- BUTTON -->
+<!-- ================================================= -->
+
+<div class="btn-group">
+
+    <button type="button"
+            class="Previous-btn" onclick="window.location.href='Application Form5.html'">
+
+        Previous
+
+    </button>
+
+
+    <button type="submit"
+            class="Next-btn" onclick="window.location.href='Dashboard.html'">
+
+            Submit
+
+    </button>
+
+</div>
+
+</form>
+
+</div>
+<script>
+
+function addPerson(containerId){
+
+    const container =
+        document.getElementById(containerId);
+
+    const div =
+        document.createElement("div");
+
+    div.className = "person-card";
+
+    div.innerHTML = `
+
+        <h3>Personnel Information</h3>
+
+
+        <!-- Photo -->
+
+        <label>
+            1. Upload Photo (PDF only)
+        </label>
+
+        <br><br>
+
+        <input type="file"
+               accept="application/pdf"
+               required>
+
+        <br><br>
+
+
+        <!-- Full Name -->
+
+        <label>
+            2. Full Name
+        </label>
+
+        <input type="text"
+               placeholder="Enter full name"
+               required>
+
+
+        <!-- Position -->
+
+        <label>
+            3. Position in Organisation
+        </label>
+
+        <input type="text"
+               placeholder="Enter position"
+               required>
+
+        <label>
+            Upload Appointment Letter (PDF only)
+        </label>
+
+        <br><br>
+
+        <input type="file"
+               accept="application/pdf"
+               required>
+
+        <br><br><br>
+
+
+        <!-- Job Description -->
+
+        <label>
+            4. Upload Job Description (PDF only)
+        </label>
+
+        <br><br>
+
+        <input type="file"
+               accept="application/pdf"
+               required>
+
+        <br><br><br>
+
+
+        <!-- Education -->
+
+        <label>
+            5. Educational Qualification
+        </label>
+
+        <textarea placeholder="Enter educational qualification"
+                  required></textarea>
+
+        <label>
+            Upload Educational Certificate (PDF only)
+        </label>
+
+        <br><br>
+
+        <input type="file"
+               accept="application/pdf"
+               multiple
+               required>
+
+        <br><br><br>
+
+
+        <!-- Work Experience -->
+
+        <label>
+            6. Work Experience
+        </label>
+
+        <textarea placeholder="Enter work experience"
+                  required></textarea>
+
+
+        <!-- Training -->
+
+        <label>
+            7. International Standards Training History
+        </label>
+
+        <textarea placeholder="Example: OIC/SMIIC, UAE.S, GSO"
+                  required></textarea>
+
+        <label>
+            Upload Training Certificates (PDF only)
+        </label>
+
+        <br><br>
+
+        <input type="file"
+               accept="application/pdf"
+               multiple
+               required>
+
+        <br><br><br>
+
+
+        <!-- TAS -->
+
+        <label>
+            8. Upload TAS 8400-2025 Certificate
+        </label>
+
+        <br><br>
+
+        <input type="file"
+               accept="application/pdf"
+               required>
+
+        <br><br>
+
+
+        <!-- Remove -->
+
+        <button type="button"
+                class="remove-btn"
+                onclick="removePerson(this)">
+
+            Remove Person
+
+        </button>
+
+    `;
+
+    container.appendChild(div);
+}
+
+
+
+function removePerson(button){
+
+    button.parentElement.remove();
+}
+
+</script>

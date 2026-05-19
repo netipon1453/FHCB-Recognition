@@ -146,3 +146,14 @@ p {
     width: auto;
     height: 100px;
 }
+button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: rgb(21, 127, 21);
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+}
