@@ -37,34 +37,19 @@
         <h2> Internal Audit Procedures</h2>
         <h4> Please provide details about your internal audit procedures for Halal certification.</h4>
         <label for="audit-frequency">Frequency of Internal Audits:</label>
-        
-
-<label>
-    <input type="radio" name="audit-frequency" value="Monthly" required>
-    Monthly
-</label>
-
-<label>
-    <input type="radio" name="audit-frequency" value="Quarterly">
-    Quarterly
-</label>
-
-<label>
-    <input type="radio" name="audit-frequency" value="Bi-Annually">
-    Bi-Annually
-</label>
-
-<label>
-    <input type="radio" name="audit-frequency" value="Annually">
-    Annually
-</label>
-    
+<select id="audit-frequency" name="audit-frequency" required>
+    <option value="">--Select Frequency of Internal Audits--</option>    
+    <option value="Monthly">Monthly</option>
+    <option value="Quarterly">Quarterly</option>
+    <option value="Bi-Annually">Bi-Annually</option>
+    <option value="Annually">Annually</option>
+</select>
 
         <label for="audit-team">Internal Audit Reports:</label>
         <input type="text" id="audit-team" name="audit-team" placeholder="Describe the composition of your internal audit and attach an example audit report file as .pdf" required>
 <div id="fileContainer1">
     <div class="file-row">
-        <input type="file" name="pdfFiles[]" accept="application/pdf" required>
+        <input type="file" id="audit-report" name="pdfFiles[]" accept="application/pdf" required>
         <button type="button" class="add-btn" onclick="addFile1()">+ Add</button>
         <button type="button" class="remove-btn" onclick="removeFile(this)">Remove</button>
     </div>
@@ -103,17 +88,20 @@ function removeFile(button){
         </select><br><br>
         
         <label for="affiliations">Is your organisation affiliated with any non-muslim organisation or entity?</label><br><br>        
-        <input type="radio" id="affiliations" name="affiliations" value="Yes"> Yes<br>
-        <input type="radio" id="affiliations" name="affiliations" value="No"> No<br><br>
-        
+        <select id="affiliations" name="affiliations" required>
+            <option value="">--Select Affliations--</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select>
+
         <label for="affiliation-details">If yes, please provide details of the affiliations:</label>
         <textarea id="details" name="details" style="width:99%; height:120px; padding:10px;" placeholder="Please describe in details"></textarea>
 
         <br><br>
 
         <label for="halal-certification-service-outside-country">Does your organisation provide Halal certification services outside your country of registration?</label><br><br>
-        <input type="radio" id="halal-certification-service-outside-country" name="halal-certification-service-outside-country" value="Yes" onchange="toggleOutsideCountry('Yes')"> Yes<br>
-        <input type="radio" id="halal-certification-service-outside-country" name="halal-certification-service-outside-country" value="No" onchange="toggleOutsideCountry('No')"> No<br><br>
+        <input type="radio" id="halal-certification-service-outside-country-yes" name="halal-certification-service-outside-country" value="Yes" onchange="toggleOutsideCountry('Yes')"> Yes<br>
+        <input type="radio" id="halal-certification-service-outside-country-no" name="halal-certification-service-outside-country" value="No" onchange="toggleOutsideCountry('No')"> No<br><br>
         
         <div id="abattoirDetailsSection1">
 
@@ -134,10 +122,10 @@ function removeFile(button){
 
                     box.innerHTML = `
                         <label>Company name</label>
-                        <input type="text" placeholder="Enter company name">
+                        <input type="text" id="company-name" placeholder="Enter company name">
 
                         <label>Scope of Certification</label>
-                        <select>
+                        <select id="scope-of-certification">
                             <option value="">-- Select Type of Scope --</option>
                             <option>Food and Beverage products</option>
                             <option>Abattoirs</option>
@@ -180,16 +168,13 @@ function removeFile(button){
 
                 <br>  
         <label for="Abattoirs">Does your organisation certify abattoirs?</label><br>
-        <input type="radio"
-       name="slaughterhouse"
-       value="yes"
-       onchange="toggleAnimalSection(this.value)">
-Yes
+        <input type="radio" name="slaughterhouse" id="slaughterhouse-yes" value="yes" onchange="toggleAnimalSection(this.value)">Yes
 
 <br>
 
 <input type="radio"
        name="slaughterhouse"
+       id="slaughterhouse-no"
        value="no"
        onchange="toggleAnimalSection(this.value)">
 No
@@ -274,7 +259,7 @@ function toggleAnimalSection(value){
 
         <label for="Stunning">Is stunning applied in your certified abattoirs?</label><br>
         
-        <input type="radio"
+        <input type="radio" id="stunning_applied"
        name="stunning"
        value="yes"
        onchange="toggleStunningSection(this.value)">
@@ -282,7 +267,7 @@ Yes
 
 <br>
 
-<input type="radio"
+<input type="radio" id="stunning_not_applied"
        name="stunning"
        value="no"
        onchange="toggleStunningSection(this.value)">
@@ -407,8 +392,8 @@ function toggleOtherInput(checkbox){
 </script>
 
         <label for="abattoirs-for-Thailand">Does your organisation certify abattoirs that export to Thailand?</label><br><br>
-        <input type="radio" name="abattoirs-for-Thailand" value="Yes" onchange="toggleAddButton(this.value)">Yes<br>
-        <input type="radio" name="abattoirs-for-Thailand" value="No" onchange="toggleAddButton(this.value)"> No<br><br>
+        <input type="radio" id="abattoirs-for-Thailand-yes" name="abattoirs-for-Thailand" value="Yes" onchange="toggleAddButton(this.value)">Yes<br>
+        <input type="radio" id="abattoirs-for-Thailand-no" name="abattoirs-for-Thailand" value="No" onchange="toggleAddButton(this.value)"> No<br><br>
     
 <div id="abattoirDetailsSection">
 
@@ -543,11 +528,105 @@ onclick="window.location.href='Application Form2.html'">
 Previous
 </button>
 
-<button class="Next-btn"
-onclick="window.location.href='Application Form4.html'">
-Next
-</button>
+<button onclick="saveForm3Draft()" >
+        <span class="tooltiptext"> Next
+        </span>
+    </button> 
+<script> 
+    import { supabase } from "./supabaseClient.js";
+    
 
+async function saveForm3Draft() {
+  const form3 = {
+    audit_team: document.getElementById("audit-team").value,
+    audit_frequency: document.querySelector('input[name="audit-frequency"]:checked') ? document.querySelector('input[name="audit-frequency"]:checked').value : null,
+    audit_frequency: document.getElementById("audit-frequency").value,
+    audit_report: document.getElementById("audit-report").files[0] ? document.getElementById("audit-report").files[0].name : null,
+    ownership_structure: document.getElementById("ownership-structure").value,
+    affiliations: document.getElementById("affiliations").value,
+    affiliation_details: document.getElementById("details").value,
+    halal_certification_service_outside_country_yes: document.getElementById("halal-certification-service-outside-country-yes").checked ? "Yes" : null,
+    halal_certification_service_outside_country_no: document.getElementById("halal-certification-service-outside-country-no").checked ? "No" : null,
+    abattoirs: document.querySelector('input[name="slaughterhouse"]:checked') ? document.querySelector('input[name="slaughterhouse"]:checked').value : null,
+    slaughterhouse_yes: document.getElementById("slaughterhouse-yes").checked ? "Yes" : null,
+    slaughterhouse_no: document.getElementById("slaughterhouse-no").checked ? "No" : null,
+    animalSection: document.getElementById("animalSection").style.display === "block" ? "Yes" : "No",
+    stunning_applied: document.getElementById("stunning_applied").checked ? "Yes" : null,
+    stunning_not_applied: document.getElementById("stunning_not_applied").checked ? "No" : null,
+    stunningSection: document.getElementById("stunningSection").style.display === "block" ? "Yes" : "No",
+    otherStunningDiv: document.getElementById("otherStunningDiv").style.display === "block" ? "Yes" : "No",
+    abattoirs_for_Thailand_yes: document.getElementById("abattoirs-for_Thailand-yes").checked ? "Yes" : null,
+    abattoirs_for_Thailand_no: document.getElementById("abattoirs-for_Thailand-no").checked ? "No" : null,
+    abattoirDetailsSection: document.getElementById("abattoirDetailsSection").style.display === "block" ? "Yes" : "No",
+    fileContainer: document.getElementById("fileContainer").querySelector('input[type="file"]') ? document.getElementById("fileContainer").querySelector('input[type="file"]').files[0].name : null,
+    fileContainer2: document.getElementById("fileContainer2").querySelector('input[type="file"]') ? Array.from(document.getElementById("fileContainer2").querySelectorAll('input[type="file"]')).map(input => input.files[0] ? input.files[0].name : null) : [],
+    animal_types: Array.from(document.querySelectorAll('input[name="animalType[]"]:checked')).map(cb => cb.value),
+    stunning: document.querySelector('input[name="stunning"]:checked') ? document.querySelector('input[name="stunning"]:checked').value : null,
+    stunning_methods: Array.from(document.querySelectorAll('input[name="stunningMethod[]"]:checked')).map(cb => cb.value),
+    stunning_method_others: document.querySelector('input[name="otherStunning"]') ? document.querySelector('input[name="otherStunning"]').value : null,
+    abattoirs_for_Thailand: document.querySelector('input[name="abattoirs-for_Thailand"]:checked') ? document.querySelector('input[name="abattoirs-for_Thailand"]:checked').value : null,
+    company_details_exporting_to_Thailand: Array.from(document.querySelectorAll('#abattoirDetailsSection .item-box')).map(box => ({
+      company_name: box.querySelector('input[type="text"]').value,
+      weight_exported: box.querySelectorAll('input[type="text"]')[1].value,
+      halal_certificate: box.querySelector('input[type="file"]').files[0] ? box.querySelector('input[type="file"]').files[0].name : null
+    })),
+    company_name_certified_outside_country: Array.from(document.querySelectorAll('#abattoirDetailsSection1 .item-box')).map(box => ({
+      company_name: box.querySelector('input[type="text"]').value,
+      scope_of_certification: box.querySelector('select').value,
+      halal_certificate_proof: box.querySelector('input[type="file"]').files[0] ? box.querySelector('input[type="file"]').files[0].name : null
+    })),
+    stunning_applied: document.getElementById("stunning_applied").checked ? "yes" : (document.getElementById("stunning_not_applied").checked ? "no" : null),
+    abattoirs_for_Thailand: document.getElementById("abattoirs-for_Thailand-yes").checked ? "Yes" : (document.getElementById("abattoirs-for_Thailand-no").checked ? "No" : null),    
+  };
+
+  let applicationId = localStorage.getItem("application_id");
+
+  if (!applicationId) {
+    const applicationCode = "FHCB-" + Date.now();
+
+    const { data, error } = await supabase
+      .from("fhcb_applications")
+      .insert({
+        application_code: applicationCode,
+        form3: form3,
+        status: "draft",
+        current_step: 3
+      })
+      .select()
+      .single();
+
+    if (error) {
+      alert("Unable to save draft");
+      console.error(error);
+      return;
+    }
+
+    localStorage.setItem("application_id", data.id);
+    localStorage.setItem("application_code", data.application_code);
+  } else {
+    const { error } = await supabase
+      .from("fhcb_applications")
+      .update({
+        form3: form3,
+        status: "draft",
+        current_step: 3,
+        updated_at: new Date()
+      })
+      .eq("id", applicationId);
+
+    if (error) {
+      alert("Unable to update draft");
+      console.error(error);
+      return;
+    }
+  }
+
+  window.location.href = "Application Form4.html";
+}
+
+window.saveForm3Draft = saveForm3Draft;
+
+ </script>
 </div>
         <p>&copy; 2026 The Central Islamic Council of Thailand (CICOT). All rights reserved.</p>
     </form>

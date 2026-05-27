@@ -60,7 +60,7 @@
             const container = document.querySelector('.itemsContainer2');
             const div = document.createElement('div');
             div.innerHTML = `
-                <input type="file" name="halal-regulation-file[]" accept="application/pdf" required>
+                <input type="file" id="addFileGuidelines" name="halal-regulation-file[]" accept="application/pdf" required>
                 <button type="button" class="remove-btn" onclick="removeItem(this)">Remove</button><br><br>
             `;
             container.appendChild(div);
@@ -128,7 +128,7 @@ const container = document.getElementById("fileContainer2");
     div.className = "file-row2";
 
     div.innerHTML = `
-        <input type="file" name="pdfFiles[]" accept="application/pdf">
+        <input type="file" id="addFileManagement" name="pdfFiles[]" accept="application/pdf">
         <button type="button" class="add-btn" onclick="addFile2()">+ Add pdf file</button>
         <button type="button" class="delete-btn" onclick="removeItem(this)">Remove</button>
     `;
@@ -164,7 +164,7 @@ function addFHCB() {
     div.innerHTML = `
         <br>
 
-        <input type="file" name="fhcbProcesses[]" accept="application/pdf"><br>
+        <input type="file" id="addFHCBDoc" name="fhcbProcesses[]" accept="application/pdf"><br>
         <button type="button" class="add-btn" onclick="addFHCB()">+ Add pdf file</button>
         <button type="button" class="delete-btn" onclick="removeFHCB(this)"> Remove
         </button>
@@ -181,7 +181,7 @@ function removeFHCB(button) {
 <h5> Please upload your Terms & Conditions/Requirements (PDF only): </h5>
 <div id="fhcbContainer2">
     <div class="fhcb-item">
-                <input type="file" name="fhcbTermsConditions[]" accept="application/pdf" required><br>
+                <input type="file"  name="fhcbTermsConditions[]" accept="application/pdf" required><br>
                 <button type="button" class="add-btn" onclick="addFHCB2()">+ Add pdf file</button>
                 <button type="button" class="delete-btn" onclick="removeFHCB2(this)"> Remove
         </button>
@@ -200,7 +200,7 @@ function addFHCB2() {
     div.innerHTML = `
         <br>
 
-        <input type="file" name="fhcbTermsConditions[]" accept="application/pdf"><br>
+        <input type="file" id="fhcbTermsConditions" name="fhcbTermsConditions[]" accept="application/pdf"><br>
         <button type="button" class="add-btn" onclick="addFHCB2()">+ Add pdf file</button>
         <button type="button" class="delete-btn" onclick="removeFHCB2(this)"> Remove
         </button>
@@ -265,7 +265,7 @@ function removeFile(){
         <div class="upload-row">
 
     <input type="file"
-           id="proofBilling"
+           id="proofBilling_guidelines"
            accept="application/pdf">
 
     <button type="button"
@@ -280,7 +280,7 @@ function removeFile(){
 function removeFile(){
 
     const fileInput =
-        document.getElementById("proofBilling");
+        document.getElementById("proofBilling_guidelines");
 
     fileInput.value = null;
 }
@@ -292,7 +292,7 @@ function removeFile(){
         <div class="upload-row">
 
     <input type="file"
-           id="proofBilling"
+           id="proofBilling_surveillance"
            accept="application/pdf">
 
     <button type="button"
@@ -307,7 +307,7 @@ function removeFile(){
 function removeFile(){
 
     const fileInput =
-        document.getElementById("proofBilling");
+        document.getElementById("proofBilling_surveillance");
 
     fileInput.value = null;
 }
@@ -319,7 +319,7 @@ function removeFile(){
         <div class="upload-row">
 
     <input type="file"
-           id="proofBilling"
+           id="proofBilling_samples"
            accept="application/pdf">
 
     <button type="button"
@@ -334,7 +334,7 @@ function removeFile(){
 function removeFile(){
 
     const fileInput =
-        document.getElementById("proofBilling");
+        document.getElementById("proofBilling_samples");
 
     fileInput.value = null;
 }
@@ -348,11 +348,36 @@ onclick="window.location.href='Application Form3.html'">
 Previous
 </button>
 
-<button class="Next-btn"
-onclick="window.location.href='Application Form5.html'">
-Next
-</button>
+<button onclick="saveForm4Draft()" >
+        <span class="tooltiptext"> Next
+        </span>
+    </button> 
+<script> 
+    import { supabase } from "./supabaseClient.js";
+    
 
+async function saveForm4Draft() {
+  const form4 = {
+    halal_regulation_yes: document.getElementById("halal-regulation-yes").checked ? "Yes" : null,
+    halal_regulation_no: document.getElementById("halal-regulation-no").checked ? "No" : null,
+    addFileGuidelines: document.getElementById("addFileGuidelines") ? Array.from(document.querySelectorAll('.itemsContainer2 input[type="file"]')).map(input => input.files[0] ? input.files[0].name : null) : [],
+    addFileManagement: document.getElementById("addFileManagement") ? Array.from(document.querySelectorAll('#fileContainer2 input[type="file"]')).map(input => input.files[0] ? input.files[0].name : null) : [],
+    addFHCBDoc: document.getElementById("addFHCBDoc") ? Array.from(document.querySelectorAll('#fileContainer3 input[type="file"]')).map(input => input.files[0] ? input.files[0].name : null) : [],
+    fhcbTermsConditions: document.getElementById("fhcbTermsConditions") ? Array.from(document.querySelectorAll('#fhcbContainer2 input[type="file"]')).map(input => input.files[0] ? input.files[0].name : null) : [],
+    halal_schemes: document.getElementById("halal-schemes").value,
+    proofBilling: document.getElementById("proofBilling").files[0] ? document.getElementById("proofBilling").files[0].name : null,
+    audit_frequency_high: document.getElementById("audit-frequency-high").checked ? "Monthly" : null,
+    audit_frequency_3months: document.getElementById("audit-frequency-3months").checked ? "Every 3 months" : null,
+    audit_frequency_6months: document.getElementById("audit-frequency-6months").checked ? "Every 6 months" : null,
+    audit_frequency_Yearly: document.getElementById("audit-frequency-Yearly").checked ? "Yearly" : null,
+    audit_frequency_Validity: document.getElementById("audit-frequency-Validity period").checked ? "Validity period" : null,
+    audit_frequency_No: document.getElementById("audit-frequency-No").checked ? "No frequency or records provided on internal audit" : null,
+    proofBilling_guidelines: document.getElementById("proofBilling_guidelines").files[0] ? document.getElementById("proofBilling_guidelines").files[0].name : null,
+    proofBilling_surveillance: document.getElementById("proofBilling_surveillance").files[0] ? document.getElementById("proofBilling_surveillance").files[0].name : null,
+    proofBilling_samples: document.getElementById("proofBilling_samples").files[0] ? document.getElementById("proofBilling_samples").files[0].name : null
+  };
+}
+</script>
 </div>
         <p>&copy; 2026 The Central Islamic Council of Thailand (CICOT). All rights reserved.</p>
     </form>

@@ -86,9 +86,59 @@
 Previous
 </button>
 
-<button class="next-btn" onclick="window.location.href='Application Form3.html'">
-Next
-</button>
+<button onclick="saveForm2Draft()" >
+        <span class="tooltiptext"> Next
+        </span>
+    </button> 
+<script type="module">
+import { supabase } from "./supabaseClient.js";
+
+async function saveForm2Draft() {
+  const applicationId = localStorage.getItem("application_id");
+
+  if (!applicationId) {
+    alert("ไม่พบแบบร่าง กรุณาเริ่มจาก Form 1");
+    window.location.href = "Application Form.html";
+    return;
+  }
+
+  const form2 = {
+    registered_name: document.getElementById("registered-name").value,
+    registered_authority: document.getElementById("Registered Authority").value,
+    registration_number: document.getElementById("registration-number").value,
+    country_of_registration: document.getElementById("country-of-registration").value,
+    date_of_registration: document.getElementById("date-of-registration").value,
+    year_of_involvement_in_halal_certification: document.getElementById("year-of-involvement-in-Halal-certification").value,
+    house_number: document.getElementById("house-number").value,
+    village_number: document.getElementById("village-number").value,
+    street_road: document.getElementById("Street-road").value,
+    city: document.getElementById("City").value,
+    state_province: document.getElementById("State-Province").value,
+    postal_code: document.getElementById("Postal-Code").value,
+    country: document.getElementById("Country").value
+  };
+
+  const { error } = await supabase
+    .from("fhcb_applications")
+    .update({
+      form2: form2,
+      status: "draft",
+      current_step: 2,
+      updated_at: new Date()
+    })
+    .eq("id", applicationId);
+
+  if (error) {
+    alert("บันทึกแบบร่างไม่สำเร็จ");
+    console.error(error);
+    return;
+  }
+
+  window.location.href = "Application Form3.html";
+}
+
+window.saveForm2Draft = saveForm2Draft;
+</script>
 
 </div>
     

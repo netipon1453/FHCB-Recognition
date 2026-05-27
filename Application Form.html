@@ -172,8 +172,8 @@ document.getElementById("imageUpload").addEventListener("change", function(event
         </div>
      
     
-    <button>
-        <span class="tooltiptext" onclick="window.location.href='Application Form2.html'" >Next
+    <button onclick="saveForm1Draft()" >
+        <span class="tooltiptext"> Next
         </span>
     </button> 
     <p>&copy; 2026 The Central Islamic Council of Thailand (CICOT). All rights reserved.</p>  
@@ -181,6 +181,68 @@ document.getElementById("imageUpload").addEventListener("change", function(event
     </div>
       
     </form>
+ <script> 
+    import { supabase } from "./supabaseClient.js";
+    
+
+async function saveForm1Draft() {
+  const form1 = {
+    company_name: document.getElementById("company-name").value,
+    organisation_type: document.getElementById("organisation-type").value,
+    country: document.getElementById("country").value,
+    contact_person: document.getElementById("contact-person").value,
+    phone: document.getElementById("phone-number").value,
+    email: document.getElementById("email").value
+  };
+
+  let applicationId = localStorage.getItem("application_id");
+
+  if (!applicationId) {
+    const applicationCode = "FHCB-" + Date.now();
+
+    const { data, error } = await supabase
+      .from("fhcb_applications")
+      .insert({
+        application_code: applicationCode,
+        form1: form1,
+        status: "draft",
+        current_step: 1
+      })
+      .select()
+      .single();
+
+    if (error) {
+      alert("Unable to save draft");
+      console.error(error);
+      return;
+    }
+
+    localStorage.setItem("application_id", data.id);
+    localStorage.setItem("application_code", data.application_code);
+  } else {
+    const { error } = await supabase
+      .from("fhcb_applications")
+      .update({
+        form1: form1,
+        status: "draft",
+        current_step: 1,
+        updated_at: new Date()
+      })
+      .eq("id", applicationId);
+
+    if (error) {
+      alert("Unable to update draft");
+      console.error(error);
+      return;
+    }
+  }
+
+  window.location.href = "Application Form2.html";
+}
+
+window.saveForm1Draft = saveForm1Draft;
+
+ </script>
     
 </body>
 </html>
