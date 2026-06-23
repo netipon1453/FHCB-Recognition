@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Payment Form 7</title>
+
+    <link rel="stylesheet"
+          href="Payment Form7.css">
+</head>
+
+<body>
+
+<header>
+
+    <div class="background-image">
+
+        <div class="logo-left">
+            <img src="Patterned Thai Flag.png"
+                 alt="Thailand Flag"
+                 class="logo3">
+        </div>
+
+        <div class="h2-container">
+            <h2>
+                The Central Islamic Council of Thailand (CICOT)
+            </h2>
+        </div>
+
+        <div class="logo-right">
+
+            <img src="Halal English.png"
+                 alt="HALAL MARK"
+                 class="logo2">
+
+            <img src="LOGO CICOT.png"
+                 alt="CICOT Logo"
+                 class="logo1">
+
+        </div>
+
+    </div>
+
+
+    <nav class="navbar">
+
+        <a href="index.html">CICOT Website</a>
+        <a href="index.html">Home</a>
+        <a href="About.html">About Us</a>
+        <a href="Contact.html">Contact Us</a>
+        <a href="Login.html">Login to apply</a>
+
+    </nav>
+
+</header>
+
+
+
+<div class="main-content">
+
+    <h1>
+        FHCB Recognition Application Form - Fee Payment
+    </h1>
+<div class="form-container">
+
+<form action="#" method="post">
+  
+  <h2>Fee Calculation and Payment</h2>
+
+  <div class="section">
+    <h3>1. Select Scope</h3>
+
+    <label><input type="checkbox" class="scope" value="Food"> Food</label>
+    <label><input type="checkbox" class="scope" value="Chemical and Biological Products"> Chemical and Biological Products</label>
+    <label><input type="checkbox" class="scope" value="Cosmetics"> Cosmetics</label>
+    <label><input type="checkbox" class="scope" value="Pharmaceuticals"> Pharmaceuticals</label>
+    <label><input type="checkbox" class="scope" value="Beverages"> Beverages</label>
+    <label><input type="checkbox" class="scope" value="Health Supplements"> Health Supplements</label>
+    <label><input type="checkbox" class="scope" value="Slaughterhouses and Animal Products"> Slaughterhouses and Animal Products</label>
+    <label><input type="checkbox" class="scope" value="Others"> Others</label>
+  </div>
+
+  <div class="section">
+    <h3>2. Number of Auditors</h3>
+
+    <label>
+      Number of Halal Auditors
+      <input type="number" id="halalAuditor" min="0" value="0">
+    </label>
+
+    <label>
+      Number of Technical Auditors
+      <input type="number" id="technicalAuditor" min="0" value="0">
+    </label>
+  </div>
+
+  <div class="section fee-box">
+    <h3>3. Fee Summary</h3>
+
+    <p>Selected Scope(s): <span id="scopeCount">0</span></p>
+    <p>Scope Fee: US$ <span id="scopeFee">0.00</span></p>
+    <p>Auditor Fee: US$ <span id="auditorFee">0.00</span></p>
+    <hr>
+    <p class="total">Total Fee: US$ <span id="totalFee">0.00</span></p>
+  </div>
+
+  <div class="section">
+    <h3>4. Payment Method</h3>
+
+    <label>
+      <input type="radio" name="paymentMethod" value="credit">
+      Pay by Credit Card
+    </label>
+
+    <label>
+      <input type="radio" name="paymentMethod" value="transfer">
+      Bank Transfer / Upload Payment Slip
+    </label>
+
+    <div id="creditCardSection" class="payment-section">
+      <h3>Credit Card Information</h3>
+
+      <label>
+        Cardholder Name
+        <input type="text" id="cardName">
+      </label>
+
+      <label>
+        Card Number
+        <input type="text" id="cardNumber" maxlength="19" placeholder="XXXX XXXX XXXX XXXX">
+      </label>
+
+      <label>
+        Expiry Date
+        <input type="month" id="expiryDate">
+      </label>
+
+      <label>
+        CVV
+        <input type="text" id="cvv" maxlength="4">
+      </label>
+    </div>
+
+    <div id="transferSection" class="payment-section">
+      <h3>Bank Transfer Information</h3>
+
+      <div class="bank-info">
+        <p><strong>Bank:</strong> Bangkok Bank</p>
+        <p><strong>Account Name:</strong> The Central Islamic Council of Thailand</p>
+        <p><strong>Account No.:</strong> 123-456-7890</p>
+      </div>
+
+      <label>
+        Transfer Date
+        <input type="date" id="transferDate">
+      </label>
+
+      <label>
+        Upload Payment Slip
+        <input type="file" id="paymentSlip" accept=".pdf,.jpg,.jpeg,.png">
+      </label>
+    </div>
+  <div class="btn-group">
+
+    <button type="button"
+            class="Previous-btn"
+            onclick="window.location.href='Application Form6.html'">
+
+        Previous
+
+    </button>
+
+  <button onclick="submitPayment()">Submit Payment</button>
+</div>
+</form>
+
+</div>
+<script>
+  const scopes = document.querySelectorAll(".scope");
+  const halalAuditorInput = document.getElementById("halalAuditor");
+  const technicalAuditorInput = document.getElementById("technicalAuditor");
+
+  const scopeCountText = document.getElementById("scopeCount");
+  const scopeFeeText = document.getElementById("scopeFee");
+  const auditorFeeText = document.getElementById("auditorFee");
+  const totalFeeText = document.getElementById("totalFee");
+
+  const paymentMethods = document.querySelectorAll('input[name="paymentMethod"]');
+  const creditCardSection = document.getElementById("creditCardSection");
+  const transferSection = document.getElementById("transferSection");
+
+  function calculateFee() {
+    const selectedScopes = document.querySelectorAll(".scope:checked").length;
+
+    let scopeFee = 0;
+
+    if (selectedScopes >= 1) {
+      scopeFee = 1500 + ((selectedScopes - 1) * 200);
+    }
+
+    const halalAuditor = parseInt(halalAuditorInput.value) || 0;
+    const technicalAuditor = parseInt(technicalAuditorInput.value) || 0;
+
+    let auditorFee = 0;
+    const totalAuditors = halalAuditor + technicalAuditor;
+
+    if (totalAuditors === 1) {
+      auditorFee = 800;
+    } else if (halalAuditor >= 3 && technicalAuditor >= 3) {
+      auditorFee = 500;
+    } else if (halalAuditor >= 2 && technicalAuditor >= 2) {
+      auditorFee = 600;
+    } else if (halalAuditor >= 1 && technicalAuditor >= 1) {
+      auditorFee = 700;
+    }
+
+    const totalFee = scopeFee + auditorFee;
+
+    scopeCountText.textContent = selectedScopes;
+    scopeFeeText.textContent = scopeFee.toFixed(2);
+    auditorFeeText.textContent = auditorFee.toFixed(2);
+    totalFeeText.textContent = totalFee.toFixed(2);
+  }
+
+  scopes.forEach(scope => {
+    scope.addEventListener("change", calculateFee);
+  });
+
+  halalAuditorInput.addEventListener("input", calculateFee);
+  technicalAuditorInput.addEventListener("input", calculateFee);
+
+  paymentMethods.forEach(method => {
+    method.addEventListener("change", function () {
+      if (this.value === "credit") {
+        creditCardSection.style.display = "block";
+        transferSection.style.display = "none";
+      } else {
+        transferSection.style.display = "block";
+        creditCardSection.style.display = "none";
+      }
+    });
+  });
+
+  function submitPayment() {
+    const selectedScopes = document.querySelectorAll(".scope:checked").length;
+    const selectedPayment = document.querySelector('input[name="paymentMethod"]:checked');
+
+    if (selectedScopes === 0) {
+      alert("Please select at least one scope.");
+      return;
+    }
+
+    if (!selectedPayment) {
+      alert("Please select payment method.");
+      return;
+    }
+
+    if (selectedPayment.value === "credit") {
+      if (
+        !document.getElementById("cardName").value ||
+        !document.getElementById("cardNumber").value ||
+        !document.getElementById("expiryDate").value ||
+        !document.getElementById("cvv").value
+      ) {
+        alert("Please complete credit card information.");
+        return;
+      }
+    }
+
+    if (selectedPayment.value === "transfer") {
+      if (
+        !document.getElementById("transferDate").value ||
+        !document.getElementById("paymentSlip").files.length
+      ) {
+        alert("Please upload payment slip and select transfer date.");
+        return;
+      }
+    }
+
+    alert("Payment submitted successfully.");
+    window.location.href = "./Dashboard.html";
+  }
+
+  calculateFee();
+</script>
+
+</body>
+</html>
+  

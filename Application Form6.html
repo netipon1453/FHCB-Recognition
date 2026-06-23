@@ -88,7 +88,7 @@
 
     <button type="button"
             class="add-btn"
-            onclick="addPerson('presidentContainer')">
+            onclick="addPerson('presidentContainer')" required>
 
         + Add President / Chairman
 
@@ -112,7 +112,7 @@
 
     <button type="button"
             class="add-btn"
-            onclick="addPerson('overallContainer')">
+            onclick="addPerson('overallContainer')" required>
 
         + Add Overall In-Charge
 
@@ -134,7 +134,7 @@
 
     <button type="button"
             class="add-btn"
-            onclick="addPerson('shariahContainer')">
+            onclick="addPerson('shariahContainer')" required>
 
         + Add Shariah Advisory Board Member
 
@@ -156,7 +156,7 @@
 
     <button type="button"
             class="add-btn"
-            onclick="addPerson('technicalContainer')">
+            onclick="addPerson('technicalContainer')" required>
 
         + Add Technical Auditor
 
@@ -178,16 +178,66 @@
 
     <button type="button"
             class="add-btn"
-            onclick="addPerson('halalContainer')">
+            onclick="addPerson('halalContainer')" required>
 
         + Add Halal Auditor
 
     </button>
 
 </div>
+<!-- ================================================= -->
+<!-- 6. SCOPE OF HALAL CERTIFICATION ACTIVITIES -->
+<!-- ================================================= -->
+ <div class="section-box">
 
-
-
+    <h2>6. Scope of Halal Certification Activities</h2>
+           Which scope of Halal Certification activities does the FHCB intend to apply for recognition? (Please tick the appropriate box)
+         <br>
+           <label>
+            <input type="checkbox" name="scope" value="Food">
+            Food 
+         </label>
+         <br>
+         <label>
+            <input type="checkbox" name="scope" value="Beverages">
+            Beverages
+         </label>
+         <br>
+         <label>
+            <input type="checkbox" name="scope" value="Chemical and Biological Products (including Microbiological Products)">
+            Chemical and Biological Products (including Microbiological Products)
+         </label>
+         <br>
+         <label>
+            <input type="checkbox" name="scope" value="Cosmetics">
+            Cosmetics
+         </label>
+         <br>
+         <label>
+            <input type="checkbox" name="scope" value="Pharmaceuticals">
+            Pharmaceuticals
+         </label><br>
+         <label>
+            <input type="checkbox" name="scope" value="Health Supplements">
+            Health Supplements
+            </label><br>
+        <label>
+            <input type="checkbox" name="scope" value="Slaughterhouses and Animal Products">  
+            Slaughterhouses and Animal Products
+            </label><br>
+        <label>
+            <input type="checkbox" name="scope" value="Others"> 
+            Others (Please specify):
+            <input type="text" name="otherScope" placeholder="Specify other scope">
+            </label>
+ </div>
+ <div class="section-box">
+    <h2>7. Signature of the authorized representative/person who will sign on your halal certificate for each branch</h2>
+    <p>Please provide the signature of the authorized representative/person who will sign on your halal certificate for each branch. This information is crucial for the recognition process and will be used to verify the authenticity of your halal certificates.</p>
+    <input type="file" name="signature" accept="image/*" required>
+    <p>Note: The signature must be clear and legible. It should be in a commonly used image format (e.g., JPEG, PNG) and should not exceed the maximum file size specified.</p>
+    
+ </div>
 <!-- ================================================= -->
 <!-- BUTTON -->
 <!-- ================================================= -->
@@ -202,15 +252,102 @@
     </button>
 
 
-    <button type="submit"
-            class="Next-btn" onclick="window.location.href='Dashboard.html'">
+    <button type="Next"
+            class="Next-btn" onclick="window.location.href='Payment Form7.html'">
 
-            Submit
+            Next
 
     </button>
-
+<button onclick="saveForm6Draft()" >
+        <span class="tooltiptext"> Save
+        </span>
+</button> 
 </div>
-
+<script> 
+    import { supabase } from "./supabaseClient.js";
+    async function saveForm6Draft() {
+  const form6 = {
+    president: Array.from(document.querySelectorAll("#presidentContainer .person-card")).map(card => {
+      return {
+        photo: card.querySelector('input[type="file"]').files[0],
+        fullName: card.querySelector('input[type="text"]').value,
+        position: card.querySelectorAll('input[type="text"]')[1].value,
+        appointmentLetter: card.querySelectorAll('input[type="file"]')[1].files[0],
+        jobDescription: card.querySelectorAll('input[type="file"]')[2].files[0],
+        educationQualification: card.querySelector('textarea').value,
+        educationCertificates: card.querySelectorAll('input[type="file"]')[3].files,
+        workExperience: card.querySelectorAll('textarea')[1].value,
+        trainingHistory: card.querySelectorAll('textarea')[2].value,
+        trainingCertificates: card.querySelectorAll('input[type="file"]')[4].files,
+        tasCertificate: card.querySelectorAll('input[type="file"]')[5].files[0]
+      }
+      };
+    },
+    overallInCharge: Array.from(document.querySelectorAll("#overallContainer .person-card")).map(card => {
+      return {
+        photo: card.querySelector('input[type="file"]').files[0],
+        fullName: card.querySelector('input[type="text"]').value,
+        position: card.querySelectorAll('input[type="text"]')[1].value,
+        appointmentLetter: card.querySelectorAll('input[type="file"]')[1].files[0],
+        jobDescription: card.querySelectorAll('input[type="file"]')[2].files[0],
+        educationQualification: card.querySelector('textarea').value,
+        educationCertificates: card.querySelectorAll('input[type="file"]')[3].files,
+        workExperience: card.querySelectorAll('textarea')[1].value,
+        trainingHistory: card.querySelectorAll('textarea')[2].value,
+        trainingCertificates: card.querySelectorAll('input[type="file"]')[4].files,
+        tasCertificate: card.querySelectorAll('input[type="file"]')[5].files[0]
+      };
+    }),
+    shariahAdvisoryBoard: Array.from(document.querySelectorAll("#shariahContainer .person-card")).map(card => {
+      return {
+        photo: card.querySelector('input[type="file"]').files[0],
+        fullName: card.querySelector('input[type="text"]').value,
+        position: card.querySelectorAll('input[type="text"]')[1].value,
+        appointmentLetter: card.querySelectorAll('input[type="file"]')[1].files[0],
+        jobDescription: card.querySelectorAll('input[type="file"]')[2].files[0],
+        educationQualification: card.querySelector('textarea').value,
+        educationCertificates: card.querySelectorAll('input[type="file"]')[3].files,
+        workExperience: card.querySelectorAll('textarea')[1].value,
+        trainingHistory: card.querySelectorAll('textarea')[2].value,
+        trainingCertificates: card.querySelectorAll('input[type="file"]')[4].files,
+        tasCertificate: card.querySelectorAll('input[type="file"]')[5].files[0]
+      };
+    }),
+    technicalAuditors: Array.from(document.querySelectorAll("#technicalContainer .person-card")).map(card => {
+      return {
+        photo: card.querySelector('input[type="file"]').files[0],
+        fullName: card.querySelector('input[type="text"]').value,
+        position: card.querySelectorAll('input[type="text"]')[1].value,
+        appointmentLetter: card.querySelectorAll('input[type="file"]')[1].files[0],
+        jobDescription: card.querySelectorAll('input[type="file"]')[2].files[0],
+        educationQualification: card.querySelector('textarea').value,
+        educationCertificates: card.querySelectorAll('input[type="file"]')[3].files,
+        workExperience: card.querySelectorAll('textarea')[1].value,
+        trainingHistory: card.querySelectorAll('textarea')[2].value,
+        trainingCertificates: card.querySelectorAll('input[type="file"]')[4].files,
+        tasCertificate: card.querySelectorAll('input[type="file"]')[5].files[0]
+      };
+    }),
+    halalAuditors: Array.from(document.querySelectorAll("#halalContainer .person-card")).map(card => {
+      return {
+        photo: card.querySelector('input[type="file"]').files[0],
+        fullName: card.querySelector('input[type="text"]').value,
+        position: card.querySelectorAll('input[type="text"]')[1].value,
+        appointmentLetter: card.querySelectorAll('input[type="file"]')[1].files[0],
+        jobDescription: card.querySelectorAll('input[type="file"]')[2].files[0],
+        educationQualification: card.querySelector('textarea').value,
+        educationCertificates: card.querySelectorAll('input[type="file"]')[3].files,
+        workExperience: card.querySelectorAll('textarea')[1].value,
+        trainingHistory: card.querySelectorAll('textarea')[2].value,
+        trainingCertificates: card.querySelectorAll('input[type="file"]')[4].files,
+        tasCertificate: card.querySelectorAll('input[type="file"]')[5].files[0]
+      };
+    }),
+    scopeOfActivities: Array.from(document.querySelectorAll('input[name="scope"]:checked')).map(checkbox => checkbox.value),
+    otherScope: document.querySelector('input[name="otherScope"]').value,
+    signature: document.querySelector('input[name="signature"]').files[0]
+  };
+  </script>
 </form>
 
 </div>

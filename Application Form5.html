@@ -98,7 +98,7 @@
 
         <br><br>
 
-        <input type="file"
+        <input type="file" id="HalalApplicationFormClient"
                name="pdfFiles[]"
                accept="application/pdf"
                required>
@@ -140,7 +140,7 @@
 
         <br><br>
 
-        <input type="file"
+        <input type="file" id="officialCertificate"
                name="officialCertificate[]"
                accept="application/pdf"
                required>
@@ -187,7 +187,7 @@
             Drop PNG or JPEG file here to upload your official Halal logo
         </p>
 
-        <input type="file"
+        <input type="file" id="officialHalalLogo"
                id="fileInput"
                accept=".png,.jpg,.jpeg,image/png,image/jpeg"
                hidden>
@@ -306,7 +306,7 @@
 
     <div class="other-document-item">
 
-        <input type="file"
+        <input type="file" id="otherDocumentsContainer"
                name="otherDocuments[]"
                accept="application/pdf"
                required>
@@ -359,6 +359,10 @@ Is there any auditor who has been appointed by third-party company to conduct au
         Previous
 
     </button>
+<button onclick="saveForm5Draft()" >
+        <span class="tooltiptext"> Save
+        </span>
+    </button> 
 
 
     <button type="button"
@@ -368,6 +372,22 @@ Is there any auditor who has been appointed by third-party company to conduct au
         Next
 
     </button>
+<script> 
+    import { supabase } from "./supabaseClient.js";
+    async function saveForm5Draft() {
+  const form5 = {
+    pdfFiles: document.getElementById("HalalApplicationFormClient").files[0],
+    officialCertificate: document.getElementById("officialCertificate").files[0],
+    officialHalalLogo: document.getElementById("officialHalalLogo").files[0],
+    statutoryDeclaration: document.getElementById("statutoryDeclaration").files[0],
+    certificateRegistration: document.getElementById("certificateRegistration").files[0],
+    proofBilling: document.getElementById("proofBilling").files[0],
+    otherDocuments: Array.from(document.querySelectorAll("#otherDocumentsContainer input[type='file']")).map(input => input.files[0]),
+    auditor: document.querySelector('input[name="auditor"]:checked')?.value || null
+  }
+  };
+
+</script>
 
 </div>
 
