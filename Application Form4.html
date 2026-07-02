@@ -5,32 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Application Form 4</title>
     <link rel="stylesheet" href="Application Form4.css">
+    <link rel="stylesheet" href="header.css">
 </head>
 <body>
-    <header>
-    <div class="background-image">
-        
-            <div class="logo-left">
-            <img src="Patterned Thai Flag.png" alt="Thailand Flag" class="logo3">
-            </div>
-            <div class="h2-container">
-                 <h2>The Central Islamic Council of Thailand (CICOT)</h2>
-            </div>
-            <div class="logo-right">
-            <img src="Halal English.png" alt="HALAL MARK" class="logo2">
-            <img src="LOGO CICOT.png" alt="CICOT Logo" class="logo1">
-            </div>
-        
-        
+    <div id="Header" >
     </div>
-    <nav class="navbar">
-            <a href="index.html">CICOT Website</a>
-            <a href="index.html">Home</a>
-            <a href="About.html">About Us</a>
-            <a href="Contact.html">Contact Us</a>
-            <a href="Login.html">Login to apply</a>
-    </nav>
-    </header>
     <div class="main-content">
     <h1>FHCB Recognition Application Form - Halal Regulation/Standards/Guideline, Certification Process, and Management System</h1>
     </div>
@@ -138,7 +117,13 @@ const container = document.getElementById("fileContainer2");
         function removeItem(button){
     button.parentElement.remove();
 }
-
+document.addEventListener("DOMContentLoaded", () => {
+    fetch("Head.html")
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("Header").innerHTML = data;
+        });
+        });
 </script>  
 <h3>FHCB Halal Processes</h3>
 <h5> Please upload your organisation's FHCB Halal processes document (PDF only): </h5>

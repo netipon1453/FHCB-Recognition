@@ -5,32 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Application Form 3</title>
     <link rel="stylesheet" href="Application Form3.css">
+    <link rel="stylesheet" href="header.css">    
 </head>
 <body>
-    <header>
-    <div class="background-image">
-        
-            <div class="logo-left">
-            <img src="Patterned Thai Flag.png" alt="Thailand Flag" class="logo3">
-            </div>
-            <div class="h2-container">
-                 <h2>The Central Islamic Council of Thailand (CICOT)</h2>
-            </div>
-            <div class="logo-right">
-            <img src="Halal English.png" alt="HALAL MARK" class="logo2">
-            <img src="LOGO CICOT.png" alt="CICOT Logo" class="logo1">
-            </div>
-        
-        
+    <div id="Header" >
     </div>
-    <nav class="navbar">
-            <a href="index.html">CICOT Website</a>
-            <a href="index.html">Home</a>
-            <a href="About.html">About Us</a>
-            <a href="Contact.html">Contact Us</a>
-            <a href="Login.html">Login to apply</a>
-    </nav>
-    </header>
     <h1 class="form-title">FHCB Recognition Application Form - Internal Audit Practices, Ownership, and Affliations</h1>
     <div class="form-container">
     <form action="#" method="post">
@@ -76,6 +55,13 @@ function removeFile(button){
     button.parentElement.remove();
 }
 
+document.addEventListener("DOMContentLoaded", () => {
+    fetch("Head.html")
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("Header").innerHTML = data;
+        });
+        });
 </script>
         <h2> Ownership and Affiliations</h2>
         <h4> Please provide information about the ownership structure and any affiliations your organisation has</h4>

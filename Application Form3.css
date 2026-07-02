@@ -1,65 +1,103 @@
-/* ===== Global ===== */
-body{
-    margin:0;
-    font-family: "Segoe UI", Arial, sans-serif;
-    background-color:#f4f6f8;
-    color:#333;
-    padding-top:160px;
+/* ===== Header ให้เท่ากับ Application Form.css ===== */
+
+:root {
+    --green-deep: #064e3b;
+    --green-main: #0f766e;
+    --green-light: #ecfdf5;
+    --text-main: #1f2937;
+    --border: #e5e7eb;
+    --white: #ffffff;
 }
 
-/* ===== Header ===== */
+body{
+    margin:0;
+    font-family:"Segoe UI", Arial, sans-serif;
+    background-color:#f4f6f8;
+    color:#333;
+    padding-top:150px;
+}
+
+header{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    z-index:1000;
+    background:#fff;
+    box-shadow:0 4px 18px rgba(0,0,0,0.08);
+}
+
 .background-image{
-    padding:12px 25px;
     display:flex;
     align-items:center;
-    background-color:#0b6b3a;
+    gap:24px;
+    padding:16px 40px;
+    background:linear-gradient(135deg, #064e3b, #0f766e);
 }
-header{
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-}
+
 .line{
     display:flex;
     align-items:center;
+    gap:10px;
+    background:rgba(255,255,255,0.12);
+    padding:10px 14px;
+    border-radius:18px;
 }
 
-.logo1,.logo2,.logo3{
-    height:80px;
+.logo1,
+.logo2,
+.logo3{
+    height:76px;
     width:auto;
-    margin-right:10px;
+    object-fit:contain;
+    margin:0;
 }
 
-.h2-container{
-    text-align:center;
-    font-size:1.3em;
-    font-weight:600;
-    color:white;
-    flex-grow:1;
+.header-title{
+    color:#ffffff;
+    text-align:left;
 }
 
-/* ===== Navbar ===== */
+.header-title h1{
+    margin:0;
+    font-size:1.55rem;
+    font-weight:700;
+    letter-spacing:0.3px;
+    color:#ffffff;
+}
+
+.header-title p{
+    margin:6px 0 0;
+    font-size:0.95rem;
+    opacity:0.9;
+    color:#ffffff;
+    text-align:left;
+}
+
+/* ===== Navbar ให้เท่ากับ Application Form.css ===== */
+
 .navbar{
+    display:flex;
+    align-items:center;
+    gap:4px;
+    padding:0 40px;
     background:#ffffff;
-    box-shadow:0 2px 6px rgba(0,0,0,0.1);
-    padding-left:10px;
+    border-bottom:1px solid #e5e7eb;
 }
 
 .navbar a{
-    display:inline-block;
-    color:#333;
-    padding:14px 18px;
+    padding:15px 18px;
     text-decoration:none;
-    font-weight:500;
+    color:#1f2937;
+    font-weight:600;
+    font-size:0.92rem;
+    transition:0.2s;
 }
 
 .navbar a:hover{
-    background:#f1f1f1;
-    color:#0b6b3a;
+    color:#0f766e;
+    background:#ecfdf5;
 }
-
 .form-container{
     width:90%;
     max-width:900px;

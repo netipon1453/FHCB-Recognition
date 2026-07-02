@@ -90,3 +90,9 @@
     margin-left: auto;
     color: var(--green-deep);
 }
+#Header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    margin-bottom: 40px;
+}

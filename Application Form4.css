@@ -7,30 +7,7 @@ body{
     padding-top:160px;
 }
 
-/* ===== Header ===== */
-.background-image{
-    padding:12px 25px;
-    display:flex;
-    align-items:center;
-    background-color:#0b6b3a;
-}
-header{
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-}
-.line{
-    display:flex;
-    align-items:center;
-}
 
-.logo1,.logo2,.logo3{
-    height:80px;
-    width:auto;
-    margin-right:10px;
-}
 
 .h2-container{
     text-align:center;
@@ -40,25 +17,6 @@ header{
     flex-grow:1;
 }
 
-/* ===== Navbar ===== */
-.navbar{
-    background:#ffffff;
-    box-shadow:0 2px 6px rgba(0,0,0,0.1);
-    padding-left:10px;
-}
-
-.navbar a{
-    display:inline-block;
-    color:#333;
-    padding:14px 18px;
-    text-decoration:none;
-    font-weight:500;
-}
-
-.navbar a:hover{
-    background:#f1f1f1;
-    color:#0b6b3a;
-}
 
 .main-content h3 {
     

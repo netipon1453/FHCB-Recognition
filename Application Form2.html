@@ -5,32 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Application Form 2</title>
     <link rel="stylesheet" href="Application Form-2.css">
+    <link rel="stylesheet" href="header.css">
 </head>
 <body>
-    <header>
-   <div class="background-image">
-        
-            <div class="logo-left">
-            <img src="Patterned Thai Flag.png" alt="Thailand Flag" class="logo3">
-            </div>
-            <div class="h2-container">
-                 <h2>The Central Islamic Council of Thailand (CICOT)</h2>
-            </div>
-            <div class="logo-right">
-            <img src="Halal English.png" alt="HALAL MARK" class="logo2">
-            <img src="LOGO CICOT.png" alt="CICOT Logo" class="logo1">
-            </div>
-        
-        
-    </div>
-    <nav class="navbar">
-            <a href="index.html">CICOT Website</a>
-            <a href="index.html">Home</a>
-            <a href="About.html">About Us</a>
-            <a href="Contact.html">Contact Us</a>
-            <a href="Login.html">Login to apply</a>
-    </nav>
-    </header>
+  <div id="Header" >
+  </div>
     <h1 class="form-title">FHCB Recognition Application Form - Registration Details</h1>
       
     <div class="form-container">
@@ -138,6 +117,13 @@ async function saveForm2Draft() {
 }
 
 window.saveForm2Draft = saveForm2Draft;
+document.addEventListener("DOMContentLoaded", () => {
+    fetch("Head.html")
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("Header").innerHTML = data;
+        });
+});
 </script>
 
 </div>
