@@ -192,18 +192,6 @@ label {
     margin-top: 10px;
     color: #0b0b0b;
 }
-.Next-btn {
-    background-color: #10b810;     /* สีพื้นหลัง */
-    color: white;                  /* สีตัวอักษร */
-    padding: auto;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  height: 30px;
-    align-items: center;
-    text-align: center;
-     
-}
 input[type = "submit"] {
     background-color: green;
     text-align: center;
@@ -242,6 +230,22 @@ input[type = "submit"] {
 }
 
 .Previous-btn:hover{
+    background:#0f8f4b;
+}
+
+.save-btn{
+    width:100px;
+    height:34px;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+    color:white;
+    font-size:14px;
+    background:#0b6b3a;
+    padding:0;
+}
+
+.save-btn:hover{
     background:#0f8f4b;
 }
 #pdfFile::file-selector-button{

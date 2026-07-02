@@ -56,11 +56,15 @@
     margin: 0;
     font-size: 1.8rem;
     font-weight: 700;
+    color: #ffffff;
+    text-align: left;
 }
 
 .header-title p {
     margin-top: 8px;
     font-size: 1rem;
+    color: #ffffff;
+    text-align: left;
 }
 
 /* NAVBAR */

@@ -192,28 +192,38 @@ p{
     cursor: pointer;
     font-size: 14px;
 }
-.prev-btn{
-    padding:10px 25px;
-    background-color:#0b6b3a;
-    color:white;
-    border:none;
-    border-radius:5px;
-    cursor:pointer;
-}
-
+.prev-btn,
 .next-btn{
-    padding:10px 25px;
+    width:100px;
+    height:34px;
     background-color:#0b6b3a;
     color:white;
     border:none;
     border-radius:5px;
     cursor:pointer;
+    font-size:14px;
 }
 
-.prev-btn:hover{
+.prev-btn:hover,
+.next-btn:hover{
     background-color:#0f8f4b;
 }
 
-.next-btn:hover{
+.save-btn{
+    width:100px;
+    height:34px;
+    background-color:#0b6b3a;
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+    font-size:14px;
+}
+
+.button-group .save-btn{
+    padding:0;
+}
+
+.save-btn:hover{
     background-color:#0f8f4b;
 }

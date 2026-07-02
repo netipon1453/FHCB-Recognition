@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Home | CICOT FHCB Recognition System</title>
+
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="header.css">
+</head>
+
+<body>
+
+<div id="Header">
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    fetch("Head.html")
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("Header").innerHTML = data;
+        });
+});
+</script>
+
+<section class="hero">
+    <div class="hero-content">
+        <h1>The Central Islamic Council of Thailand (CICOT)</h1>
+        <p class="hero-sub">Foreign Halal Certification Body (FHCB) Recognition System</p>
+        <p class="hero-text">
+            CICOT is Thailand's national authority for Islamic affairs and halal certification. Through the FHCB
+            Recognition System, CICOT works with Foreign Halal Certification Bodies around the world to ensure
+            that halal products imported into Thailand meet the Thai Agricultural Standard: Halal Food
+            (TAS 8400-2025).
+        </p>
+        <div class="hero-actions">
+            <a href="Login Tech.html" class="hero-btn primary">Login to Apply</a>
+            <a href="Register.html" class="hero-btn">Register</a>
+            <a href="AboutUs.html" class="hero-btn outline">About Us</a>
+        </div>
+    </div>
+</section>
+
+<div class="form-container">
+
+    <h2>Our History</h2>
+    <p>
+        The organization and administration of Islamic affairs in Thailand has a long institutional history,
+        evolving over eight decades into the Central Islamic Council of Thailand that operates today.
+    </p>
+    <ul>
+        <li><strong>B.E. 2488 (1945):</strong> Islamic affairs in Thailand were first formally organized under
+            the Royal Decree on the Patronage of Islam, issued during the reign of King Rama VIII. The decree
+            established a three-tier structure consisting of the Central Islamic Committee, Provincial Islamic
+            Committees, and Mosque Islamic Committees.</li>
+        <li><strong>B.E. 2540 (1997):</strong> The Administration of Islamic Organization Act B.E. 2540 was
+            enacted, reorganizing the national structure and granting the Central Islamic Council of Thailand
+            legal status as a religious juristic person. Under this Act, the Sheikhul Islam of Thailand
+            (Chularajmontri) serves as Chairman of the Council, with board members representing all 36
+            provincial Islamic committees, each appointed by the King for a six-year term.</li>
+        <li><strong>2001:</strong> CICOT formalized its Halal certification regulations, establishing a common
+            national standard for Halal products and services across Thailand.</li>
+        <li><strong>2009:</strong> Comprehensive regulations governing Halal product quality control and the
+            use of the Halal logo were issued, strengthening the credibility of Thailand's Halal certification
+            system.</li>
+        <li><strong>Present day:</strong> CICOT continues to serve as Thailand's national authority for Halal
+            certification, advising government agencies on Islamic affairs, overseeing Islamic legal matters,
+            and recognizing Foreign Halal Certification Bodies under TAS 8400-2025.</li>
+    </ul>
+
+    <h2>Our Purpose</h2>
+    <ul>
+        <li>To regulate and standardize halal products and services imported to Thailand by certifying Foreign
+            Halal Certification Bodies (FHCBs).</li>
+        <li>To assess the compliance of FHCBs with the required standards.</li>
+        <li>To apply TAS 8400-2025 for all halal products imported to Thailand.</li>
+    </ul>
+
+    <div class="home-cta">
+        <p>Ready to begin your FHCB recognition application?</p>
+        <a href="Login Tech.html" class="back-home-btn">Login to Apply &rarr;</a>
+    </div>
+
+</div>
+
+<p>&copy; 2026 The Central Islamic Council of Thailand (CICOT). All rights reserved.</p>
+
+</body>
+</html>

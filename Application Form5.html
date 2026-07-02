@@ -181,10 +181,13 @@
 
     <button type="button"
             class="trash-btn"
-            onclick="document.getElementById('statutoryDeclaration').value = null">
-
-        🗑️
-
+            onclick="document.getElementById('statutoryDeclaration').value = null"
+            aria-label="Remove file"
+            title="Remove file">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
     </button>
 
 </div>
@@ -211,10 +214,13 @@
 
     <button type="button"
             class="trash-btn"
-            onclick="document.getElementById('certificateRegistration').value = null">
-
-        🗑️
-
+            onclick="document.getElementById('certificateRegistration').value = null"
+            aria-label="Remove file"
+            title="Remove file">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
     </button>
 
 </div>
@@ -241,10 +247,13 @@
 
     <button type="button"
             class="trash-btn"
-            onclick="document.getElementById('proofBilling').value = null">
-
-        🗑️
-
+            onclick="document.getElementById('proofBilling').value = null"
+            aria-label="Remove file"
+            title="Remove file">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
     </button>
 
 </div>
@@ -320,7 +329,7 @@ Is there any auditor who has been appointed by third-party company to conduct au
         Previous
 
     </button>
-<button onclick="saveForm5Draft()" >
+<button class="save-btn" onclick="saveForm5Draft()" >
         <span class="tooltiptext"> Save
         </span>
     </button> 

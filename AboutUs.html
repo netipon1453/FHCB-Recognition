@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -5,56 +6,26 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>Payment Form 7</title>
+    <title>About Us</title>
 
-    <link rel="stylesheet"
-          href="Payment Form7.css">
+    <link rel="stylesheet" href="AboutUs.css">
+    <link rel="stylesheet" href="header.css">
 </head>
 
 <body>
 
-<header>
+<div id="Header">
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    fetch("Head.html")
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById("Header").innerHTML = data;
+        });
+});
+</script>
 
-    <div class="background-image">
-
-        <div class="logo-left">
-            <img src="Patterned Thai Flag.png"
-                 alt="Thailand Flag"
-                 class="logo3">
-        </div>
-
-        <div class="h2-container">
-            <h2>
-                The Central Islamic Council of Thailand (CICOT)
-            </h2>
-        </div>
-
-        <div class="logo-right">
-
-            <img src="Halal English.png"
-                 alt="HALAL MARK"
-                 class="logo2">
-
-            <img src="LOGO CICOT.png"
-                 alt="CICOT Logo"
-                 class="logo1">
-
-        </div>
-
-    </div>
-
-
-    <nav class="navbar">
-
-        <a href="index.html">CICOT Website</a>
-        <a href="index.html">Home</a>
-        <a href="About.html">About Us</a>
-        <a href="Contact.html">Contact Us</a>
-        <a href="Login.html">Login to apply</a>
-
-    </nav>
-
-</header>
 <div class="form-container">
 
     <h2>About Us</h2>
@@ -79,17 +50,23 @@
         <li>Receive the final decision on recognition status</li>
         <li>Your FHCB will be recognized if it meets all the requirements. And also, your FHCB name will be announced in our official website.</li>
         <li>Recognition certificates will be issued upon successful recognition.</li>
-        
+
     </ul>
         <h3>Pivotal Notes</h3>
         <ul>
             <li>FHCB recognition is valid for 3 years. After that, FHCBs must apply for renewal to maintain their recognition status.</li>
             <li>FHCBs are required to comply with all relevant regulations and standards to maintain their recognition status.</li>
             <li>In case of FHCBs certifying any product in Thailand, their recognition of CICOT will be revoked automatically.</li>
-            <li>CICOT recognition bases on the country-based criteria. It means that FHCBs must certify halal products within their registered country. If FHCBs would like to certify halal products in other countries outside their original country, they must apply for the different country (each country).</li> 
+            <li>CICOT recognition bases on the country-based criteria. It means that FHCBs must certify halal products within their registered country. If FHCBs would like to certify halal products in other countries outside their original country, they must apply for the different country (each country).</li>
             <li>Halal certificates issued by recognized FHCBs must be addressed that halal products are certified under TAS 8400-2025, the requirements of CICOT, and the certified scope.</li>
             <li>Halal certificates must be issued by the registered and recognised country/branch (signed by the authorized representative of the FHCB's branch)</li>
         </ul>
-        
 
 </div>
+
+<div class="back-home-wrap">
+    <a href="index.html" class="back-home-btn">&larr; Back to Home</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,155 @@
+body{
+    margin:0;
+    font-family:"Segoe UI", Arial, sans-serif;
+    background-color:#f4f6f8;
+    color:#333;
+}
+
+/* HERO */
+.hero{
+    background:linear-gradient(135deg, #064e3b, #0f766e);
+    padding:60px 20px;
+}
+
+.hero-content{
+    max-width:900px;
+    margin:0 auto;
+    text-align:center;
+    color:#ffffff;
+}
+
+.hero-content h1{
+    margin:0 0 10px;
+    font-size:2.1rem;
+    font-weight:700;
+}
+
+.hero-sub{
+    margin:0 0 20px;
+    font-size:1.1rem;
+    font-weight:600;
+    color:#ecfdf5;
+}
+
+.hero-text{
+    margin:0 auto 30px;
+    max-width:720px;
+    line-height:1.7;
+    font-size:1rem;
+    color:#e5f5ee;
+}
+
+.hero-actions{
+    display:flex;
+    justify-content:center;
+    gap:16px;
+    flex-wrap:wrap;
+}
+
+.hero-btn{
+    display:inline-block;
+    padding:10px 24px;
+    border-radius:5px;
+    font-size:14px;
+    font-weight:600;
+    text-decoration:none;
+    transition:0.2s;
+}
+
+.hero-btn.primary{
+    background:#0b6b3a;
+    color:#ffffff;
+}
+
+.hero-btn.primary:hover{
+    background:#0f8f4b;
+}
+
+.hero-btn:not(.primary):not(.outline){
+    background:#ffffff;
+    color:#064e3b;
+}
+
+.hero-btn:not(.primary):not(.outline):hover{
+    background:#ecfdf5;
+}
+
+.hero-btn.outline{
+    background:transparent;
+    color:#ffffff;
+    border:1px solid rgba(255,255,255,0.7);
+}
+
+.hero-btn.outline:hover{
+    background:rgba(255,255,255,0.12);
+}
+
+/* CONTENT CARD */
+.form-container{
+    width:80%;
+    max-width:900px;
+    margin:30px auto;
+    padding:30px 40px;
+    background:#ffffff;
+    border-radius:8px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+}
+
+.form-container h2{
+    color:#064e3b;
+    margin-top:0;
+}
+
+.form-container h2:not(:first-child){
+    margin-top:28px;
+}
+
+.form-container p{
+    line-height:1.7;
+    text-align:left;
+}
+
+.form-container ul{
+    line-height:1.7;
+    padding-left:22px;
+}
+
+.form-container li{
+    margin-bottom:8px;
+}
+
+.home-cta{
+    margin-top:30px;
+    padding-top:20px;
+    border-top:1px solid #e5e7eb;
+    text-align:center;
+}
+
+.home-cta p{
+    text-align:center;
+    font-weight:600;
+    color:#064e3b;
+}
+
+.back-home-btn{
+    display:inline-block;
+    padding:10px 24px;
+    background:#0b6b3a;
+    color:#ffffff;
+    text-decoration:none;
+    border-radius:5px;
+    font-size:14px;
+    font-weight:600;
+    transition:0.2s;
+}
+
+.back-home-btn:hover{
+    background:#0f8f4b;
+}
+
+/* FOOTER COPYRIGHT (matches other pages) */
+p{
+    text-align:center;
+    font-size:0.9em;
+    color:#666;
+}
