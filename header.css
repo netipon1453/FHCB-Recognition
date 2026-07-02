@@ -1,0 +1,92 @@
+:root {
+    --green-deep: #064e3b;
+    --green-main: #0f766e;
+    --green-light: #ecfdf5;
+    --text-main: #1f2937;
+    --border: #e5e7eb;
+    --white: #ffffff;
+}
+
+/* HEADER */
+.site-header {
+    background: var(--white);
+    box-shadow: 0 4px 18px rgba(0,0,0,.08);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-main {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 16px 40px;
+    background: linear-gradient(
+        135deg,
+        #064e3b,
+        #0f766e
+    );
+}
+
+.logo-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255,255,255,.12);
+    padding: 10px 14px;
+    border-radius: 18px;
+}
+
+.logo {
+    width: auto;
+    object-fit: contain;
+}
+
+.logo-cicot,
+.logo-halal,
+.logo-flag {
+    height: 76px;
+}
+
+.header-title {
+    color: white;
+}
+
+.header-title h1 {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.header-title p {
+    margin-top: 8px;
+    font-size: 1rem;
+}
+
+/* NAVBAR */
+
+.navbar {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0 40px;
+    background: white;
+    border-bottom: 1px solid var(--border);
+}
+
+.navbar a {
+    padding: 16px 18px;
+    text-decoration: none;
+    color: var(--text-main);
+    font-weight: 600;
+}
+
+.navbar a:hover {
+    color: var(--green-main);
+    background: var(--green-light);
+}
+
+.nav-register {
+    margin-left: auto;
+    color: var(--green-deep);
+}

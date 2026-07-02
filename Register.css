@@ -1,53 +1,105 @@
-.background-image {
-    padding: 10px 20px;
-   
-    left: 0;
-    display: flex;
-    background-color: darkgreen;
-    align-items: center;
+/* ===== Header ให้เท่ากับ css1 ===== */
+
+:root {
+    --green-deep: #064e3b;
+    --green-main: #0f766e;
+    --green-light: #ecfdf5;
+    --text-main: #1f2937;
+    --border: #e5e7eb;
+    --white: #ffffff;
 }
-.line{
-    display: flex;
-    align-items: center;
-}
-.logo1{
-    margin-right: 10px;
-    width: auto;
-    height: 100px;
-}
-.logo2{
-    width: auto;
-    height: 100px;
-}
+
 body{
-    margin: 0;
-    font-family: Arial, sans-serif;
-    overflow: hidden;
+    margin:0;
+    font-family:"Segoe UI", Arial, sans-serif;
+    background-color:#f4f6f8;
+    color:#333;
+    padding-top:150px;
 }
-.h2-container{
-    text-align: center;
-    font-size: 1.2em;
-    font-weight: bold;
-    color: white;
-    flex-grow: 1;
+
+header{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    z-index:1000;
+    background:#fff;
+    box-shadow:0 4px 18px rgba(0,0,0,0.08);
 }
-.navbar {
-    background-color: rgb(162, 235, 236);
-    overflow: hidden;
-    font-weight: bold;
+
+.background-image{
+    display:flex;
+    align-items:center;
+    gap:24px;
+    padding:16px 40px;
+    background:linear-gradient(135deg, #064e3b, #0f766e);
 }
-.navbar a {
-    
-    display: inline-block;
-    color: rgb(10, 10, 9);
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
+
+.line{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:rgba(255,255,255,0.12);
+    padding:10px 14px;
+    border-radius:18px;
 }
-.navbar a:hover {
-    background-color: #ddd;
-    color: rgb(206, 36, 36);
+
+.logo1,
+.logo2,
+.logo3{
+    height:76px;
+    width:auto;
+    object-fit:contain;
+    margin:0;
 }
+
+.header-title{
+    color:#ffffff;
+    text-align:left;
+}
+
+.header-title h1{
+    margin:0;
+    font-size:1.55rem;
+    font-weight:700;
+    letter-spacing:0.3px;
+    color:#ffffff;
+}
+
+.header-title p{
+    margin:6px 0 0;
+    font-size:0.95rem;
+    opacity:0.9;
+    color:#ffffff;
+    text-align:left;
+}
+
+/* ===== Navbar ให้เท่ากับ css1 ===== */
+
+.navbar{
+    display:flex;
+    align-items:center;
+    gap:4px;
+    padding:0 40px;
+    background:#ffffff;
+    border-bottom:1px solid #e5e7eb;
+}
+
+.navbar a{
+    padding:15px 18px;
+    text-decoration:none;
+    color:#1f2937;
+    font-weight:600;
+    font-size:0.92rem;
+    transition:0.2s;
+}
+
+.navbar a:hover{
+    color:#0f766e;
+    background:#ecfdf5;
+}
+
+
 .register-container {
     
     margin: 10px 20px;
@@ -123,4 +175,7 @@ input[type="submit"] {
 /* แสดง tooltip เมื่อ hover */
 .tooltip:hover::after {
   opacity: 1;
+}
+.header-title {
+    color:#ffffff !important;
 }

@@ -3,55 +3,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>FHCB Recognition Dashboard</title>
     <link rel="stylesheet" href="Dashboard.css">
 </head>
+
 <body>
-    <header>
-    <div class="background-image">
-        
-        <div class="line">
-            <img src="LOGO CICOT.png" alt="CICOT Logo" class="logo1">
-            <img src="Halal English.png" alt="HALAL MARK" class="logo2">
-            <img src="Patterned Thai Flag.png" alt="Thailand Flag" class="logo3">
+
+<header class="site-header">
+    <div class="header-main">
+        <div class="logo-group">
+            <img src="LOGO CICOT.png" alt="CICOT Logo" class="logo logo-cicot">
+            <img src="Halal English.png" alt="Halal Mark" class="logo logo-halal">
+            <img src="Patterned Thai Flag.png" alt="Thailand Flag" class="logo logo-flag">
         </div>
-        <div class="h2-container">
-        <h2>The Central Islamic Council of Thailand (CICOT)</h2>
+
+        <div class="header-title">
+            <h1>The Central Islamic Council of Thailand (CICOT)</h1>
+            <p>Foreign Halal Certification Body Recognition System</p>
         </div>
     </div>
+
     <nav class="navbar">
-            <a href="https://www.cicot.or.th/">CICOT Website</a>
-            <a href="index.html">Home</a>
-            <a href="About.html">About Us</a>
-            <a href="Contact.html">Contact Us</a>
-            <a href="Login.html">Login to apply</a>
-            <a href="Register.html">Register</a>
+        <a href="https://www.cicot.or.th/" target="_blank">CICOT Website</a>
+        <a href="index.html">Home</a>
+        <a href="About.html">About Us</a>
+        <a href="Contact.html">Contact Us</a>
+        <a href="Login.html">Login to Apply</a>
+        <a href="Register.html" class="nav-register">Register</a>
     </nav>
-    </header>
-    <div class="dashboard-container">
-        <h1>Welcome to FHCB recognition status</h1> 
-    </div>
-    <div class="status-table">
-    <table class="dashboard-table">
-        <tr>
-            <th>Application ID</th>
-            <th>Registrarion step</th>
-            <th>Application step</th>
-            <th>Assessment</th>
-            <th>Final Status</th>
-        </tr>
-        <tr>
-            <td>001</td>
-            <td>Registrarion step completed</td>
-            <td>Application step completed</td>
-            <td>Pending</td>
-            <td>Teir1<br>
-                Teir2<br>
-                Teir3</td>
-        </tr>
-    </table>
-    </div>
-    <div class="apply-button">
-    <input type="button" value="Apply" onclick="location.href='Application Form.html'">
-    </div>
+</header>
+
+<main class="dashboard">
+
+    <section class="welcome-card">
+        <div>
+            <p class="label">User Dashboard</p>
+            <h2>FHCB Recognition Status</h2>
+            <p>Track your application progress, assessment status, and final recognition tier.</p>
+        </div>
+
+        <button class="apply-main-btn" onclick="location.href='Application Form.html'">
+            Apply for Recognition
+        </button>
+    </section>
+
+    <section class="summary-grid">
+        <div class="summary-card">
+            <h3>Application ID</h3>
+            <p>001</p>
+            <span>Current application</span>
+        </div>
+
+        <div class="summary-card">
+            <h3>Registration</h3>
+            <p class="success">Completed</p>
+            <span>Profile verified</span>
+        </div>
+
+        <div class="summary-card">
+            <h3>Assessment</h3>
+            <p class="pending">Pending</p>
+            <span>Awaiting review</span>
+        </div>
+
+        <div class="summary-card">
+            <h3>Final Status</h3>
+            <p class="neutral">Under Process</p>
+            <span>Tier to be confirmed</span>
+        </div>
+    </section>
+
+    <section class="table-card">
+        <div class="table-header">
+            <h2>Application Progress</h2>
+            <p>Overview of your FHCB recognition application</p>
+        </div>
+
+        <div class="table-wrapper">
+            <table class="dashboard-table">
+                <thead>
+                    <tr>
+                        <th>Application ID</th>
+                        <th>Registration Step</th>
+                        <th>Application Step</th>
+                        <th>Status</th>
+                        <th>Available Tier</th>
+                        <th>Assessment Result</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td><strong>001</strong></td>
+                        <td>
+                            <div class="progress-bar">
+                                <span>On Progress</span></div>
+                                <span>Completed</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="progress-bar">
+                                <span>On Progress</span></div>
+                                <span>Completed</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="progress-bar">
+                                <span>Incomplete Documentation</span></div>
+                                <span>Documents Rejected</span><div>
+                                <span>Payment Pending</span></div>
+                                <span>Awaiting Payment Verification</span><div>
+                                <span>Under Review</span></div>
+                                <span>Payment Failed</span><div>
+                                <span>Invalid Proof of Payment</span></div>
+                                <span>Pending Assessment Result</span></div>
+                                
+                            </div>
+                        </td>
+                        <td>
+                            <div class="tier-list">
+                                <span>Tier 0</span></div>
+                                <span>Tier 1</span><div>
+                                <span>Tier 2</span><div>
+                                <span>Tier 3</span><div>
+                                <span>Tier 4</span>
+                            </div>
+                        </td>
+                        <td>
+                            
+                            <div class="progress-bar">
+                                <span>Application Rejected</span></div>
+                                <span>Application Approved</span></div>
+                                <span>Documents Required</span><div>
+                                <span>On-site Assessment with General Factory Witness Required </span></div>
+                                <span>On-site Assessment with Abattoir Witness Required</span>
+                            </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+</main>
+
 </body>
+</html>

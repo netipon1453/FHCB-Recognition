@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard — Halal Certification System</title>
+  <link rel="stylesheet" href="./style.css" />
+  <link rel="stylesheet" href="./admin.css" />
+<body>
+
+<div class="admin-layout">
+  <!-- ══════════ SIDEBAR ══════════ -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="logo-circle">☪️</div>
+      <h2>Halal Certification<br>Admin System</h2>
+      <p>FHCB Management Portal</p>
+    </div>
+
+    <div class="sidebar-user">
+      <div class="user-avatar">SK</div>
+      <div>
+        <div class="user-name">Somjai Kaewprakhon</div>
+        <div class="user-role">Senior Officer</div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-group-label">Overview</div>
+      <a onclick="switchView('dashboard')" class="active" id="nav-dashboard">
+        <span class="nav-icon">📊</span> Dashboard
+      </a>
+
+      <div class="nav-group-label">Applications</div>
+      <a onclick="switchView('all')" id="nav-all">
+        <span class="nav-icon">📋</span> All Applications
+        <span class="nav-badge" id="badge-all">6</span>
+      </a>
+      <a onclick="switchView('pending')" id="nav-pending" class="pending-nav">
+        <span class="nav-icon">⏳</span> Pending Review
+        <span class="nav-badge" id="badge-pending">2</span>
+      </a>
+      <a onclick="switchView('review')" id="nav-review">
+        <span class="nav-icon">🔍</span> Under Review
+        <span class="nav-badge" id="badge-review">2</span>
+      </a>
+      <a onclick="switchView('approved')" id="nav-approved" class="approved-nav">
+        <span class="nav-icon">✅</span> Approved
+        <span class="nav-badge" id="badge-approved">1</span>
+      </a>
+      <a onclick="switchView('rejected')" id="nav-rejected" class="rejected-nav">
+        <span class="nav-icon">❌</span> Rejected
+        <span class="nav-badge" id="badge-rejected">1</span>
+      </a>
+
+      <div class="nav-group-label">Management</div>
+      <a onclick="switchView('reports')" id="nav-reports">
+        <span class="nav-icon">📈</span> Reports & Analytics
+      </a>
+      <a href="#" onclick="toast('Settings coming soon','info')">
+        <span class="nav-icon">⚙️</span> Settings
+      </a>
+
+      <div class="nav-group-label">Navigation</div>
+      <a href="index.html">
+        <span class="nav-icon">🏠</span> Back to Website
+      </a>
+      <a href="apply.html">
+        <span class="nav-icon">📝</span> Application Form
+      </a>
+    </nav>
+  </aside>
+
+  <!-- ══════════ MAIN ══════════ -->
+  <main class="admin-main">
+
+    <!-- TOPBAR -->
+    <div class="topbar">
+      <div class="topbar-left">
+        <h1 id="topbar-title">Dashboard</h1>
+        <p id="topbar-sub">Overview of all FHCB applications · Updated: <span id="topbar-time"></span></p>
+      </div>
+      <div class="topbar-right">
+        <button class="topbar-btn ghost" onclick="exportCSV()">⬇ Export CSV</button>
+        
+      </div>
+    </div>
+
+    <!-- ── DASHBOARD ── -->
+    <div class="view-panel active" id="view-dashboard">
+      <div class="stat-grid">
+        <div class="stat-card s-total"    onclick="switchView('all')">
+          <div class="stat-icon-box">📁</div>
+          <div>
+            <div class="stat-num" id="s-total">6</div>
+            <div class="stat-label">Total Applications</div>
+            <div class="stat-delta">↑ 2 this week</div>
+          </div>
+        </div>
+        <div class="stat-card s-pending"  onclick="switchView('pending')">
+          <div class="stat-icon-box">⏳</div>
+          <div>
+            <div class="stat-num" id="s-pending">2</div>
+            <div class="stat-label">Pending Review</div>
+            <div class="stat-delta" style="color:#f39c12;">Needs attention</div>
+          </div>
+        </div>
+        <div class="stat-card s-review"   onclick="switchView('review')">
+          <div class="stat-icon-box">🔍</div>
+          <div>
+            <div class="stat-num" id="s-review">2</div>
+            <div class="stat-label">Under Review</div>
+            <div class="stat-delta" style="color:#3498db;">In progress</div>
+          </div>
+        </div>
+        <div class="stat-card s-approved" onclick="switchView('approved')">
+          <div class="stat-icon-box">✅</div>
+          <div>
+            <div class="stat-num" id="s-approved">1</div>
+            <div class="stat-label">Approved</div>
+            <div class="stat-delta">This month</div>
+          </div>
+        </div>
+        <div class="stat-card s-rejected" onclick="switchView('rejected')">
+          <div class="stat-icon-box">❌</div>
+          <div>
+            <div class="stat-num" id="s-rejected">1</div>
+            <div class="stat-label">Rejected</div>
+            <div class="stat-delta" style="color:#e74c3c;">Requires follow-up</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="charts-grid">
+        <!-- Bar Chart -->
+        <div class="chart-card">
+          <h3>📅 Applications per Month (2024)</h3>
+          <div class="bar-chart" id="monthlyBar"></div>
+        </div>
+        <!-- Donut / Type -->
+        <div class="chart-card">
+          <h3>🏢 Organisation Type</h3>
+          <div class="donut-wrap">
+            <svg width="90" height="90" viewBox="0 0 36 36" style="flex-shrink:0;">
+              <circle cx="18" cy="18" r="15.9" fill="none" stroke="#f0f0f0" stroke-width="3.5"/>
+              <circle cx="18" cy="18" r="15.9" fill="none" stroke="var(--green-mid)" stroke-width="3.5" stroke-dasharray="50 50" stroke-dashoffset="25" stroke-linecap="round"/>
+              <circle cx="18" cy="18" r="15.9" fill="none" stroke="var(--gold)" stroke-width="3.5" stroke-dasharray="17 83" stroke-dashoffset="-25" stroke-linecap="round"/>
+              <circle cx="18" cy="18" r="15.9" fill="none" stroke="#3498db" stroke-width="3.5" stroke-dasharray="17 83" stroke-dashoffset="-42" stroke-linecap="round"/>
+              <circle cx="18" cy="18" r="15.9" fill="none" stroke="#9b59b6" stroke-width="3.5" stroke-dasharray="16 84" stroke-dashoffset="-59" stroke-linecap="round"/>
+            </svg>
+            <div class="donut-legend">
+              <div class="legend-item"><div class="legend-dot" style="background:var(--green-mid)"></div>Government — 50%</div>
+              <div class="legend-item"><div class="legend-dot" style="background:var(--gold)"></div>Non-Profit — 17%</div>
+              <div class="legend-item"><div class="legend-dot" style="background:#3498db"></div>Company Ltd — 17%</div>
+              <div class="legend-item"><div class="legend-dot" style="background:#9b59b6"></div>Others — 16%</div>
+            </div>
+          </div>
+        </div>
+        <!-- Country -->
+        <div class="chart-card">
+          <h3>🌍 Applications by Country</h3>
+          <div style="display:flex;flex-direction:column;gap:9px;">
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px;font-size:0.8rem;"><span>Malaysia</span><strong>2</strong></div>
+              <div style="height:5px;background:#f0f0f0;border-radius:100px;"><div style="width:33%;height:100%;background:var(--green-mid);border-radius:100px;"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px;font-size:0.8rem;"><span>Indonesia</span><strong>2</strong></div>
+              <div style="height:5px;background:#f0f0f0;border-radius:100px;"><div style="width:33%;height:100%;background:var(--gold);border-radius:100px;"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px;font-size:0.8rem;"><span>Jordan</span><strong>1</strong></div>
+              <div style="height:5px;background:#f0f0f0;border-radius:100px;"><div style="width:17%;height:100%;background:#3498db;border-radius:100px;"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px;font-size:0.8rem;"><span>UAE</span><strong>1</strong></div>
+              <div style="height:5px;background:#f0f0f0;border-radius:100px;"><div style="width:17%;height:100%;background:#9b59b6;border-radius:100px;"></div></div>
+            </div>
+          </div>
+        </div>
+        <!-- Recent Activity -->
+        <div class="chart-card">
+          <h3>🔔 Recent Activity</h3>
+          <div class="activity-list">
+            <div class="activity-item">
+              <div class="act-dot" style="background:#d1f0e0;">✅</div>
+              <div>
+                <div class="act-text"><strong>FHCB-2024-0001</strong> approved by Officer Somjai</div>
+                <span class="act-time">Today, 09:12</span>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="act-dot" style="background:#cff4fc;">🔍</div>
+              <div>
+                <div class="act-text"><strong>FHCB-2024-0006</strong> moved to Under Review</div>
+                <span class="act-time">Today, 08:45</span>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="act-dot" style="background:#fff3cd;">📋</div>
+              <div>
+                <div class="act-text">New application <strong>FHCB-2024-0006</strong> received</div>
+                <span class="act-time">Yesterday, 16:30</span>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="act-dot" style="background:#f8d7da;">❌</div>
+              <div>
+                <div class="act-text"><strong>FHCB-2024-0005</strong> rejected — incomplete docs</div>
+                <span class="act-time">Yesterday, 14:20</span>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="act-dot" style="background:#fff3cd;">📋</div>
+              <div>
+                <div class="act-text">New application <strong>FHCB-2024-0005</strong> received</div>
+                <span class="act-time">2 days ago, 10:05</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Pending -->
+      <div class="section-label" style="margin-top:28px;">Applications Requiring Action</div>
+      <div class="tbl-card">
+        <div class="tbl-card-header">
+          <h3>⚡ Pending &amp; Under Review</h3>
+          <button class="topbar-btn ghost" onclick="switchView('pending')" style="font-size:0.78rem;">View all →</button>
+        </div>
+        <div class="tbl-wrap"><table>
+          <thead><tr>
+            <th>Reference</th><th>Organisation</th><th>Country</th><th>Submitted</th><th>Status</th><th>Actions</th>
+          </tr></thead>
+          <tbody id="dashTbody"></tbody>
+        </table></div>
+      </div>
+    </div>
+
+    <!-- ── ALL APPLICATIONS ── -->
+    <div class="view-panel" id="view-all">
+      <div class="tbl-card">
+        <div class="tbl-card-header">
+          <h3>All Applications</h3>
+          <div class="tbl-filters">
+            <input type="text" id="allSearch" placeholder="🔍 Search…" oninput="renderTable('all-tbody','',this.value,document.getElementById('allStatus').value)"/>
+            <select id="allStatus" onchange="renderTable('all-tbody','',document.getElementById('allSearch').value,this.value)">
+              <option value="">All Status</option>
+              <option value="pending">Pending</option>
+              <option value="review">Under Review</option>
+              <option value="approved">Approved</option>
+              <option value="rejected">Rejected</option>
+            </select>
+          </div>
+        </div>
+        <div class="tbl-wrap"><table>
+          <thead><tr>
+            <th>Reference No.</th><th>Organisation</th><th>Type</th><th>Country</th>
+            <th>Contact</th><th>Submitted</th><th>Status</th><th>Actions</th>
+          </tr></thead>
+          <tbody id="all-tbody"></tbody>
+        </table></div>
+        <div class="pagination">
+          <div class="pagination-info" id="all-pg-info"></div>
+          <div class="pagination-btns" id="all-pg-btns"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PENDING ── -->
+    <div class="view-panel" id="view-pending">
+      <div class="tbl-card">
+        <div class="tbl-card-header">
+          <h3>⏳ Pending Review</h3>
+          <input type="text" placeholder="🔍 Search…" oninput="renderTable('pending-tbody','pending',this.value,'')"/>
+        </div>
+        <div class="tbl-wrap"><table>
+          <thead><tr>
+            <th>Reference No.</th><th>Organisation</th><th>Type</th><th>Country</th>
+            <th>Contact</th><th>Submitted</th><th>Status</th><th>Actions</th>
+          </tr></thead>
+          <tbody id="pending-tbody"></tbody>
+        </table></div>
+      </div>
+    </div>
+
+    <!-- ── REVIEW ── -->
+    <div class="view-panel" id="view-review">
+      <div class="tbl-card">
+        <div class="tbl-card-header"><h3>🔍 Under Review</h3></div>
+        <div class="tbl-wrap"><table>
+          <thead><tr>
+            <th>Reference No.</th><th>Organisation</th><th>Type</th><th>Country</th>
+            <th>Contact</th><th>Submitted</th><th>Status</th><th>Actions</th>
+          </tr></thead>
+          <tbody id="review-tbody"></tbody>
+        </table></div>
+      </div>
+    </div>
+
+    <!-- ── APPROVED ── -->
+    <div class="view-panel" id="view-approved">
+      <div class="tbl-card">
+        <div class="tbl-card-header"><h3>✅ Approved Applications</h3></div>
+        <div class="tbl-wrap"><table>
+          <thead><tr>
+            <th>Reference No.</th><th>Organisation</th><th>Type</th><th>Country</th>
+            <th>Contact</th><th>Submitted</th><th>Status</th><th>Actions</th>
+          </tr></thead>
+          <tbody id="approved-tbody"></tbody>
+        </table></div>
+      </div>
+    </div>
+
+    <!-- ── REJECTED ── -->
+    <div class="view-panel" id="view-rejected">
+      <div class="tbl-card">
+        <div class="tbl-card-header"><h3>❌ Rejected Applications</h3></div>
+        <div class="tbl-wrap"><table>
+          <thead><tr>
+            <th>Reference No.</th><th>Organisation</th><th>Type</th><th>Country</th>
+            <th>Contact</th><th>Submitted</th><th>Status</th><th>Actions</th>
+          </tr></thead>
+          <tbody id="rejected-tbody"></tbody>
+        </table></div>
+      </div>
+    </div>
+
+    <!-- ── REPORTS ── -->
+    <div class="view-panel" id="view-reports">
+      <div class="stat-grid">
+        <div class="stat-card s-total"><div class="stat-icon-box">📁</div><div><div class="stat-num">6</div><div class="stat-label">Total This Year</div></div></div>
+        <div class="stat-card s-approved"><div class="stat-icon-box">✅</div><div><div class="stat-num">1</div><div class="stat-label">Approval Rate 17%</div></div></div>
+        <div class="stat-card s-review"><div class="stat-icon-box">⏱️</div><div><div class="stat-num">7</div><div class="stat-label">Avg. Processing Days</div></div></div>
+      </div>
+      <div class="charts-grid">
+        <div class="chart-card" style="grid-column:1/-1">
+          <h3>📊 Monthly Application Trend</h3>
+          <div class="bar-chart" style="height:120px;" id="reportBar"></div>
+        </div>
+        <div class="chart-card">
+          <h3>📋 Document Completion Rate</h3>
+          <div style="display:flex;flex-direction:column;gap:10px;margin-top:4px;">
+            <div><div style="display:flex;justify-content:space-between;font-size:0.8rem;margin-bottom:4px;"><span>Part 1 — Organisation Info</span><strong>100%</strong></div><div style="height:6px;background:#f0f0f0;border-radius:9px;"><div style="width:100%;height:100%;background:var(--green-mid);border-radius:9px;"></div></div></div>
+            <div><div style="display:flex;justify-content:space-between;font-size:0.8rem;margin-bottom:4px;"><span>Part 2 — Registration</span><strong>100%</strong></div><div style="height:6px;background:#f0f0f0;border-radius:9px;"><div style="width:100%;height:100%;background:var(--green-mid);border-radius:9px;"></div></div></div>
+            <div><div style="display:flex;justify-content:space-between;font-size:0.8rem;margin-bottom:4px;"><span>Part 3 — Audit & Affiliation</span><strong>83%</strong></div><div style="height:6px;background:#f0f0f0;border-radius:9px;"><div style="width:83%;height:100%;background:var(--gold);border-radius:9px;"></div></div></div>
+            <div><div style="display:flex;justify-content:space-between;font-size:0.8rem;margin-bottom:4px;"><span>Part 4 — Standards & Process</span><strong>67%</strong></div><div style="height:6px;background:#f0f0f0;border-radius:9px;"><div style="width:67%;height:100%;background:#f39c12;border-radius:9px;"></div></div></div>
+            <div><div style="display:flex;justify-content:space-between;font-size:0.8rem;margin-bottom:4px;"><span>Part 5 — Documents</span><strong>50%</strong></div><div style="height:6px;background:#f0f0f0;border-radius:9px;"><div style="width:50%;height:100%;background:#e74c3c;border-radius:9px;"></div></div></div>
+          </div>
+        </div>
+        <div class="chart-card">
+          <h3>⬇️ Export Reports</h3>
+          <div style="display:flex;flex-direction:column;gap:10px;margin-top:4px;">
+            <button class="topbar-btn primary" onclick="exportCSV()" style="justify-content:center;">📄 Export All (CSV)</button>
+            <button class="topbar-btn ghost" onclick="toast('PDF export coming soon')">🖨️ Export PDF Report</button>
+            <button class="topbar-btn ghost" onclick="toast('Excel export coming soon')">📊 Export Excel</button>
+          </div>
+          <div style="margin-top:20px;font-size:0.78rem;color:var(--text-muted);line-height:1.6;">
+            Reports include all application data, status history, document checklist, and personnel declarations.
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ══════════ APPLICATION DETAIL MODAL ══════════ -->
+<div class="modal-overlay" id="detailModal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div>
+        <h2 id="m-title">Organisation Name</h2>
+        <div class="modal-ref" id="m-ref"></div>
+        <div id="m-status-badge" style="margin-top:6px;"></div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+
+    <div class="modal-tabs">
+      <button class="modal-tab active" onclick="switchTab(0)">📋 Overview</button>
+      <button class="modal-tab" onclick="switchTab(1)">🏢 Registration</button>
+      <button class="modal-tab" onclick="switchTab(2)">🔍 Audit & Affiliation</button>
+      <button class="modal-tab" onclick="switchTab(3)">📜 Standards</button>
+      <button class="modal-tab" onclick="switchTab(4)">📎 Documents</button>
+      <button class="modal-tab" onclick="switchTab(5)">👥 Personnel</button>
+      <button class="modal-tab" onclick="switchTab(6)">📝 Notes & History</button>
+    </div>
+
+    <div class="modal-body">
+
+      <!-- TAB 0: OVERVIEW -->
+      <div class="modal-tab-panel active" id="mtab-0">
+        <div class="modal-section-title">Organisation Information</div>
+        <div class="info-grid">
+          <div class="info-item"><div class="info-label">Organisation Name</div><div class="info-val" id="m-org"></div></div>
+          <div class="info-item"><div class="info-label">Type</div><div class="info-val" id="m-type"></div></div>
+          <div class="info-item"><div class="info-label">Country</div><div class="info-val" id="m-country"></div></div>
+          <div class="info-item"><div class="info-label">Website</div><div class="info-val" id="m-website"></div></div>
+          <div class="info-item full"><div class="info-label">Address</div><div class="info-val" id="m-address"></div></div>
+        </div>
+        <div class="modal-section-title">Contact Person</div>
+        <div class="info-grid">
+          <div class="info-item"><div class="info-label">Contact Person</div><div class="info-val" id="m-contact"></div></div>
+          <div class="info-item"><div class="info-label">Designation</div><div class="info-val" id="m-designation"></div></div>
+          <div class="info-item"><div class="info-label">Phone</div><div class="info-val" id="m-phone"></div></div>
+          <div class="info-item"><div class="info-label">Email</div><div class="info-val" id="m-email"></div></div>
+        </div>
+        <div class="modal-section-title">Application Timeline</div>
+        <div class="modal-timeline" id="m-timeline"></div>
+      </div>
+
+      <!-- TAB 1: REGISTRATION -->
+      <div class="modal-tab-panel" id="mtab-1">
+        <div class="modal-section-title">Registered Information</div>
+        <div class="info-grid">
+          <div class="info-item full"><div class="info-label">Registered Name</div><div class="info-val" id="m-regname"></div></div>
+          <div class="info-item"><div class="info-label">House / Village</div><div class="info-val" id="m-house"></div></div>
+          <div class="info-item"><div class="info-label">Street / Road</div><div class="info-val" id="m-street"></div></div>
+          <div class="info-item"><div class="info-label">City</div><div class="info-val" id="m-city"></div></div>
+          <div class="info-item"><div class="info-label">State / Province</div><div class="info-val" id="m-state"></div></div>
+          <div class="info-item"><div class="info-label">Postal Code</div><div class="info-val" id="m-postal"></div></div>
+          <div class="info-item"><div class="info-label">Country</div><div class="info-val" id="m-regcountry"></div></div>
+        </div>
+      </div>
+
+      <!-- TAB 2: AUDIT & AFFILIATION -->
+      <div class="modal-tab-panel" id="mtab-2">
+        <div class="info-grid">
+          <div class="info-item"><div class="info-label">Audit Frequency</div><div class="info-val" id="m-auditfreq"></div></div>
+          <div class="info-item"><div class="info-label">Ownership</div><div class="info-val" id="m-ownership"></div></div>
+          <div class="info-item"><div class="info-label">Affiliated non-Muslim org?</div><div class="info-val" id="m-nonmuslim"></div></div>
+          <div class="info-item"><div class="info-label">Certifies outside country?</div><div class="info-val" id="m-outsidecountry"></div></div>
+          <div class="info-item"><div class="info-label">Certifies Abattoirs?</div><div class="info-val" id="m-abattoir"></div></div>
+          <div class="info-item"><div class="info-label">Stunning Applied?</div><div class="info-val" id="m-stunning"></div></div>
+          <div class="info-item"><div class="info-label">Exports to Thailand?</div><div class="info-val" id="m-thailand"></div></div>
+          <div class="info-item"><div class="info-label">ISO Accreditation</div><div class="info-val" id="m-iso"></div></div>
+          <div class="info-item full"><div class="info-label">International Recognition</div><div class="info-val" id="m-recognition"></div></div>
+        </div>
+      </div>
+
+      <!-- TAB 3: STANDARDS -->
+      <div class="modal-tab-panel" id="mtab-3">
+        <div class="info-grid">
+          <div class="info-item"><div class="info-label">Has Internal Standards?</div><div class="info-val" id="m-hasstandards"></div></div>
+          <div class="info-item"><div class="info-label">Certification Scheme</div><div class="info-val" id="m-scheme"></div></div>
+          <div class="info-item full"><div class="info-label">SOP Description</div><div class="info-val" id="m-sop"></div></div>
+          <div class="info-item"><div class="info-label">Audit Frequency (High-risk)</div><div class="info-val" id="m-auditfreq2"></div></div>
+        </div>
+      </div>
+
+      <!-- TAB 4: DOCUMENTS -->
+      <div class="modal-tab-panel" id="mtab-4">
+        <div class="modal-section-title">Uploaded Documents</div>
+        <div class="doc-list" id="m-docs"></div>
+      </div>
+
+      <!-- TAB 5: PERSONNEL -->
+      <div class="modal-tab-panel" id="mtab-5">
+        <div class="modal-section-title">1. President / Chairman</div>
+        <div class="info-grid" id="m-president"></div>
+        <div class="modal-section-title">2. Halal In-Charge</div>
+        <div class="info-grid" id="m-incharge"></div>
+        <div class="modal-section-title">3–5. Shariah Board / Auditors</div>
+        <div id="m-auditors"></div>
+      </div>
+
+      <!-- TAB 6: NOTES & HISTORY -->
+      <div class="modal-tab-panel" id="mtab-6">
+        <div class="modal-section-title">Officer Notes</div>
+        <textarea class="notes-area" id="m-notes" placeholder="Add internal notes, observations, or action items..."></textarea>
+        <button onclick="saveNotes()" class="topbar-btn primary" style="margin-top:10px;">💾 Save Notes</button>
+
+        <div class="modal-section-title" style="margin-top:24px;">Status History</div>
+        <div id="m-history" style="display:flex;flex-direction:column;gap:0;"></div>
+      </div>
+
+    </div><!-- /modal-body -->
+
+    <div class="modal-foot">
+      <div class="modal-foot-left">
+        <button class="mf-btn mf-close" onclick="closeModal()">Close</button>
+      </div>
+      <div class="modal-foot-right" id="modal-actions"></div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast-wrap" id="toastWrap"></div>
+
+<script src="js/main.js"></script>
+<script>
+/* ════════════════════════════════════════
+   DATA
+════════════════════════════════════════ */
+const APPS = [
+  {
+    ref:'FHCB-2024-0001', org:'JAKIM Malaysia', type:'Government',
+    country:'Malaysia', contact:'Dr. Ahmad Rashid', designation:'Director General',
+    phone:'+60 3-8886 4000', email:'info@jakim.gov.my', website:'www.jakim.gov.my',
+    address:'Blok B6, Kompleks Kerajaan, Putrajaya, 62100 Malaysia',
+    submitted:'10/05/2024', status:'approved',
+    regname:'Jabatan Kemajuan Islam Malaysia', house:'Blok B6', street:'Persiaran Perdana',
+    city:'Putrajaya', state:'Wilayah Persekutuan', postal:'62100', regcountry:'Malaysia',
+    auditfreq:'Quarterly', ownership:'Fully Government-Owned',
+    nonmuslim:'No', outsidecountry:'Yes — Singapore, Thailand, Indonesia',
+    abattoir:'Yes — Cattle, Chicken, Duck', stunning:'Yes — Water-bath electrical',
+    thailand:'Yes — 12 abattoirs', iso:'ISO/IEC 17065:2012', recognition:'MUIS, BPJPH, Saudi Halal Center',
+    hasstandards:'Yes', scheme:'MS1500, MPPHM', sop:'Online application → Document check → Site inspection → Committee review → Certificate issuance',
+    auditfreq2:'Quarterly',
+    docs:['Halal Certificate Sample.pdf','Internal Standards.pdf','Process Document.pdf','Logo Guidelines.pdf','Statutory Declaration.pdf'],
+    notes:'Established body with strong track record. Full documentation received.',
+    history:[
+      {date:'10/05/2024', action:'Application received', officer:'System'},
+      {date:'13/05/2024', action:'Moved to Under Review', officer:'Somjai K.'},
+      {date:'17/05/2024', action:'Site inspection completed', officer:'Chai P.'},
+      {date:'20/05/2024', action:'Approved', officer:'Somjai K.'},
+    ]
+  },
+  {
+    ref:'FHCB-2024-0002', org:'BPJPH Indonesia', type:'Government',
+    country:'Indonesia', contact:'Ir. Siti Aminah', designation:'Head of Department',
+    phone:'+62 21 3812 4567', email:'halal@bpjph.go.id', website:'www.halal.go.id',
+    address:'Jl. MH. Thamrin No.6, Jakarta Pusat 10340, Indonesia',
+    submitted:'14/05/2024', status:'review',
+    regname:'Badan Penyelenggara Jaminan Produk Halal', house:'No.6', street:'Jl. MH. Thamrin',
+    city:'Jakarta Pusat', state:'DKI Jakarta', postal:'10340', regcountry:'Indonesia',
+    auditfreq:'Semi-Annually', ownership:'Fully Government-Owned',
+    nonmuslim:'No', outsidecountry:'Yes — Malaysia, Singapore', abattoir:'Yes — Cattle, Sheep, Chicken',
+    stunning:'Yes — Gas Stunning, Water-bath electrical', thailand:'No', iso:'ISO 17065:2012',
+    recognition:'JAKIM, MUIS', hasstandards:'Yes', scheme:'SNI 99003:2021', sop:'Online submission → Review → Audit → Decision',
+    auditfreq2:'Semi-Annually',
+    docs:['Standards Document.pdf','Process Document.pdf','Statutory Declaration.pdf'],
+    notes:'Documents mostly complete. Awaiting updated logo guidelines.',
+    history:[
+      {date:'14/05/2024', action:'Application received', officer:'System'},
+      {date:'16/05/2024', action:'Moved to Under Review', officer:'Somjai K.'},
+    ]
+  },
+  {
+    ref:'FHCB-2024-0003', org:'Islamic Food Council of Europe', type:'Non-Profit Organisation',
+    country:'United Kingdom', contact:'Sheikh Abdullah Hassan', designation:'Secretary General',
+    phone:'+44 20 7946 0123', email:'info@ifce.org', website:'www.ifce.org',
+    address:'12 Baker Street, London, W1U 3BW, United Kingdom',
+    submitted:'15/05/2024', status:'pending',
+    regname:'Islamic Food Council of Europe Ltd.', house:'12', street:'Baker Street',
+    city:'London', state:'England', postal:'W1U 3BW', regcountry:'United Kingdom',
+    auditfreq:'Annually', ownership:'Non-Profit / NGO',
+    nonmuslim:'Yes — Partners with UK Food Standards Agency for labelling guidance',
+    outsidecountry:'Yes — France, Germany, Netherlands', abattoir:'Yes — Cattle, Sheep',
+    stunning:'Yes — Pneumatic Gun Stunning', thailand:'No', iso:'None declared',
+    recognition:'JAKIM', hasstandards:'Yes', scheme:'IFCE-HS-2019', sop:'Application form → Document review → Audit → Board decision',
+    auditfreq2:'Annually',
+    docs:['Application Form.pdf','Certificate Sample.pdf'],
+    notes:'First application from EU region. Needs closer scrutiny on non-Muslim affiliation.',
+    history:[
+      {date:'15/05/2024', action:'Application received', officer:'System'},
+    ]
+  },
+  {
+    ref:'FHCB-2024-0004', org:'Emirates International Accreditation Centre', type:'Government',
+    country:'UAE', contact:'Eng. Khalid Al-Mansouri', designation:'CEO',
+    phone:'+971 2 671 7000', email:'info@eiac.gov.ae', website:'www.eiac.gov.ae',
+    address:'P.O. Box 3349, Abu Dhabi, UAE',
+    submitted:'16/05/2024', status:'pending',
+    regname:'Emirates International Accreditation Centre (EIAC)', house:'—', street:'Khalifa City A',
+    city:'Abu Dhabi', state:'Abu Dhabi Emirate', postal:'—', regcountry:'UAE',
+    auditfreq:'Quarterly', ownership:'Independent organisation under Government',
+    nonmuslim:'No', outsidecountry:'Yes — Saudi Arabia, Qatar, Bahrain',
+    abattoir:'Yes — Cattle, Camel', stunning:'No', thailand:'Yes — 3 abattoirs',
+    iso:'ISO/IEC 17011:2017', recognition:'GAC, Saudi Halal Center',
+    hasstandards:'Yes', scheme:'UAE Halal Mark scheme', sop:'Online portal → Technical committee → Field audit → Certification',
+    auditfreq2:'Quarterly',
+    docs:['Standards Document.pdf','Statutory Declaration.pdf','Certificate Registration.pdf'],
+    notes:'Strong regional body. Confirm abattoir list for Thailand exports.',
+    history:[
+      {date:'16/05/2024', action:'Application received', officer:'System'},
+    ]
+  },
+  {
+    ref:'FHCB-2024-0005', org:'Jordan Halal Accreditation Authority', type:'Government',
+    country:'Jordan', contact:'Dr. Yousuf Al-Khatib', designation:'Director',
+    phone:'+962 6 569 8000', email:'halal@jhaa.jo', website:'www.jhaa.jo',
+    address:'Amman, Jordan 11183',
+    submitted:'17/05/2024', status:'rejected',
+    regname:'Jordan Halal Accreditation Authority', house:'—', street:'King Abdullah II St',
+    city:'Amman', state:'Amman Governorate', postal:'11183', regcountry:'Jordan',
+    auditfreq:'Annually', ownership:'Fully Government-Owned',
+    nonmuslim:'No', outsidecountry:'No', abattoir:'Yes — Cattle, Sheep, Goat',
+    stunning:'Yes — Penetrating percussive stunning', thailand:'No',
+    iso:'None', recognition:'None',
+    hasstandards:'No', scheme:'—', sop:'—', auditfreq2:'—',
+    docs:['Application Form.pdf'],
+    notes:'Rejected: Missing standards document, process document, certificate sample, logo, statutory declaration, and certificate registration. Multiple key documents absent.',
+    history:[
+      {date:'17/05/2024', action:'Application received', officer:'System'},
+      {date:'19/05/2024', action:'Rejected — insufficient documentation', officer:'Somjai K.'},
+    ]
+  },
+  {
+    ref:'FHCB-2024-0006', org:'Halal Industry Development Corp.', type:'Company Limited',
+    country:'Malaysia', contact:'Pn. Norliana Ismail', designation:'Managing Director',
+    phone:'+60 3-2610 6000', email:'info@hdcglobal.com', website:'www.hdcglobal.com',
+    address:'Menara Axiata, No. 9 Jalan Stesen Sentral 5, KL Sentral, 50470 Kuala Lumpur',
+    submitted:'18/05/2024', status:'review',
+    regname:'Halal Industry Development Corporation Sdn. Bhd.', house:'Menara Axiata, No.9', street:'Jalan Stesen Sentral 5',
+    city:'Kuala Lumpur', state:'Wilayah Persekutuan', postal:'50470', regcountry:'Malaysia',
+    auditfreq:'Quarterly', ownership:'Partially Government-Owned',
+    nonmuslim:'Yes — Joint venture with international logistics for halal supply chain',
+    outsidecountry:'Yes — Indonesia, Thailand, Singapore, UAE',
+    abattoir:'No', stunning:'No', thailand:'No',
+    iso:'ISO 17065:2012, ISO 9001:2015', recognition:'JAKIM, BPJPH, MUIS',
+    hasstandards:'Yes', scheme:'MS1500:2019, HDC Halal Assurance System', sop:'Digital application → AI pre-screening → Officer review → Inspection → Committee approval',
+    auditfreq2:'Monthly',
+    docs:['Standards.pdf','Process Document.pdf','FHCB Document.pdf','T&C.pdf','Halal Cert Sample.pdf','Statutory Declaration.pdf'],
+    notes:'Comprehensive submission. Verify non-Muslim partnership details.',
+    history:[
+      {date:'18/05/2024', action:'Application received', officer:'System'},
+      {date:'19/05/2024', action:'Moved to Under Review', officer:'Somjai K.'},
+    ]
+  },
+];
+
+const STATUS_LABEL = {pending:'Pending Review', review:'Under Review', approved:'Approved', rejected:'Rejected'};
+const STATUS_BADGE = {pending:'badge-pending', review:'badge-review', approved:'badge-approved', rejected:'badge-rejected'};
+
+let currentApp = null;
+
+/* ════════════════════════════════════════
+   INIT
+════════════════════════════════════════ */
+window.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('topbar-time').textContent = new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+  renderMonthlyBar('monthlyBar');
+  renderMonthlyBar('reportBar');
+  renderAllTables();
+  renderDashTable();
+  updateBadges();
+});
+
+/* ════════════════════════════════════════
+   VIEW SWITCHING
+════════════════════════════════════════ */
+const VIEW_TITLES = {
+  dashboard:'Dashboard', all:'All Applications', pending:'Pending Review',
+  review:'Under Review', approved:'Approved', rejected:'Rejected', reports:'Reports & Analytics'
+};
+
+function switchView(v) {
+  document.querySelectorAll('.view-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('view-'+v).classList.add('active');
+  document.querySelectorAll('.sidebar-nav a').forEach(a => a.classList.remove('active'));
+  const el = document.getElementById('nav-'+v);
+  if (el) el.classList.add('active');
+  document.getElementById('topbar-title').textContent = VIEW_TITLES[v] || v;
+  if (v === 'all')      renderTable('all-tbody','','','');
+  if (v === 'pending')  renderTable('pending-tbody','pending','','');
+  if (v === 'review')   renderTable('review-tbody','review','','');
+  if (v === 'approved') renderTable('approved-tbody','approved','','');
+  if (v === 'rejected') renderTable('rejected-tbody','rejected','','');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* ════════════════════════════════════════
+   TABLE RENDER
+════════════════════════════════════════ */
+function renderAllTables() {
+  renderTable('all-tbody','','','');
+  renderTable('pending-tbody','pending','','');
+  renderTable('review-tbody','review','','');
+  renderTable('approved-tbody','approved','','');
+  renderTable('rejected-tbody','rejected','','');
+}
+
+function renderTable(tbodyId, statusFilter, q='', statusQ='') {
+  const tbody = document.getElementById(tbodyId);
+  if (!tbody) return;
+  let data = APPS.filter(a => {
+    const matchStatus = statusFilter ? a.status === statusFilter : (statusQ ? a.status === statusQ : true);
+    const matchQ = !q || [a.ref,a.org,a.country,a.contact].some(f => f.toLowerCase().includes(q.toLowerCase()));
+    return matchStatus && matchQ;
+  });
+  if (!data.length) {
+    tbody.innerHTML = `<tr><td colspan="8"><div class="tbl-no-data"><div class="no-icon">📭</div>No applications found</div></td></tr>`;
+    return;
+  }
+  tbody.innerHTML = data.map(a => `
+    <tr>
+      <td><div class="tbl-ref">${a.ref}</div></td>
+      <td><div class="tbl-org">${a.org}</div></td>
+      <td style="font-size:0.82rem;color:var(--text-muted)">${a.type}</td>
+      <td><div class="tbl-country">🌍 ${a.country}</div></td>
+      <td style="font-size:0.82rem">${a.contact}</td>
+      <td style="font-size:0.82rem;color:var(--text-muted)">${a.submitted}</td>
+      <td><span class="badge ${STATUS_BADGE[a.status]}">${STATUS_LABEL[a.status]}</span></td>
+      <td>
+        <div style="display:flex;gap:5px;flex-wrap:wrap;">
+          <button class="act-btn act-view" onclick="openDetail('${a.ref}')">View</button>
+          ${a.status!=='approved' && a.status!=='rejected'
+            ? `<button class="act-btn act-approve" onclick="changeStatus('${a.ref}','approved')">Approve</button>
+               <button class="act-btn act-reject"  onclick="changeStatus('${a.ref}','rejected')">Reject</button>`
+            : a.status==='rejected'
+            ? `<button class="act-btn act-review" onclick="changeStatus('${a.ref}','pending')">Reopen</button>`
+            : ''}
+        </div>
+      </td>
+    </tr>`).join('');
+}
+
+function renderDashTable() {
+  const tbody = document.getElementById('dashTbody');
+  if (!tbody) return;
+  const data = APPS.filter(a => a.status === 'pending' || a.status === 'review').slice(0,5);
+  if (!data.length) { tbody.innerHTML = `<tr><td colspan="6"><div class="tbl-no-data">All caught up! ✅</div></td></tr>`; return; }
+  tbody.innerHTML = data.map(a => `
+    <tr>
+      <td><div class="tbl-ref">${a.ref}</div></td>
+      <td><div class="tbl-org">${a.org}</div></td>
+      <td style="font-size:0.82rem;color:var(--text-muted)">${a.country}</td>
+      <td style="font-size:0.82rem;color:var(--text-muted)">${a.submitted}</td>
+      <td><span class="badge ${STATUS_BADGE[a.status]}">${STATUS_LABEL[a.status]}</span></td>
+      <td>
+        <div style="display:flex;gap:5px;">
+          <button class="act-btn act-view"    onclick="openDetail('${a.ref}')">View</button>
+          <button class="act-btn act-approve" onclick="changeStatus('${a.ref}','approved')">Approve</button>
+          <button class="act-btn act-reject"  onclick="changeStatus('${a.ref}','rejected')">Reject</button>
+        </div>
+      </td>
+    </tr>`).join('');
+}
+
+/* ════════════════════════════════════════
+   STATUS CHANGE
+════════════════════════════════════════ */
+function changeStatus(ref, newStatus) {
+  const app = APPS.find(a => a.ref === ref);
+  if (!app) return;
+  const old = app.status;
+  app.status = newStatus;
+  app.history.push({date: new Date().toLocaleDateString('en-GB'), action: `Status changed: ${STATUS_LABEL[old]} → ${STATUS_LABEL[newStatus]}`, officer:'Somjai K.'});
+  renderAllTables();
+  renderDashTable();
+  updateBadges();
+  toast(`${ref} — ${STATUS_LABEL[newStatus]}`, newStatus === 'approved' ? 'success' : 'info');
+}
+
+function updateBadges() {
+  const counts = {all:APPS.length, pending:0, review:0, approved:0, rejected:0};
+  APPS.forEach(a => { counts[a.status]++; });
+  Object.entries(counts).forEach(([k,v]) => {
+    const el = document.getElementById('badge-'+k);
+    if (el) el.textContent = v;
+    const stat = document.getElementById('s-'+k);
+    if (stat) stat.textContent = v;
+  });
+  // Also update stat cards in dashboard
+  ['pending','review','approved','rejected'].forEach(k=>{
+    const el = document.getElementById('s-'+k);
+    if(el) el.textContent = counts[k];
+  });
+  document.getElementById('s-total').textContent = APPS.length;
+}
+
+/* ════════════════════════════════════════
+   MODAL
+════════════════════════════════════════ */
+let activeTabIdx = 0;
+
+function openDetail(ref) {
+  const app = APPS.find(a => a.ref === ref);
+  if (!app) return;
+  currentApp = app;
+
+  // Head
+  document.getElementById('m-title').textContent   = app.org;
+  document.getElementById('m-ref').textContent      = app.ref + ' · Submitted ' + app.submitted;
+  document.getElementById('m-status-badge').innerHTML = `<span class="badge ${STATUS_BADGE[app.status]}">${STATUS_LABEL[app.status]}</span>`;
+
+  // Tab 0 — Overview
+  document.getElementById('m-org').textContent         = app.org;
+  document.getElementById('m-type').textContent        = app.type;
+  document.getElementById('m-country').textContent     = app.country;
+  document.getElementById('m-website').innerHTML       = `<a href="https://${app.website}" target="_blank" style="color:var(--green-mid)">${app.website}</a>`;
+  document.getElementById('m-address').textContent     = app.address;
+  document.getElementById('m-contact').textContent     = app.contact;
+  document.getElementById('m-designation').textContent = app.designation;
+  document.getElementById('m-phone').textContent       = app.phone;
+  document.getElementById('m-email').innerHTML         = `<a href="mailto:${app.email}" style="color:var(--green-mid)">${app.email}</a>`;
+
+  // Timeline
+  const steps = [
+    {label:'Application Received', icon:'📄', done: true},
+    {label:'Under Review', icon:'🔍', done: ['review','approved','rejected'].includes(app.status)},
+    {label:'Site Inspection', icon:'🏭', done: app.status === 'approved'},
+    {label: app.status === 'rejected' ? 'Rejected' : app.status === 'approved' ? 'Approved' : 'Decision Pending',
+      icon: app.status === 'rejected' ? '❌' : app.status === 'approved' ? '✅' : '⌛',
+      done: app.status === 'approved' || app.status === 'rejected',
+      active: app.status === 'pending' || app.status === 'review'},
+  ];
+  document.getElementById('m-timeline').innerHTML = steps.map(s => `
+    <div class="mtl-item">
+      <div class="mtl-dot ${s.done?'done':s.active?'active':'wait'}">${s.done?'✓':s.icon}</div>
+      <div><div class="mtl-title">${s.label}</div><div class="mtl-date">${s.done?'Completed':'Pending'}</div></div>
+    </div>`).join('');
+
+  // Tab 1 — Registration
+  ['regname','house','street','city','state','postal','regcountry'].forEach(k=>{
+    document.getElementById('m-'+k).textContent = app[k] || '—';
+  });
+
+  // Tab 2 — Audit
+  ['auditfreq','ownership','nonmuslim','outsidecountry','abattoir','stunning','thailand','iso','recognition'].forEach(k=>{
+    document.getElementById('m-'+k).textContent = app[k] || '—';
+  });
+
+  // Tab 3 — Standards
+  document.getElementById('m-hasstandards').textContent = app.hasstandards || '—';
+  document.getElementById('m-scheme').textContent       = app.scheme || '—';
+  document.getElementById('m-sop').textContent          = app.sop || '—';
+  document.getElementById('m-auditfreq2').textContent   = app.auditfreq2 || '—';
+
+  // Tab 4 — Documents
+  document.getElementById('m-docs').innerHTML = (app.docs||[]).map(d => `
+    <div class="doc-item">
+      <span class="doc-icon">📄</span>
+      <span class="doc-name">${d}</span>
+      <span class="doc-size" style="margin-left:auto">PDF</span>
+      <span class="doc-status">✅</span>
+    </div>`).join('') || '<p style="color:var(--text-muted);font-size:0.85rem;">No documents uploaded.</p>';
+
+  // Tab 5 — Personnel (mock data)
+  document.getElementById('m-president').innerHTML = `
+    <div class="info-item"><div class="info-label">Name</div><div class="info-val">${app.contact}</div></div>
+    <div class="info-item"><div class="info-label">Position</div><div class="info-val">President / Chairman</div></div>
+    <div class="info-item"><div class="info-label">Email</div><div class="info-val">${app.email}</div></div>
+    <div class="info-item"><div class="info-label">Phone</div><div class="info-val">${app.phone}</div></div>`;
+  document.getElementById('m-incharge').innerHTML = `
+    <div class="info-item"><div class="info-label">Name</div><div class="info-val">—</div></div>
+    <div class="info-item"><div class="info-label">Qualification</div><div class="info-val">—</div></div>`;
+  document.getElementById('m-auditors').innerHTML = `<p style="font-size:0.85rem;color:var(--text-muted);">Personnel declaration data not yet provided.</p>`;
+
+  // Tab 6 — Notes
+  document.getElementById('m-notes').value = app.notes || '';
+  document.getElementById('m-history').innerHTML = (app.history||[]).map(h => `
+    <div style="display:flex;gap:12px;padding:10px 0;border-bottom:1px solid #f4f4f4;align-items:flex-start;">
+      <div style="width:10px;height:10px;border-radius:50%;background:var(--green-mid);margin-top:5px;flex-shrink:0;"></div>
+      <div>
+        <div style="font-size:0.85rem;font-weight:600;">${h.action}</div>
+        <div style="font-size:0.75rem;color:var(--text-muted);margin-top:2px;">${h.date} · ${h.officer}</div>
+      </div>
+    </div>`).join('');
+
+  // Modal action buttons
+  let actions = '';
+  if (app.status === 'pending' || app.status === 'review') {
+    actions = `
+      <button class="mf-btn mf-review"  onclick="changeStatus('${app.ref}','review');reloadModal()">🔍 Mark Under Review</button>
+      <button class="mf-btn mf-reject"  onclick="changeStatus('${app.ref}','rejected');closeModal()">❌ Reject</button>
+      <button class="mf-btn mf-approve" onclick="changeStatus('${app.ref}','approved');closeModal()">✅ Approve</button>`;
+  } else if (app.status === 'rejected') {
+    actions = `<button class="mf-btn mf-review" onclick="changeStatus('${app.ref}','pending');closeModal()">🔄 Reopen Application</button>`;
+  } else {
+    actions = `<span style="font-size:0.82rem;color:var(--green-mid);font-weight:600;">✅ Approved — No action needed</span>`;
+  }
+  document.getElementById('modal-actions').innerHTML = actions;
+
+  switchTab(0);
+  document.getElementById('detailModal').classList.add('open');
+}
+
+function reloadModal() { if (currentApp) openDetail(currentApp.ref); }
+
+function closeModal() {
+  document.getElementById('detailModal').classList.remove('open');
+}
+
+function switchTab(idx) {
+  document.querySelectorAll('.modal-tab').forEach((t,i) => t.classList.toggle('active', i===idx));
+  document.querySelectorAll('.modal-tab-panel').forEach((p,i) => p.classList.toggle('active', i===idx));
+  activeTabIdx = idx;
+}
+
+function saveNotes() {
+  if (currentApp) {
+    currentApp.notes = document.getElementById('m-notes').value;
+    toast('Notes saved successfully');
+  }
+}
+
+document.getElementById('detailModal').addEventListener('click', e => {
+  if (e.target === e.currentTarget) closeModal();
+});
+
+/* ════════════════════════════════════════
+   CHARTS
+════════════════════════════════════════ */
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const MONTH_DATA = [3,5,4,7,6,0,0,0,0,0,0,0];
+const MAX_H = 100;
+
+function renderMonthlyBar(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const max = Math.max(...MONTH_DATA, 1);
+  el.innerHTML = MONTH_DATA.map((v,i) => `
+    <div class="bar-col">
+      ${v > 0 ? `<div class="bar-val">${v}</div>` : '<div class="bar-val" style="opacity:0">0</div>'}
+      <div class="bar-fill" style="height:${(v/max*MAX_H)}px;background:${i===4?'var(--green-mid)':'var(--green-light)'};opacity:${v?1:0.2};"></div>
+      <div class="bar-label">${MONTHS[i]}</div>
+    </div>`).join('');
+}
+
+/* ════════════════════════════════════════
+   EXPORT CSV
+════════════════════════════════════════ */
+function exportCSV() {
+  const headers = ['Reference','Organisation','Type','Country','Contact','Email','Submitted','Status'];
+  const rows = APPS.map(a => [a.ref,a.org,a.type,a.country,a.contact,a.email,a.submitted,STATUS_LABEL[a.status]]);
+  const csv = [headers, ...rows].map(r => r.map(c => `"${c}"`).join(',')).join('\n');
+  const blob = new Blob([csv], {type:'text/csv'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url; a.download = 'halal_applications.csv'; a.click();
+  toast('CSV exported successfully');
+}
+
+/* ════════════════════════════════════════
+   TOAST
+════════════════════════════════════════ */
+function toast(msg, type='success') {
+  const wrap = document.getElementById('toastWrap');
+  const el = document.createElement('div');
+  el.className = 'toast' + (type==='error'?' error':'');
+  el.innerHTML = (type==='success'?'✅ ':'ℹ️ ') + msg;
+  wrap.appendChild(el);
+  setTimeout(() => { el.style.opacity='0'; el.style.transition='opacity .4s'; setTimeout(()=>el.remove(),400); }, 3000);
+}
+
+window.toast = toast;
+window.switchView = switchView;
+window.openDetail = openDetail;
+window.closeModal = closeModal;
+window.switchTab = switchTab;
+window.changeStatus = changeStatus;
+window.reloadModal = reloadModal;
+window.saveNotes = saveNotes;
+window.exportCSV = exportCSV;
+</script>
+</body>
+</html>

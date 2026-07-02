@@ -281,8 +281,8 @@
         trainingCertificates: card.querySelectorAll('input[type="file"]')[4].files,
         tasCertificate: card.querySelectorAll('input[type="file"]')[5].files[0]
       }
-      };
-    },
+      }),
+    
     overallInCharge: Array.from(document.querySelectorAll("#overallContainer .person-card")).map(card => {
       return {
         photo: card.querySelector('input[type="file"]').files[0],
@@ -296,7 +296,7 @@
         trainingHistory: card.querySelectorAll('textarea')[2].value,
         trainingCertificates: card.querySelectorAll('input[type="file"]')[4].files,
         tasCertificate: card.querySelectorAll('input[type="file"]')[5].files[0]
-      };
+      }
     }),
     shariahAdvisoryBoard: Array.from(document.querySelectorAll("#shariahContainer .person-card")).map(card => {
       return {
@@ -311,7 +311,7 @@
         trainingHistory: card.querySelectorAll('textarea')[2].value,
         trainingCertificates: card.querySelectorAll('input[type="file"]')[4].files,
         tasCertificate: card.querySelectorAll('input[type="file"]')[5].files[0]
-      };
+      }
     }),
     technicalAuditors: Array.from(document.querySelectorAll("#technicalContainer .person-card")).map(card => {
       return {
@@ -326,7 +326,7 @@
         trainingHistory: card.querySelectorAll('textarea')[2].value,
         trainingCertificates: card.querySelectorAll('input[type="file"]')[4].files,
         tasCertificate: card.querySelectorAll('input[type="file"]')[5].files[0]
-      };
+      }
     }),
     halalAuditors: Array.from(document.querySelectorAll("#halalContainer .person-card")).map(card => {
       return {
@@ -341,12 +341,13 @@
         trainingHistory: card.querySelectorAll('textarea')[2].value,
         trainingCertificates: card.querySelectorAll('input[type="file"]')[4].files,
         tasCertificate: card.querySelectorAll('input[type="file"]')[5].files[0]
-      };
+      }
     }),
     scopeOfActivities: Array.from(document.querySelectorAll('input[name="scope"]:checked')).map(checkbox => checkbox.value),
     otherScope: document.querySelector('input[name="otherScope"]').value,
     signature: document.querySelector('input[name="signature"]').files[0]
-  };
+    };};
+
   </script>
 </form>
 
@@ -526,3 +527,4 @@ function removePerson(button){
 }
 
 </script>
+</body>
