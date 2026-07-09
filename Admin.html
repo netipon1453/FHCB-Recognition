@@ -133,29 +133,7 @@
 
       <div class="charts-grid">
         <!-- Bar Chart -->
-        <div class="chart-card">
-          <h3>📅 Applications per Month (2024)</h3>
-          <div class="bar-chart" id="monthlyBar"></div>
-        </div>
-        <!-- Donut / Type -->
-        <div class="chart-card">
-          <h3>🏢 Organisation Type</h3>
-          <div class="donut-wrap">
-            <svg width="90" height="90" viewBox="0 0 36 36" style="flex-shrink:0;">
-              <circle cx="18" cy="18" r="15.9" fill="none" stroke="#f0f0f0" stroke-width="3.5"/>
-              <circle cx="18" cy="18" r="15.9" fill="none" stroke="var(--green-mid)" stroke-width="3.5" stroke-dasharray="50 50" stroke-dashoffset="25" stroke-linecap="round"/>
-              <circle cx="18" cy="18" r="15.9" fill="none" stroke="var(--gold)" stroke-width="3.5" stroke-dasharray="17 83" stroke-dashoffset="-25" stroke-linecap="round"/>
-              <circle cx="18" cy="18" r="15.9" fill="none" stroke="#3498db" stroke-width="3.5" stroke-dasharray="17 83" stroke-dashoffset="-42" stroke-linecap="round"/>
-              <circle cx="18" cy="18" r="15.9" fill="none" stroke="#9b59b6" stroke-width="3.5" stroke-dasharray="16 84" stroke-dashoffset="-59" stroke-linecap="round"/>
-            </svg>
-            <div class="donut-legend">
-              <div class="legend-item"><div class="legend-dot" style="background:var(--green-mid)"></div>Government — 50%</div>
-              <div class="legend-item"><div class="legend-dot" style="background:var(--gold)"></div>Non-Profit — 17%</div>
-              <div class="legend-item"><div class="legend-dot" style="background:#3498db"></div>Company Ltd — 17%</div>
-              <div class="legend-item"><div class="legend-dot" style="background:#9b59b6"></div>Others — 16%</div>
-            </div>
-          </div>
-        </div>
+        
         <!-- Country -->
         <div class="chart-card">
           <h3>🌍 Applications by Country</h3>
@@ -381,8 +359,8 @@
       <button class="modal-tab active" onclick="switchTab(0)">📋 Overview</button>
       <button class="modal-tab" onclick="switchTab(1)">🏢 Registration</button>
       <button class="modal-tab" onclick="switchTab(2)">🔍 Audit & Affiliation</button>
-      <button class="modal-tab" onclick="switchTab(3)">📜 Standards</button>
-      <button class="modal-tab" onclick="switchTab(4)">📎 Documents</button>
+      <button class="modal-tab" onclick="switchTab(3)">📜 Halal Regulation/Fatwa/Standards/Guidelines</button>
+      <button class="modal-tab" onclick="switchTab(4)">📎 Supporting Documents</button>
       <button class="modal-tab" onclick="switchTab(5)">👥 Personnel</button>
       <button class="modal-tab" onclick="switchTab(6)">📝 Notes & History</button>
     </div>
@@ -393,8 +371,9 @@
       <div class="modal-tab-panel active" id="mtab-0">
         <div class="modal-section-title">Organisation Information</div>
         <div class="info-grid">
+          <div class="info-item"><div class="info-label">Application ID</div><div class="info-val" id="m-ref2"></div></div>
           <div class="info-item"><div class="info-label">Organisation Name</div><div class="info-val" id="m-org"></div></div>
-          <div class="info-item"><div class="info-label">Type</div><div class="info-val" id="m-type"></div></div>
+          <div class="info-item"><div class="info-label">OrganisationType</div><div class="info-val" id="m-type"></div></div>
           <div class="info-item"><div class="info-label">Country</div><div class="info-val" id="m-country"></div></div>
           <div class="info-item"><div class="info-label">Website</div><div class="info-val" id="m-website"></div></div>
           <div class="info-item full"><div class="info-label">Address</div><div class="info-val" id="m-address"></div></div>
@@ -415,7 +394,13 @@
         <div class="modal-section-title">Registered Information</div>
         <div class="info-grid">
           <div class="info-item full"><div class="info-label">Registered Name</div><div class="info-val" id="m-regname"></div></div>
-          <div class="info-item"><div class="info-label">House / Village</div><div class="info-val" id="m-house"></div></div>
+          <div class="info-item"><div class="info-label">Registered Authority</div><div class="info-val" id="m-regauth"></div></div>
+          <div class="info-item"><div class="info-label">Registration Number</div><div class="info-val" id="m-regnum"></div></div>
+          <div class="info-item"><div class="info-label">Date of Registration</div><div class="info-val" id="m-regdate"></div></div>
+          <div class="info-item"><div class="info-label">Year of Involvement in Halal Certification</div><div class="info-val" id="m-regyear"></div></div>
+          <div class="info-item"><div class="info-label">Country of Registration</div><div class="info-val" id="m-regcountry"></div></div>
+          <div class="info-item"><div class="info-label">House Number</div><div class="info-val" id="m-house"></div></div>
+          <div class="info-item"><div class="info-label">House / Village</div><div class="info-val" id="m-village"></div></div>
           <div class="info-item"><div class="info-label">Street / Road</div><div class="info-val" id="m-street"></div></div>
           <div class="info-item"><div class="info-label">City</div><div class="info-val" id="m-city"></div></div>
           <div class="info-item"><div class="info-label">State / Province</div><div class="info-val" id="m-state"></div></div>
@@ -427,14 +412,15 @@
       <!-- TAB 2: AUDIT & AFFILIATION -->
       <div class="modal-tab-panel" id="mtab-2">
         <div class="info-grid">
-          <div class="info-item"><div class="info-label">Audit Frequency</div><div class="info-val" id="m-auditfreq"></div></div>
+          <div class="info-item"><div class="info-label">Internal Audit Frequency</div><div class="info-val" id="m-auditfreq"></div></div>
           <div class="info-item"><div class="info-label">Ownership</div><div class="info-val" id="m-ownership"></div></div>
-          <div class="info-item"><div class="info-label">Affiliated non-Muslim org?</div><div class="info-val" id="m-nonmuslim"></div></div>
+          <div class="info-item"><div class="info-label">Affiliated non-Muslim organisation?</div><div class="info-val" id="m-nonmuslim"></div></div>
+          <div class="info-item"><div class="info-label">Provided details of affiliated organisation</div><div class="info-val" id="m-muslimorg"></div></div>
           <div class="info-item"><div class="info-label">Certifies outside country?</div><div class="info-val" id="m-outsidecountry"></div></div>
           <div class="info-item"><div class="info-label">Certifies Abattoirs?</div><div class="info-val" id="m-abattoir"></div></div>
           <div class="info-item"><div class="info-label">Stunning Applied?</div><div class="info-val" id="m-stunning"></div></div>
-          <div class="info-item"><div class="info-label">Exports to Thailand?</div><div class="info-val" id="m-thailand"></div></div>
-          <div class="info-item"><div class="info-label">ISO Accreditation</div><div class="info-val" id="m-iso"></div></div>
+          <div class="info-item"><div class="info-label">Certifies Abattoirs Exports to Thailand?</div><div class="info-val" id="m-thailand"></div></div>
+          <div class="info-item"><div class="info-label">Organisation attained any international standards accreditation?</div><div class="info-val" id="m-iso"></div></div>
           <div class="info-item full"><div class="info-label">International Recognition</div><div class="info-val" id="m-recognition"></div></div>
         </div>
       </div>
@@ -442,17 +428,30 @@
       <!-- TAB 3: STANDARDS -->
       <div class="modal-tab-panel" id="mtab-3">
         <div class="info-grid">
-          <div class="info-item"><div class="info-label">Has Internal Standards?</div><div class="info-val" id="m-hasstandards"></div></div>
-          <div class="info-item"><div class="info-label">Certification Scheme</div><div class="info-val" id="m-scheme"></div></div>
-          <div class="info-item full"><div class="info-label">SOP Description</div><div class="info-val" id="m-sop"></div></div>
-          <div class="info-item"><div class="info-label">Audit Frequency (High-risk)</div><div class="info-val" id="m-auditfreq2"></div></div>
+          <div class="info-item"><div class="info-label">Has standards/guidelines?</div><div class="info-val" id="m-hasstandards"></div></div>
+          <div class="info-item"><div class="info-label">Halal Certification Process and Management System</div><div class="info-val" id="m-scheme"></div></div>
+          <div class="info-item full"><div class="info-label">Halal Processes</div><div class="info-val" id="m-sop"></div></div>
+          <div class="info-item"><div class="info-label">Terms & Conditions/Requirements</div><div class="info-val" id="m-auditfreq2"></div></div>
+          <div class="info-item full"><div class="info-label">Certification schemes</div><div class="info-val" id="m-notes2"></div></div>
+          <div class="info-item full"><div class="info-label">Standard operating procedure of approval halal certification</div><div class="info-val" id="m-notes"></div></div>
+          <div class="info-item full"><div class="info-label">Frequency of pre- and post-certification audits (High risk)</div><div class="info-val" id="m-notes3"></div></div>
+          <div class="info-item full"><div class="info-label">Guidelines on use of Halal Certificate and Halal logo</div><div class="info-val" id="m-notes4"></div></div>
+          <div class="info-item full"><div class="info-label">Surveillance Procedures</div><div class="info-val" id="m-notes5"></div></div>
+          <div class="info-item full"><div class="info-label">Internal Audit Documents, Management Review Minutes</div><div class="info-val" id="m-notes6"></div></div>
         </div>
       </div>
 
-      <!-- TAB 4: DOCUMENTS -->
+      <!-- TAB 4: SUPPORTING DOCUMENTS -->
       <div class="modal-tab-panel" id="mtab-4">
-        <div class="modal-section-title">Uploaded Documents</div>
-        <div class="doc-list" id="m-docs"></div>
+        <div class="info-grid">
+          <div class="info-item"><div class="info-label">Certification Application Form </div><div class="info-val" id="m-hasstandards"></div></div>
+          <div class="info-item"><div class="info-label">Official Halal Certificate</div><div class="info-val" id="m-scheme"></div></div>
+          <div class="info-item"><div class="info-label">Official Halal Logo</div><div class="info-val" id="m-sop"></div></div>
+          <div class="info-item"><div class="info-label">Statutory Declaration</div><div class="info-val" id="m-auditfreq2"></div></div>
+          <div class="info-item"><div class="info-label">Certificate Registration</div><div class="info-val" id="m-notes2"></div></div>
+          <div class="info-item"><div class="info-label">Proof of Billing</div><div class="info-val" id="m-notes"></div></div>
+          <div class="info-item"><div class="info-label">Others: Organisation chart or statute</div><div class="info-val" id="m-notes3"></div></div>
+        </div>  
       </div>
 
       <!-- TAB 5: PERSONNEL -->
