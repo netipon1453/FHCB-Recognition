@@ -56,33 +56,34 @@
 
         <form id="form1" onsubmit="handleForm1Submit(event)">
         <label for="application-logo">Organisation/Companys Logo:</label>
-        <input type="file" class="custom-btn" id="application-logo" name="application-logo" accept="image/*" required hidden><br><br>
-        <input type="file" id="imageUpload" accept="image/*">
-        <img id="preview" style="max-width: 200px; margin: 10px 0;">
+        <input type="file" id="application-logo" name="application-logo" accept="image/*" required><br><br>
+        <img id="preview" style="max-width: 200px; margin: 10px 0; display: none;">
         <small class="error-text" id="imageUploadError"></small>
 
 <script>
-document.getElementById("imageUpload").addEventListener("change", function(event){
-    const file = event.target.files[0];
-
-    if(file){
-        const reader = new FileReader();
-
-        reader.onload = function(e){
-            const img = document.getElementById("preview");
-            img.src = e.target.result;
-            img.style.display = "block";
-        }
-
-        reader.readAsDataURL(file);
-    }
-});
 document.addEventListener("DOMContentLoaded", () => {
     fetch("Head.html")
         .then(response => response.text())
         .then(data => {
             document.getElementById("Header").innerHTML = data;
         });
+
+    // Handle logo preview
+    document.getElementById("application-logo").addEventListener("change", function(event){
+        const file = event.target.files[0];
+
+        if(file){
+            const reader = new FileReader();
+
+            reader.onload = function(e){
+                const img = document.getElementById("preview");
+                img.src = e.target.result;
+                img.style.display = "block";
+            }
+
+            reader.readAsDataURL(file);
+        }
+    });
 });
 </script>
         <label for="company-name">Company/Organisation Name:</label>
