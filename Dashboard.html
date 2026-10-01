@@ -9,29 +9,16 @@
 
 <body>
 
-<header class="site-header">
-    <div class="header-main">
-        <div class="logo-group">
-            <img src="LOGO CICOT.png" alt="CICOT Logo" class="logo logo-cicot">
-            <img src="Halal English.png" alt="Halal Mark" class="logo logo-halal">
-            <img src="Patterned Thai Flag.png" alt="Thailand Flag" class="logo logo-flag">
-        </div>
-
-        <div class="header-title">
-            <h1>The Central Islamic Council of Thailand (CICOT)</h1>
-            <p>Foreign Halal Certification Body Recognition System</p>
-        </div>
-    </div>
-
-    <nav class="navbar">
-        <a href="https://www.cicot.or.th/" target="_blank">CICOT Website</a>
-        <a href="index.html">Home</a>
-        <a href="AboutUs.html">About Us</a>
-        <a href="ContactUs.html">Contact Us</a>
-        <a href="Login Tech.html">Login to Apply</a>
-        <a href="Register.html" class="nav-register">Register</a>
-    </nav>
-</header>
+<div id="Header"></div>
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        fetch("Head.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("Header").innerHTML = data;
+            });
+    });
+    </script>
 
 <main class="dashboard">
 

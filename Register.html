@@ -5,30 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration</title>
     <link rel="stylesheet" href="Register.css">
+    <link rel="stylesheet" href="header.css">
+    <style>
+        #Header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .register-container {
+            margin-top: 120px;
+        }
+    </style>
 </head>
 <body>
-    <header class="header">
-    <div class="background-image">
-        
-        <div class="line">
-            <img src="LOGO CICOT.png" alt="CICOT Logo" class="logo1">
-            <img src="Halal English.png" alt="HALAL MARK" class="logo2">
-            <img src="Patterned Thai Flag.png" alt="Thailand Flag" class="logo3">
-        </div>
-         <div class="header-title">
-            <h1>The Central Islamic Council of Thailand (CICOT)</h1>
-            <p>Foreign Halal Certification Body Recognition System</p>
-        </div>
-    </div>
-    <nav class="navbar">
-            <a href="https://halal.or.th/en/">CICOT Website</a>
-            <a href="home.html">Home</a>
-            <a href="AboutUs.html">About Us</a>
-            <a href="ContactUs.html">Contact Us</a>
-            <a href="Login Tech.html">Login to Apply</a>
-            <a href="Register.html">Register</a>
-    </nav>
-    </header>
+    <div id="Header"></div>
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        fetch("Head.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("Header").innerHTML = data;
+            });
+    });
+    </script>
     <div class="register-container">
         <h2>Registration</h2>
         <div class="register-form">
