@@ -72,6 +72,19 @@ function toggleOthersField(selectId, divId) {
     }
 }
 
+function toggleEuropeRecognition() {
+    const continentSelect = document.getElementById('continent');
+    const europeDiv = document.getElementById('europeRecognitionDiv');
+
+    if (continentSelect.value === 'Europe') {
+        europeDiv.style.display = 'block';
+    } else {
+        europeDiv.style.display = 'none';
+        // Uncheck the checkbox when switching continents
+        document.getElementById('europeWideRecognition').checked = false;
+    }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     fetch("Head.html")
         .then(response => response.text())
@@ -116,6 +129,25 @@ document.addEventListener("DOMContentLoaded", () => {
             <label for="organisation-type-specify">Please specify:</label>
             <input type="text" id="organisation-type-specify" name="organisation-type-specify" placeholder="Others-Please specify">
         </div><br><br>
+
+        <label for="continent">Continent:</label>
+        <select id="continent" name="continent" required onchange="toggleEuropeRecognition()">
+            <option value="">--Select Continent--</option>
+            <option value="Asia">Asia</option>
+            <option value="Europe">Europe</option>
+            <option value="Americas">Americas</option>
+            <option value="Africa">Africa</option>
+            <option value="Oceania">Oceania</option>
+        </select>
+
+        <div id="europeRecognitionDiv" style="display:none; margin-top:15px; padding:15px; background:#f9f9f9; border-left:4px solid #0b6b3a; border-radius:4px;">
+            <label style="display:flex; align-items:center; gap:10px;">
+                <input type="checkbox" id="europeWideRecognition" name="europeWideRecognition">
+                <span>I want CICOT to recognize me across entire Europe (Additional fee: US$ 3,000)</span>
+            </label>
+            <small style="color:#666; margin-top:8px;">This will allow you to certify halal products and services throughout all European countries under one certificate.</small>
+        </div><br><br>
+
         <label for="Country">Country:</label>
         <select id="country" name="country" required onchange="toggleOthersField('country', 'countryOthers')">
             <option value="">--Select Country--</option>
@@ -205,7 +237,9 @@ async function saveForm1Draft() {
   const form1 = {
     company_name: document.getElementById("company-name").value,
     organisation_type: document.getElementById("organisation-type").value,
+    continent: document.getElementById("continent").value,
     country: document.getElementById("country").value,
+    europeWideRecognition: document.getElementById("europeWideRecognition").checked,
     contact_person: document.getElementById("contact-person").value,
     phone: document.getElementById("phone-number").value,
     email: document.getElementById("email").value
@@ -252,6 +286,9 @@ async function saveForm1Draft() {
       return;
     }
   }
+
+  // Save Form1 data to localStorage for later use in Form7
+  localStorage.setItem('form1_data', JSON.stringify(form1));
 
   window.location.href = "Application Form2.html";
 }
