@@ -167,14 +167,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 </div>
 <script>
-  const scopeCountText = document.getElementById("scopeCount");
-  const scopeFeeText = document.getElementById("scopeFee");
-  const auditorFeeText = document.getElementById("auditorFee");
-  const totalFeeText = document.getElementById("totalFee");
-
-  const paymentMethods = document.querySelectorAll('input[name="paymentMethod"]');
-  const creditCardSection = document.getElementById("creditCardSection");
-  const transferSection = document.getElementById("transferSection");
+  let scopeCountText, scopeFeeText, auditorFeeText, totalFeeText;
+  let paymentMethods, creditCardSection, transferSection;
 
   let paymentData = {
     selectedScopes: [],
@@ -266,20 +260,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Load data when page loads
   document.addEventListener('DOMContentLoaded', () => {
+    // Initialize variables after DOM is ready
+    scopeCountText = document.getElementById("scopeCount");
+    scopeFeeText = document.getElementById("scopeFee");
+    auditorFeeText = document.getElementById("auditorFee");
+    totalFeeText = document.getElementById("totalFee");
+
+    paymentMethods = document.querySelectorAll('input[name="paymentMethod"]');
+    creditCardSection = document.getElementById("creditCardSection");
+    transferSection = document.getElementById("transferSection");
+
     loadPaymentData();
     // Refresh data if user comes back to this page
     window.addEventListener('pageshow', loadPaymentData);
-  });
 
-  paymentMethods.forEach(method => {
-    method.addEventListener("change", function () {
-      if (this.value === "credit") {
-        creditCardSection.style.display = "block";
-        transferSection.style.display = "none";
-      } else {
-        transferSection.style.display = "block";
-        creditCardSection.style.display = "none";
-      }
+    // Setup payment method change handler
+    paymentMethods.forEach(method => {
+      method.addEventListener("change", function () {
+        if (this.value === "credit") {
+          creditCardSection.style.display = "block";
+          transferSection.style.display = "none";
+        } else {
+          transferSection.style.display = "block";
+          creditCardSection.style.display = "none";
+        }
+      });
     });
   });
 
