@@ -180,44 +180,71 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Load data from localStorage (from Form1 & Form6)
   function loadPaymentData() {
-    const savedPaymentData = localStorage.getItem('paymentData');
-    if (savedPaymentData) {
-      paymentData = JSON.parse(savedPaymentData);
-    }
+    try {
+      // Reset paymentData
+      paymentData = {
+        selectedScopes: [],
+        halalAuditorCount: 0,
+        technicalAuditorCount: 0,
+        shariahAuditorCount: 0,
+        europeWideRecognition: false
+      };
 
-    // Load Europe recognition from Form1
-    const savedForm1 = localStorage.getItem('form1_data');
-    if (savedForm1) {
-      const form1 = JSON.parse(savedForm1);
-      paymentData.europeWideRecognition = form1.europeWideRecognition || false;
+      const savedPaymentData = localStorage.getItem('paymentData');
+      if (savedPaymentData) {
+        const parsed = JSON.parse(savedPaymentData);
+        paymentData = { ...paymentData, ...parsed };
+      }
+
+      // Load Europe recognition from Form1
+      const savedForm1 = localStorage.getItem('form1_data');
+      if (savedForm1) {
+        const form1 = JSON.parse(savedForm1);
+        paymentData.europeWideRecognition = form1.europeWideRecognition || false;
+      }
+    } catch(error) {
+      console.error('Error loading payment data:', error);
     }
 
     // Display scopes
     const scopesList = document.getElementById('scopesList');
-    if (paymentData.selectedScopes.length > 0) {
-      scopesList.innerHTML = paymentData.selectedScopes
-        .map(scope => `<div>✓ ${scope}</div>`)
-        .join('');
-    } else {
-      scopesList.innerHTML = '<p style="color: #999;">No scopes selected</p>';
+    if (scopesList) {
+      if (paymentData.selectedScopes && paymentData.selectedScopes.length > 0) {
+        scopesList.innerHTML = paymentData.selectedScopes
+          .map(scope => `<div>✓ ${scope}</div>`)
+          .join('');
+      } else {
+        scopesList.innerHTML = '<p style="color: #999;">No scopes selected</p>';
+      }
     }
 
     // Display auditor counts
-    document.getElementById('displayTechnicalAuditor').textContent = paymentData.technicalAuditorCount;
-    document.getElementById('displayHalalAuditor').textContent = paymentData.halalAuditorCount;
-    document.getElementById('displayShariahAuditor').textContent = paymentData.shariahAuditorCount || 0;
+    const techDisplay = document.getElementById('displayTechnicalAuditor');
+    const halalDisplay = document.getElementById('displayHalalAuditor');
+    const shariahDisplay = document.getElementById('displayShariahAuditor');
+
+    if (techDisplay) techDisplay.textContent = paymentData.technicalAuditorCount || 0;
+    if (halalDisplay) halalDisplay.textContent = paymentData.halalAuditorCount || 0;
+    if (shariahDisplay) shariahDisplay.textContent = paymentData.shariahAuditorCount || 0;
 
     // Display Europe recognition if selected
+    const europeDisplay = document.getElementById('europeRecognitionDisplay');
+    const europeFeeLine = document.getElementById('europeFeeLine');
+
     if (paymentData.europeWideRecognition) {
-      document.getElementById('europeRecognitionDisplay').style.display = 'block';
-      document.getElementById('europeFeeLine').style.display = 'block';
+      if (europeDisplay) europeDisplay.style.display = 'block';
+      if (europeFeeLine) europeFeeLine.style.display = 'block';
     } else {
-      document.getElementById('europeRecognitionDisplay').style.display = 'none';
-      document.getElementById('europeFeeLine').style.display = 'none';
+      if (europeDisplay) europeDisplay.style.display = 'none';
+      if (europeFeeLine) europeFeeLine.style.display = 'none';
     }
 
     // Calculate fee
-    calculateFee();
+    if (scopeCountText && scopeFeeText && auditorFeeText && totalFeeText) {
+      calculateFee();
+    } else {
+      console.warn('Fee elements not initialized');
+    }
   }
 
   function calculateFee() {
