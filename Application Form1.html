@@ -63,16 +63,49 @@
 <script>
 // Countries by continent
 const countriesByContinent = {
-  'Asia': ['Thailand', 'Malaysia', 'Indonesia', 'Singapore', 'Brunei', 'Cambodia', 'Vietnam', 'Laos', 'Myanmar', 'Philippines', 'China', 'Japan', 'South Korea', 'India', 'Taiwan', 'Pakistan', 'Bangladesh'],
+  'Asia': [
+    // Southeast Asia
+    'Thailand', 'Malaysia', 'Indonesia', 'Singapore', 'Brunei', 'Cambodia', 'Vietnam', 'Laos', 'Myanmar', 'Philippines', 'East Timor',
+    // East Asia
+    'China', 'Japan', 'South Korea', 'North Korea', 'Taiwan', 'Mongolia',
+    // South Asia
+    'India', 'Pakistan', 'Bangladesh', 'Nepal', 'Sri Lanka', 'Bhutan', 'Maldives',
+    // Central Asia
+    'Kazakhstan', 'Uzbekistan', 'Turkmenistan', 'Kyrgyzstan', 'Tajikistan',
+    // West Asia / Middle East
+    'Afghanistan', 'Iran', 'Iraq', 'Saudi Arabia', 'Yemen', 'Oman', 'UAE', 'Qatar', 'Bahrain', 'Kuwait', 'Jordan', 'Lebanon', 'Syria', 'Palestine', 'Israel', 'Turkey'
+  ],
   'Europe': [
     // EU Members (27)
     'Austria', 'Belgium', 'Bulgaria', 'Croatia', 'Cyprus', 'Czechia', 'Denmark', 'Estonia', 'Finland', 'France', 'Germany', 'Greece', 'Hungary', 'Ireland', 'Italy', 'Latvia', 'Lithuania', 'Luxembourg', 'Malta', 'Netherlands', 'Poland', 'Portugal', 'Romania', 'Slovakia', 'Slovenia', 'Spain', 'Sweden',
     // Non-EU European Countries
-    'Albania', 'Andorra', 'Armenia', 'Azerbaijan', 'Belarus', 'Bosnia and Herzegovina', 'Georgia', 'Iceland', 'Kosovo', 'Liechtenstein', 'Moldova', 'Monaco', 'Montenegro', 'North Macedonia', 'Norway', 'Russia', 'San Marino', 'Serbia', 'Switzerland', 'Turkey', 'Ukraine', 'United Kingdom', 'Vatican City'
+    'Albania', 'Andorra', 'Armenia', 'Azerbaijan', 'Belarus', 'Bosnia and Herzegovina', 'Georgia', 'Iceland', 'Kosovo', 'Liechtenstein', 'Moldova', 'Monaco', 'Montenegro', 'North Macedonia', 'Norway', 'Russia', 'San Marino', 'Serbia', 'Switzerland', 'Ukraine', 'United Kingdom', 'Vatican City'
   ],
-  'Americas': ['United States', 'Canada', 'Mexico', 'Brazil', 'Colombia', 'Argentina', 'Chile', 'Peru'],
-  'Africa': ['Egypt', 'Nigeria', 'South Africa', 'Kenya', 'Ghana', 'Morocco', 'Tunisia'],
-  'Oceania': ['Australia', 'New Zealand', 'Fiji']
+  'Americas': [
+    // North America
+    'Canada', 'United States', 'Mexico',
+    // Central America
+    'Belize', 'Costa Rica', 'El Salvador', 'Guatemala', 'Honduras', 'Nicaragua', 'Panama',
+    // Caribbean
+    'Bahamas', 'Barbados', 'Cuba', 'Dominican Republic', 'Jamaica', 'Trinidad and Tobago', 'Haiti',
+    // South America
+    'Colombia', 'Venezuela', 'Guyana', 'Suriname', 'Ecuador', 'Peru', 'Brazil', 'Bolivia', 'Paraguay', 'Chile', 'Argentina', 'Uruguay'
+  ],
+  'Africa': [
+    // North Africa
+    'Egypt', 'Libya', 'Tunisia', 'Algeria', 'Morocco', 'Sudan', 'South Sudan',
+    // West Africa
+    'Mauritania', 'Senegal', 'Gambia', 'Guinea-Bissau', 'Guinea', 'Sierra Leone', 'Liberia', 'Mali', 'Côte d\'Ivoire', 'Burkina Faso', 'Ghana', 'Togo', 'Benin', 'Niger', 'Nigeria', 'Cameroon',
+    // Central Africa
+    'Central African Republic', 'Chad', 'Congo', 'DR Congo', 'Equatorial Guinea', 'Gabon', 'São Tomé and Príncipe',
+    // East Africa
+    'Kenya', 'Tanzania', 'Uganda', 'Rwanda', 'Burundi', 'Ethiopia', 'Eritrea', 'Djibouti', 'Somalia',
+    // Southern Africa
+    'Angola', 'Zambia', 'Zimbabwe', 'Namibia', 'Botswana', 'South Africa', 'Lesotho', 'Eswatini', 'Mozambique', 'Madagascar', 'Mauritius', 'Seychelles', 'Comoros'
+  ],
+  'Oceania': [
+    'Australia', 'New Zealand', 'Fiji', 'Papua New Guinea', 'Solomon Islands', 'Vanuatu', 'Samoa', 'Kiribati', 'Micronesia', 'Nauru', 'Palau', 'Marshall Islands', 'Tonga', 'Tuvalu'
+  ]
 };
 
 function toggleOthersField(selectId, divId) {
