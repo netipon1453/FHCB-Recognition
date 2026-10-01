@@ -61,6 +61,15 @@
         <small class="error-text" id="imageUploadError"></small>
 
 <script>
+// Countries by continent
+const countriesByContinent = {
+  'Asia': ['Thailand', 'Malaysia', 'Indonesia', 'Singapore', 'Brunei', 'Cambodia', 'Vietnam', 'Laos', 'Myanmar', 'Philippines', 'China', 'Japan', 'South Korea', 'India', 'Taiwan', 'Pakistan', 'Bangladesh'],
+  'Europe': ['Austria', 'Belgium', 'Bulgaria', 'Croatia', 'Cyprus', 'Czechia', 'Denmark', 'Estonia', 'Finland', 'France', 'Germany', 'Greece', 'Hungary', 'Ireland', 'Italy', 'Latvia', 'Lithuania', 'Luxembourg', 'Malta', 'Netherlands', 'Poland', 'Portugal', 'Romania', 'Slovakia', 'Slovenia', 'Spain', 'Sweden', 'United Kingdom'],
+  'Americas': ['United States', 'Canada', 'Mexico', 'Brazil', 'Colombia', 'Argentina', 'Chile', 'Peru'],
+  'Africa': ['Egypt', 'Nigeria', 'South Africa', 'Kenya', 'Ghana', 'Morocco', 'Tunisia'],
+  'Oceania': ['Australia', 'New Zealand', 'Fiji']
+};
+
 function toggleOthersField(selectId, divId) {
     const selectElement = document.getElementById(selectId);
     const divElement = document.getElementById(divId);
@@ -72,12 +81,44 @@ function toggleOthersField(selectId, divId) {
     }
 }
 
+function updateCountriesByContinent() {
+    const continent = document.getElementById('continent').value;
+    const countrySelect = document.getElementById('country');
+
+    // Clear current options
+    countrySelect.innerHTML = '<option value="">--Select Country--</option>';
+
+    // Add countries for selected continent
+    if (continent && countriesByContinent[continent]) {
+        countriesByContinent[continent].forEach(country => {
+            const option = document.createElement('option');
+            option.value = country;
+            option.textContent = country;
+            countrySelect.appendChild(option);
+        });
+    }
+
+    // Add "others" option
+    const othersOption = document.createElement('option');
+    othersOption.value = 'others';
+    othersOption.textContent = 'others';
+    countrySelect.appendChild(othersOption);
+}
+
 function toggleEuropeRecognition() {
     const continentSelect = document.getElementById('continent');
     const europeDiv = document.getElementById('europeRecognitionDiv');
 
+    // Update countries based on continent
+    updateCountriesByContinent();
+
     if (continentSelect.value === 'Europe') {
         europeDiv.style.display = 'block';
+        // Auto-select Food scope
+        const foodCheckbox = document.querySelector('input[value="Food"]');
+        if (foodCheckbox) {
+            foodCheckbox.checked = true;
+        }
     } else {
         europeDiv.style.display = 'none';
         // Uncheck the checkbox when switching continents
@@ -182,12 +223,14 @@ document.addEventListener("DOMContentLoaded", () => {
         <div id="europeRecognitionDiv" style="display:none; margin-top:15px; padding:15px; background:#f9f9f9; border-left:4px solid #0b6b3a; border-radius:4px;">
             <label style="display:flex; align-items:center; gap:10px;">
                 <input type="checkbox" id="europeWideRecognition" name="europeWideRecognition" onchange="toggleEuropePaymentButton()">
-                <span>I want CICOT to recognize me across entire Europe (Additional fee: US$ 3,000)</span>
+                <span>I want CICOT to recognize me across entire Europe</span>
             </label>
-            <small style="color:#666; margin-top:8px;">This will allow you to certify halal products and services throughout all European countries under one certificate.</small>
+            <p style="color:#666; margin:10px 0; font-size:13px; line-height:1.6;">
+                This covers European Union member states: Austria, Belgium, Bulgaria, Croatia, Cyprus, Czechia (Czech Republic), Denmark, Estonia, Finland, France, Germany, Greece, Hungary, Ireland, Italy, Latvia, Lithuania, Luxembourg, Malta, Netherlands, Poland, Portugal, Romania, Slovakia, Slovenia, Spain, and Sweden. This will allow you to certify halal products and services throughout all European countries under one certificate.
+            </p>
 
             <div id="europePaymentDiv" style="display:none; margin-top:15px; padding:10px; background:#e8f5e9; border-radius:4px;">
-                <p style="margin:0 0 10px 0; color:#0b6b3a; font-weight:bold;">✓ Europe-wide Recognition Selected</p>
+                <p style="margin:0 0 10px 0; color:#0b6b3a; font-weight:bold;">✓ Europe-wide Recognition Selected (US$ 3,000 additional fee)</p>
                 <button type="button" style="background:#0b6b3a; color:white; padding:10px 20px; border:none; border-radius:4px; cursor:pointer; width:100%;" onclick="goToEuropePayment()">
                     View Payment Summary & Continue
                 </button>
