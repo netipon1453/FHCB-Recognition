@@ -32,32 +32,324 @@
     <div class="register-container">
         <h2>Registration</h2>
         <div class="register-form">
-        <form action="/submit_register" id="register" method="POST">
-            <div class="type-channel">
-            <label for="Company/Organization Name">Company/Organization Name:</label>
-            <input type="text" id="Company/Organization Name" name="Company/Organization Name" placeholder="Foreign Halal Certification Body Name">
-           
-            <div class="type-channel">
-            <label for ="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-            </div>
-            <div class="type-channel">
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-            </div>
-            <div class="type-channel">
-            <label for="confirm_password">Confirm Password:</label>
-            <input type="password" id="confirm_password" name="confirm_password" required>
-            </div>
-            <div class="type-channel">
-            <label for="OTP">OTP Verification:</label>
-            <input type="text" id="OTP" name="OTP" placeholder="OTP from your Email">
-            </div>
-            <div class="tooltip">
-            <input type="submit" value="Register">
-            </div>
-        </form>
+            <form id="registerForm" onsubmit="handleRegister(event)">
+                <div id="errorMessage" class="error-message" style="display:none;"></div>
+
+                <div class="type-channel">
+                    <label for="orgName">Organization Name:</label>
+                    <input type="text" id="orgName" name="orgName" placeholder="Foreign Halal Certification Body Name" required>
+                    <small class="error-text" id="orgNameError"></small>
+                </div>
+
+                <div class="type-channel">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="Your official email" required>
+                    <small class="error-text" id="emailError"></small>
+                </div>
+
+                <div class="type-channel">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" placeholder="At least 8 characters" required>
+                    <small class="error-text" id="passwordError"></small>
+                    <div class="password-strength" id="passwordStrength">
+                        <div class="strength-bar" id="strengthBar"></div>
+                        <small id="strengthText"></small>
+                    </div>
+                </div>
+
+                <div class="type-channel">
+                    <label for="confirmPassword">Confirm Password:</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Re-enter password" required>
+                    <small class="error-text" id="confirmPasswordError"></small>
+                </div>
+
+                <button type="submit" class="register-btn">Register</button>
+                <div id="loadingSpinner" class="loading-spinner" style="display:none;">
+                    <span></span> Creating account...
+                </div>
+
+                <p style="text-align: center; margin-top: 20px;">
+                    Already have an account? <a href="Login Tech.html">Login here</a>
+                </p>
+            </form>
         </div>
     </div>
+
+    <style>
+        .error-message {
+            background: #fee;
+            color: #c33;
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            border-left: 4px solid #c33;
+        }
+        .error-text {
+            color: #c33;
+            font-size: 12px;
+            display: block;
+            margin-top: 4px;
+        }
+        .password-strength {
+            margin-top: 8px;
+        }
+        .strength-bar {
+            height: 6px;
+            background: #e0e0e0;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 4px;
+        }
+        .strength-bar-fill {
+            height: 100%;
+            width: 0%;
+            transition: all 0.3s;
+        }
+        .strength-weak { background: #c33; }
+        .strength-fair { background: #f39c12; }
+        .strength-good { background: #f1c40f; }
+        .strength-strong { background: #0b6b3a; }
+
+        .loading-spinner {
+            color: #0f766e;
+            font-weight: bold;
+            padding: 10px 0;
+        }
+        input.input-error {
+            border: 2px solid #c33 !important;
+        }
+        input.input-success {
+            border: 2px solid #0b6b3a !important;
+        }
+        .register-btn {
+            background: #0b6b3a;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            width: 100%;
+            transition: 0.2s;
+        }
+        .register-btn:hover {
+            background: #0f8f4b;
+        }
+    </style>
+
+    <script>
+        function validateEmail(email) {
+            const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return regex.test(email);
+        }
+
+        function validatePassword(password) {
+            return password.length >= 8;
+        }
+
+        function getPasswordStrength(password) {
+            let strength = 0;
+            if (password.length >= 8) strength++;
+            if (password.length >= 12) strength++;
+            if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength++;
+            if (/[0-9]/.test(password)) strength++;
+            if (/[^a-zA-Z0-9]/.test(password)) strength++;
+
+            return strength;
+        }
+
+        function updatePasswordStrength() {
+            const password = document.getElementById('password').value;
+            const strengthBar = document.getElementById('strengthBar');
+            const strengthText = document.getElementById('strengthText');
+
+            if (!password) {
+                strengthBar.innerHTML = '';
+                strengthText.textContent = '';
+                return;
+            }
+
+            const strength = getPasswordStrength(password);
+            let className = '';
+            let text = '';
+            let width = 0;
+
+            switch(strength) {
+                case 1:
+                    className = 'strength-weak';
+                    text = 'Weak';
+                    width = 25;
+                    break;
+                case 2:
+                    className = 'strength-fair';
+                    text = 'Fair';
+                    width = 50;
+                    break;
+                case 3:
+                    className = 'strength-fair';
+                    text = 'Good';
+                    width = 65;
+                    break;
+                case 4:
+                    className = 'strength-good';
+                    text = 'Very Good';
+                    width = 85;
+                    break;
+                case 5:
+                    className = 'strength-strong';
+                    text = 'Strong';
+                    width = 100;
+                    break;
+            }
+
+            strengthBar.innerHTML = `<div class="strength-bar-fill ${className}" style="width: ${width}%"></div>`;
+            strengthText.textContent = text;
+        }
+
+        function handleRegister(event) {
+            event.preventDefault();
+
+            const orgName = document.getElementById('orgName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const errorMsg = document.getElementById('errorMessage');
+            const registerBtn = document.querySelector('.register-btn');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+
+            // Reset errors
+            errorMsg.style.display = 'none';
+            document.getElementById('orgNameError').textContent = '';
+            document.getElementById('emailError').textContent = '';
+            document.getElementById('passwordError').textContent = '';
+            document.getElementById('confirmPasswordError').textContent = '';
+
+            document.getElementById('orgName').classList.remove('input-error', 'input-success');
+            document.getElementById('email').classList.remove('input-error', 'input-success');
+            document.getElementById('password').classList.remove('input-error', 'input-success');
+            document.getElementById('confirmPassword').classList.remove('input-error', 'input-success');
+
+            let isValid = true;
+
+            // Validate organization name
+            if (!orgName) {
+                document.getElementById('orgNameError').textContent = 'Organization name is required';
+                document.getElementById('orgName').classList.add('input-error');
+                isValid = false;
+            } else if (orgName.length < 3) {
+                document.getElementById('orgNameError').textContent = 'Name must be at least 3 characters';
+                document.getElementById('orgName').classList.add('input-error');
+                isValid = false;
+            } else {
+                document.getElementById('orgName').classList.add('input-success');
+            }
+
+            // Validate email
+            if (!email) {
+                document.getElementById('emailError').textContent = 'Email is required';
+                document.getElementById('email').classList.add('input-error');
+                isValid = false;
+            } else if (!validateEmail(email)) {
+                document.getElementById('emailError').textContent = 'Please enter a valid email';
+                document.getElementById('email').classList.add('input-error');
+                isValid = false;
+            } else {
+                document.getElementById('email').classList.add('input-success');
+            }
+
+            // Validate password
+            if (!password) {
+                document.getElementById('passwordError').textContent = 'Password is required';
+                document.getElementById('password').classList.add('input-error');
+                isValid = false;
+            } else if (!validatePassword(password)) {
+                document.getElementById('passwordError').textContent = 'Password must be at least 8 characters';
+                document.getElementById('password').classList.add('input-error');
+                isValid = false;
+            } else {
+                document.getElementById('password').classList.add('input-success');
+            }
+
+            // Validate password match
+            if (!confirmPassword) {
+                document.getElementById('confirmPasswordError').textContent = 'Please confirm password';
+                document.getElementById('confirmPassword').classList.add('input-error');
+                isValid = false;
+            } else if (password !== confirmPassword) {
+                document.getElementById('confirmPasswordError').textContent = 'Passwords do not match';
+                document.getElementById('confirmPassword').classList.add('input-error');
+                isValid = false;
+            } else {
+                document.getElementById('confirmPassword').classList.add('input-success');
+            }
+
+            if (!isValid) {
+                return;
+            }
+
+            // Show loading state
+            registerBtn.style.display = 'none';
+            loadingSpinner.style.display = 'block';
+
+            // Simulate registration (will be replaced with Supabase)
+            setTimeout(() => {
+                errorMsg.innerHTML = '<strong>✓ Account created successfully!</strong> Redirecting to login...';
+                errorMsg.style.display = 'block';
+                errorMsg.style.borderLeft = '4px solid #0b6b3a';
+                errorMsg.style.background = '#efe';
+                errorMsg.style.color = '#063';
+
+                setTimeout(() => {
+                    window.location.href = 'Login Tech.html';
+                }, 1500);
+            }, 1200);
+        }
+
+        // Real-time validation
+        document.getElementById('orgName').addEventListener('blur', function() {
+            const error = document.getElementById('orgNameError');
+            if (this.value && this.value.length < 3) {
+                error.textContent = 'Name must be at least 3 characters';
+                this.classList.add('input-error');
+                this.classList.remove('input-success');
+            } else if (this.value) {
+                error.textContent = '';
+                this.classList.add('input-success');
+                this.classList.remove('input-error');
+            }
+        });
+
+        document.getElementById('email').addEventListener('blur', function() {
+            const error = document.getElementById('emailError');
+            if (this.value && !validateEmail(this.value)) {
+                error.textContent = 'Please enter a valid email';
+                this.classList.add('input-error');
+                this.classList.remove('input-success');
+            } else if (this.value) {
+                error.textContent = '';
+                this.classList.add('input-success');
+                this.classList.remove('input-error');
+            }
+        });
+
+        document.getElementById('password').addEventListener('input', function() {
+            updatePasswordStrength();
+        });
+
+        document.getElementById('confirmPassword').addEventListener('blur', function() {
+            const error = document.getElementById('confirmPasswordError');
+            const password = document.getElementById('password').value;
+            if (this.value && this.value !== password) {
+                error.textContent = 'Passwords do not match';
+                this.classList.add('input-error');
+                this.classList.remove('input-success');
+            } else if (this.value) {
+                error.textContent = '';
+                this.classList.add('input-success');
+                this.classList.remove('input-error');
+            }
+        });
+    </script>
 </body>
 </html>

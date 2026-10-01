@@ -39,21 +39,165 @@
         <div class="scan-line"></div>
         <h2>LOGIN</h2>
         <div class="Login">
-            <form action="Dashboard.html" id="Login" method="GET">
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div id="errorMessage" class="error-message" style="display:none;"></div>
 
                 <div class="type-channel">
                     <label for="email">Email:</label>
                     <input type="email" id="email" name="email" placeholder="Please type your registered email" required>
+                    <small class="error-text" id="emailError"></small>
                 </div>
+
                 <div class="type-channel">
                     <label for="password">Password:</label>
                     <input type="password" id="password" name="password" placeholder="Please type your registered password" required>
+                    <small class="error-text" id="passwordError"></small>
                 </div>
-                <button type="submit" class="login-btn" value="LOGIN">LOGIN</button><br><br>
+
+                <button type="submit" class="login-btn" id="loginBtn">LOGIN</button>
+                <div id="loadingSpinner" class="loading-spinner" style="display:none;">
+                    <span></span> Logging in...
+                </div>
+                <br><br>
                 <label>Don't have an account? <a href="./Register.html">Register here</a></label>
             </form>
         </div>
     </div>
+
+    <style>
+        .error-message {
+            background: #fee;
+            color: #c33;
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            border-left: 4px solid #c33;
+        }
+        .error-text {
+            color: #c33;
+            font-size: 12px;
+            display: block;
+            margin-top: 4px;
+        }
+        .loading-spinner {
+            color: #0f766e;
+            font-weight: bold;
+            padding: 10px 0;
+        }
+        input.input-error {
+            border: 2px solid #c33 !important;
+        }
+        input.input-success {
+            border: 2px solid #0b6b3a !important;
+        }
+    </style>
+
+    <script>
+        function validateEmail(email) {
+            const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return regex.test(email);
+        }
+
+        function validatePassword(password) {
+            return password.length >= 6;
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const errorMsg = document.getElementById('errorMessage');
+            const emailError = document.getElementById('emailError');
+            const passwordError = document.getElementById('passwordError');
+            const loginBtn = document.getElementById('loginBtn');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+
+            // Reset errors
+            errorMsg.style.display = 'none';
+            emailError.textContent = '';
+            passwordError.textContent = '';
+            document.getElementById('email').classList.remove('input-error', 'input-success');
+            document.getElementById('password').classList.remove('input-error', 'input-success');
+
+            // Validation
+            let isValid = true;
+
+            if (!email) {
+                emailError.textContent = 'Email is required';
+                document.getElementById('email').classList.add('input-error');
+                isValid = false;
+            } else if (!validateEmail(email)) {
+                emailError.textContent = 'Please enter a valid email';
+                document.getElementById('email').classList.add('input-error');
+                isValid = false;
+            } else {
+                document.getElementById('email').classList.add('input-success');
+            }
+
+            if (!password) {
+                passwordError.textContent = 'Password is required';
+                document.getElementById('password').classList.add('input-error');
+                isValid = false;
+            } else if (!validatePassword(password)) {
+                passwordError.textContent = 'Password must be at least 6 characters';
+                document.getElementById('password').classList.add('input-error');
+                isValid = false;
+            } else {
+                document.getElementById('password').classList.add('input-success');
+            }
+
+            if (!isValid) {
+                return;
+            }
+
+            // Show loading state
+            loginBtn.style.display = 'none';
+            loadingSpinner.style.display = 'block';
+
+            // Simulate login (will be replaced with Supabase)
+            setTimeout(() => {
+                // For now, show success and redirect
+                errorMsg.innerHTML = '<strong>✓ Login successful!</strong> Redirecting...';
+                errorMsg.style.display = 'block';
+                errorMsg.style.borderLeft = '4px solid #0b6b3a';
+                errorMsg.style.background = '#efe';
+                errorMsg.style.color = '#063';
+
+                // Redirect after 1.5 seconds
+                setTimeout(() => {
+                    window.location.href = 'Dashboard.html';
+                }, 1500);
+            }, 800);
+        }
+
+        // Real-time validation
+        document.getElementById('email').addEventListener('blur', function() {
+            const emailError = document.getElementById('emailError');
+            if (this.value && !validateEmail(this.value)) {
+                emailError.textContent = 'Please enter a valid email';
+                this.classList.add('input-error');
+                this.classList.remove('input-success');
+            } else if (this.value) {
+                emailError.textContent = '';
+                this.classList.add('input-success');
+                this.classList.remove('input-error');
+            }
+        });
+
+        document.getElementById('password').addEventListener('blur', function() {
+            const passwordError = document.getElementById('passwordError');
+            if (this.value && !validatePassword(this.value)) {
+                passwordError.textContent = 'Password must be at least 6 characters';
+                this.classList.add('input-error');
+                this.classList.remove('input-success');
+            } else if (this.value) {
+                passwordError.textContent = '';
+                this.classList.add('input-success');
+                this.classList.remove('input-error');
+            }
+        });
+    </script>
 
     <h2 class="sub-note">Please click on Register button for a new application</h2>
     <h4 class="footer-note">&copy; 2026 The Central Islamic Council of Thailand (CICOT). All rights reserved.</h4>
