@@ -546,14 +546,45 @@ function removePerson(button){
     button.parentElement.remove();
 }
 
+function validatePersonCard(card) {
+    // Check all required inputs are filled
+    const inputs = card.querySelectorAll('input, textarea');
+    for (let input of inputs) {
+        if (input.type === 'file') {
+            if (input.hasAttribute('multiple')) {
+                if (input.files.length === 0) return false;
+            } else {
+                if (!input.files || input.files.length === 0) return false;
+            }
+        } else {
+            if (!input.value || input.value.trim() === '') return false;
+        }
+    }
+    return true;
+}
+
+function countValidAuditors(containerId) {
+    const container = document.getElementById(containerId);
+    const cards = container.querySelectorAll('.person-card');
+    let validCount = 0;
+
+    for (let card of cards) {
+        if (validatePersonCard(card)) {
+            validCount++;
+        }
+    }
+    return validCount;
+}
+
 function passDataToPayment() {
     // Get selected scopes
     const selectedScopes = Array.from(document.querySelectorAll('input[name="scope"]:checked'))
         .map(checkbox => checkbox.value);
 
-    // Count auditors from person-cards added
-    const technicalAuditorCount = document.querySelectorAll('#technicalContainer .person-card').length;
-    const halalAuditorCount = document.querySelectorAll('#halalContainer .person-card').length;
+    // Count only VALID (complete) auditors
+    const technicalAuditorCount = countValidAuditors('technicalContainer');
+    const halalAuditorCount = countValidAuditors('halalContainer');
+    const totalAuditors = technicalAuditorCount + halalAuditorCount;
 
     // Validation
     if (selectedScopes.length === 0) {
@@ -561,11 +592,37 @@ function passDataToPayment() {
         return;
     }
 
+    // Check if technical auditors are complete
+    const technicalCards = document.querySelectorAll('#technicalContainer .person-card');
+    if (technicalCards.length > 0 && technicalAuditorCount < technicalCards.length) {
+        alert('Please complete all Technical Auditor information fields');
+        return;
+    }
+
+    // Check if halal auditors are complete
+    const halalCards = document.querySelectorAll('#halalContainer .person-card');
+    if (halalCards.length > 0 && halalAuditorCount < halalCards.length) {
+        alert('Please complete all Halal Auditor information fields');
+        return;
+    }
+
+    // Check if shariah auditors are complete
+    const shariahCards = document.querySelectorAll('#shariahAuditorContainer .person-card');
+    let shariahCount = 0;
+    if (shariahCards.length > 0) {
+        shariahCount = countValidAuditors('shariahAuditorContainer');
+        if (shariahCount < shariahCards.length) {
+            alert('Please complete all Shariah Auditor information fields');
+            return;
+        }
+    }
+
     // Save to localStorage
     const paymentData = {
         selectedScopes: selectedScopes,
         halalAuditorCount: halalAuditorCount,
-        technicalAuditorCount: technicalAuditorCount
+        technicalAuditorCount: technicalAuditorCount,
+        shariahAuditorCount: shariahCount
     };
 
     localStorage.setItem('paymentData', JSON.stringify(paymentData));
