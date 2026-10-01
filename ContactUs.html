@@ -4,20 +4,239 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us</title>
-    <link rel="stylesheet" href="ContactUs.css">
     <link rel="stylesheet" href="header.css">
+    <style>
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f6f8;
+            margin: 0;
+        }
+        p {
+            line-height: 1.7;
+            text-align: left;
+        }
+        ul {
+            line-height: 1.7;
+            padding-left: 22px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .form-container {
+            width: 80%;
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 30px 40px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        h2 {
+            color: #064e3b;
+            margin-top: 0;
+        }
+        h3 {
+            color: #0b6b3a;
+            margin-top: 28px;
+        }
+        .contact-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+        .contact-item {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        .contact-item h4 {
+            color: #064e3b;
+            margin-bottom: 10px;
+        }
+        .contact-item p {
+            margin: 5px 0;
+            color: #555;
+        }
+        .contact-form {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            margin: 30px 0;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #064e3b;
+            font-weight: bold;
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        .submit-btn {
+            background: #0b6b3a;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+        .submit-btn:hover {
+            background: #0f8f4b;
+        }
+        .back-home-wrap {
+            text-align: center;
+            margin: 10px 0 40px;
+        }
+        .back-home-btn {
+            display: inline-block;
+            padding: 10px 24px;
+            background: #0b6b3a;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+        .back-home-btn:hover {
+            background: #0f8f4b;
+        }
+        @media (max-width: 768px) {
+            .contact-info {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div id="Header">
-</div>
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-    fetch("Head.html")
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById("Header").innerHTML = data;
+    <div id="Header"></div>
+
+    <div class="form-container">
+        <h2>Contact Us</h2>
+        <p>Have questions about the FHCB Recognition System? We're here to help! Get in touch with us through any of the methods below.</p>
+
+        <h3>📞 Contact Information</h3>
+        <div class="contact-info">
+            <div class="contact-item">
+                <h4>📧 Email</h4>
+                <p><strong>General Inquiries:</strong></p>
+                <p><a href="mailto:info@cicot.or.th">info@cicot.or.th</a></p>
+                <p><strong>FHCB Recognition:</strong></p>
+                <p><a href="mailto:fhcb@cicot.or.th">fhcb@cicot.or.th</a></p>
+            </div>
+
+            <div class="contact-item">
+                <h4>📱 Phone</h4>
+                <p><strong>Main Office:</strong></p>
+                <p>+66 (0) 2-XXX-XXXX</p>
+                <p><strong>Hours:</strong> Monday - Friday</p>
+                <p>08:30 AM - 04:30 PM (Bangkok Time)</p>
+            </div>
+
+            <div class="contact-item">
+                <h4>🏢 Office Address</h4>
+                <p>The Central Islamic Council of Thailand (CICOT)</p>
+                <p>Islamic Council Building</p>
+                <p>Bangkok, Thailand</p>
+                <p>☞ <a href="https://www.cicot.or.th/" target="_blank">Visit CICOT Website</a></p>
+            </div>
+
+            <div class="contact-item">
+                <h4>🌐 Social Media</h4>
+                <p><strong>Website:</strong></p>
+                <p><a href="https://www.cicot.or.th/" target="_blank">www.cicot.or.th</a></p>
+                <p><strong>Response Time:</strong></p>
+                <p>Within 2-3 business days</p>
+            </div>
+        </div>
+
+        <h3>✉️ Send Us a Message</h3>
+        <p>Fill out the form below and we'll get back to you as soon as possible.</p>
+
+        <div class="contact-form">
+            <form action="#" method="post">
+                <div class="form-group">
+                    <label for="name">Full Name *</label>
+                    <input type="text" id="name" name="name" placeholder="Your full name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address *</label>
+                    <input type="email" id="email" name="email" placeholder="your.email@example.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="organization">Organization Name *</label>
+                    <input type="text" id="organization" name="organization" placeholder="Your organization" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="subject">Subject *</label>
+                    <select id="subject" name="subject" required>
+                        <option value="">-- Select a subject --</option>
+                        <option value="fhcb_application">FHCB Recognition Application</option>
+                        <option value="renewal">Renewal Process</option>
+                        <option value="documentation">Documentation Support</option>
+                        <option value="assessment">Assessment Information</option>
+                        <option value="general">General Inquiry</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" placeholder="+66-XX-XXX-XXXX">
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Message *</label>
+                    <textarea id="message" name="message" placeholder="Please provide details about your inquiry..." required></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+        </div>
+
+        <h3>❓ Frequently Asked Questions</h3>
+        <p>Before contacting us, you may find answers to common questions in our <a href="AboutUs.html">About Us</a> page, which includes detailed information about the FHCB Recognition process and requirements.</p>
+
+        <p><strong>Typical Response Time:</strong> We aim to respond to all inquiries within 2-3 business days during office hours (Monday - Friday, 08:30 AM - 04:30 PM Bangkok Time).</p>
+    </div>
+
+    <div class="back-home-wrap">
+        <a href="home.html" class="back-home-btn">← Back to Home</a>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            fetch("Head.html")
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById("Header").innerHTML = data;
+                });
         });
-});
-</script>
+    </script>
 </body>
 </html>
