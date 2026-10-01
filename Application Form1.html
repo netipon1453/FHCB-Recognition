@@ -61,6 +61,17 @@
         <small class="error-text" id="imageUploadError"></small>
 
 <script>
+function toggleOthersField(selectId, divId) {
+    const selectElement = document.getElementById(selectId);
+    const divElement = document.getElementById(divId);
+
+    if (selectElement.value === 'others') {
+        divElement.style.display = 'block';
+    } else {
+        divElement.style.display = 'none';
+    }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     fetch("Head.html")
         .then(response => response.text())
@@ -91,7 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <small class="error-text" id="company-nameError"></small><br><br>
 
         <label for="organisation-type">Organisation Type:</label>
-        <select id="organisation-type" name="organisation-type" required>
+        <select id="organisation-type" name="organisation-type" required onchange="toggleOthersField('organisation-type', 'orgTypeOthers')">
             <option value="">--Select Type--</option>
             <option value="Government">Government</option>
             <option value="Non-Profit Organisation">Non-Profit Organisation</option>
@@ -100,11 +111,13 @@ document.addEventListener("DOMContentLoaded", () => {
             <option value="Religious Organisation">Religious Organisation</option>
             <option value="Independent organisation under Government">Independent organisation under Government</option>
             <option value="others">others</option>
-            <label for="please specify">Please specify:</label>
-            <input type="text" id="please specify" name="please specify" placeholder="Others-Please specify">
-        </select><br><br>
+        </select>
+        <div id="orgTypeOthers" style="display:none; margin-top:10px;">
+            <label for="organisation-type-specify">Please specify:</label>
+            <input type="text" id="organisation-type-specify" name="organisation-type-specify" placeholder="Others-Please specify">
+        </div><br><br>
         <label for="Country">Country:</label>
-        <select id="country" name="country" required>
+        <select id="country" name="country" required onchange="toggleOthersField('country', 'countryOthers')">
             <option value="">--Select Country--</option>
             <option value="Thailand">Thailand</option>
             <option value="Malaysia">Malaysia</option>
@@ -138,13 +151,15 @@ document.addEventListener("DOMContentLoaded", () => {
             <option value="Netherlands">Netherlands</option>
             <option value="Russia">Russia</option>
             <option value="others">others</option>
-            <label for="please specify">Please specify:</label>
-            <input type="text" id="please specify" name="please specify" placeholder="Others-Please specify">
         </select>
+        <div id="countryOthers" style="display:none; margin-top:10px;">
+            <label for="country-specify">Please specify:</label>
+            <input type="text" id="country-specify" name="country-specify" placeholder="Others-Please specify">
+        </div>
         <small class="error-text" id="organisation-typeError"></small><br><br>
 
         <label for="islamic school of thaought">Islamic School of Thought Adapted:</label>
-        <select id="islamic school of thaought" name="islamic school of thaought" required>
+        <select id="islamic school of thaought" name="islamic school of thaought" required onchange="toggleOthersField('islamic school of thaought', 'schoolOthers')">
             <option value="">--Select School of Thought--</option>
             <option value="Sunni - Hanafi">Sunni - Hanafi</option>
             <option value="Sunni - Maliki">Sunni - Maliki</option>
@@ -162,9 +177,11 @@ document.addEventListener("DOMContentLoaded", () => {
             <option value="Shia - Zaydi">Shia Zaydi</option>
             <option value="Shia - Other">Shia Other</option>
             <option value="others">others</option>
-            <label for="please specify">Please specify:</label>
-            <input type="text" id="please specify" name="please specify" placeholder="Others-Please specify">
-        </select>    
+        </select>
+        <div id="schoolOthers" style="display:none; margin-top:10px;">
+            <label for="school-specify">Please specify:</label>
+            <input type="text" id="school-specify" name="school-specify" placeholder="Others-Please specify">
+        </div>    
         <div class="website-upload">
         <label for="enter-website">Website:</label>
         <input type="url" id="enter-website" class="enter-website" name="enter-website" placeholder="Website of your organisation (https://www.example.com)">
