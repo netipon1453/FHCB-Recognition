@@ -37,30 +37,71 @@
 
     <div class="Login-container">
         <div class="scan-line"></div>
-        <h2>LOGIN</h2>
-        <div class="Login">
-            <form id="loginForm" onsubmit="handleLogin(event)">
-                <div id="errorMessage" class="error-message" style="display:none;"></div>
 
-                <div class="type-channel">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" placeholder="Please type your registered email" required>
-                    <small class="error-text" id="emailError"></small>
-                </div>
+        <!-- Login Form -->
+        <div id="loginSection">
+            <h2>LOGIN</h2>
+            <div class="Login">
+                <form id="loginForm" onsubmit="handleLogin(event)">
+                    <div id="errorMessage" class="error-message" style="display:none;"></div>
 
-                <div class="type-channel">
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" placeholder="Please type your registered password" required>
-                    <small class="error-text" id="passwordError"></small>
-                </div>
+                    <div class="type-channel">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" placeholder="Please type your registered email" required>
+                        <small class="error-text" id="emailError"></small>
+                    </div>
 
-                <button type="submit" class="login-btn" id="loginBtn">LOGIN</button>
-                <div id="loadingSpinner" class="loading-spinner" style="display:none;">
-                    <span></span> Logging in...
+                    <div class="type-channel">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" placeholder="Please type your registered password" required>
+                        <small class="error-text" id="passwordError"></small>
+                    </div>
+
+                    <button type="submit" class="login-btn" id="loginBtn">LOGIN</button>
+                    <div id="loadingSpinner" class="loading-spinner" style="display:none;">
+                        <span></span> Logging in...
+                    </div>
+                    <br><br>
+                    <label>Don't have an account? <a href="./Register.html">Register here</a></label>
+                </form>
+            </div>
+        </div>
+
+        <!-- OTP Verification Form -->
+        <div id="otpSection" style="display:none;">
+            <h2>VERIFY OTP</h2>
+            <div class="Login">
+                <div id="otpContainer">
+                    <div id="otpMessage" class="otp-message"></div>
+
+                    <div class="otp-inputs-container">
+                        <label>Enter 6-digit code from your email:</label>
+                        <div class="otp-inputs">
+                            <input type="text" class="otp-input" id="otp1" maxlength="1" placeholder="0" inputmode="numeric">
+                            <input type="text" class="otp-input" id="otp2" maxlength="1" placeholder="0" inputmode="numeric">
+                            <input type="text" class="otp-input" id="otp3" maxlength="1" placeholder="0" inputmode="numeric">
+                            <input type="text" class="otp-input" id="otp4" maxlength="1" placeholder="0" inputmode="numeric">
+                            <input type="text" class="otp-input" id="otp5" maxlength="1" placeholder="0" inputmode="numeric">
+                            <input type="text" class="otp-input" id="otp6" maxlength="1" placeholder="0" inputmode="numeric">
+                        </div>
+                        <small id="otpError" class="error-text"></small>
+                    </div>
+
+                    <div class="otp-timer">
+                        <p>Code expires in: <span id="timer">10:00</span></p>
+                    </div>
+
+                    <button type="button" class="login-btn" id="verifyBtn" onclick="handleVerifyOTP()">VERIFY</button>
+                    <div id="otpLoadingSpinner" class="loading-spinner" style="display:none;">
+                        <span></span> Verifying...
+                    </div>
+
+                    <div class="otp-actions">
+                        <button type="button" class="resend-btn" id="resendBtn" onclick="handleResendOTP()">Resend Code</button>
+                        <button type="button" class="back-btn" onclick="goBackToLogin()">Back to Login</button>
+                    </div>
                 </div>
-                <br><br>
-                <label>Don't have an account? <a href="./Register.html">Register here</a></label>
-            </form>
+            </div>
         </div>
     </div>
 
@@ -90,9 +131,105 @@
         input.input-success {
             border: 2px solid #0b6b3a !important;
         }
+
+        /* OTP Styles */
+        .otp-inputs {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+            justify-content: center;
+        }
+        .otp-input {
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
+            text-align: center;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        .otp-input:focus {
+            border-color: #0b6b3a;
+            box-shadow: 0 0 0 3px rgba(11, 107, 58, 0.1);
+            outline: none;
+        }
+        .otp-input.filled {
+            border-color: #0b6b3a;
+        }
+        .otp-input.error {
+            border-color: #c33;
+            background: #fee;
+        }
+        .otp-message {
+            text-align: center;
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        .otp-inputs-container {
+            margin: 20px 0;
+        }
+        .otp-inputs-container label {
+            display: block;
+            text-align: center;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+        .otp-timer {
+            text-align: center;
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .otp-timer span {
+            font-weight: bold;
+            color: #0f766e;
+        }
+        .otp-timer.expired span {
+            color: #c33;
+        }
+        .otp-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .resend-btn {
+            background: #f0f0f0;
+            color: #333;
+            padding: 8px 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+        .resend-btn:hover:not(:disabled) {
+            background: #e0e0e0;
+        }
+        .resend-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .back-btn {
+            background: transparent;
+            color: #0f766e;
+            padding: 8px 16px;
+            border: 1px solid #0f766e;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+        .back-btn:hover {
+            background: rgba(15, 118, 110, 0.1);
+        }
     </style>
 
     <script>
+        let currentEmail = '';
+        let otpTimerInterval = null;
+
         function validateEmail(email) {
             const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             return regex.test(email);
@@ -155,21 +292,221 @@
             loginBtn.style.display = 'none';
             loadingSpinner.style.display = 'block';
 
-            // Simulate login (will be replaced with Supabase)
+            // Simulate email + password verification (will be replaced with Supabase)
             setTimeout(() => {
-                // For now, show success and redirect
-                errorMsg.innerHTML = '<strong>✓ Login successful!</strong> Redirecting...';
-                errorMsg.style.display = 'block';
-                errorMsg.style.borderLeft = '4px solid #0b6b3a';
-                errorMsg.style.background = '#efe';
-                errorMsg.style.color = '#063';
+                // Store email for OTP flow
+                currentEmail = email;
 
-                // Redirect after 1.5 seconds
-                setTimeout(() => {
-                    window.location.href = 'Dashboard.html';
-                }, 1500);
+                // Hide login form, show OTP form
+                document.getElementById('loginSection').style.display = 'none';
+                document.getElementById('otpSection').style.display = 'block';
+
+                // Update OTP message
+                const otpMessage = document.getElementById('otpMessage');
+                otpMessage.innerHTML = `A 6-digit code has been sent to<br><strong>${email}</strong>`;
+
+                // Start OTP timer
+                startOTPTimer();
+
+                // Clear OTP inputs
+                clearOTPInputs();
+
+                // Focus first OTP input
+                document.getElementById('otp1').focus();
+
+                // Re-enable login button for next attempt if needed
+                loginBtn.style.display = 'block';
+                loadingSpinner.style.display = 'none';
             }, 800);
         }
+
+        function startOTPTimer() {
+            let timeLeft = 600; // 10 minutes
+
+            if (otpTimerInterval) {
+                clearInterval(otpTimerInterval);
+            }
+
+            const timerEl = document.getElementById('timer');
+            const resendBtn = document.getElementById('resendBtn');
+
+            otpTimerInterval = setInterval(() => {
+                timeLeft--;
+                const mins = Math.floor(timeLeft / 60);
+                const secs = timeLeft % 60;
+
+                timerEl.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+
+                if (timeLeft === 0) {
+                    clearInterval(otpTimerInterval);
+                    document.querySelector('.otp-timer').classList.add('expired');
+                    resendBtn.disabled = false;
+                    document.getElementById('verifyBtn').disabled = true;
+                    document.getElementById('otpError').textContent = 'Code expired. Please request a new one.';
+                }
+            }, 1000);
+        }
+
+        function handleOTPInput(inputId) {
+            const input = document.getElementById(inputId);
+            const nextId = 'otp' + (parseInt(inputId.replace('otp', '')) + 1);
+
+            // Allow only numbers
+            input.value = input.value.replace(/[^0-9]/g, '');
+
+            // Move to next input if filled
+            if (input.value.length === 1) {
+                input.classList.add('filled');
+                const nextInput = document.getElementById(nextId);
+                if (nextInput) {
+                    nextInput.focus();
+                }
+            } else {
+                input.classList.remove('filled');
+            }
+
+            // Clear error on input
+            document.getElementById('otpError').textContent = '';
+            input.classList.remove('error');
+        }
+
+        function handleOTPBackspace(inputId) {
+            const input = document.getElementById(inputId);
+            if (input.value === '') {
+                const prevId = 'otp' + (parseInt(inputId.replace('otp', '')) - 1);
+                const prevInput = document.getElementById(prevId);
+                if (prevInput) {
+                    prevInput.focus();
+                }
+            }
+        }
+
+        function clearOTPInputs() {
+            for (let i = 1; i <= 6; i++) {
+                const input = document.getElementById('otp' + i);
+                input.value = '';
+                input.classList.remove('filled', 'error');
+            }
+            document.getElementById('otpError').textContent = '';
+        }
+
+        function getOTPCode() {
+            let code = '';
+            for (let i = 1; i <= 6; i++) {
+                code += document.getElementById('otp' + i).value;
+            }
+            return code;
+        }
+
+        function handleVerifyOTP() {
+            const otp = getOTPCode();
+            const otpError = document.getElementById('otpError');
+            const verifyBtn = document.getElementById('verifyBtn');
+            const otpLoadingSpinner = document.getElementById('otpLoadingSpinner');
+
+            // Validate OTP is complete
+            if (otp.length !== 6) {
+                otpError.textContent = 'Please enter all 6 digits';
+                for (let i = 1; i <= 6; i++) {
+                    if (!document.getElementById('otp' + i).value) {
+                        document.getElementById('otp' + i).classList.add('error');
+                    }
+                }
+                return;
+            }
+
+            // Show loading state
+            verifyBtn.style.display = 'none';
+            otpLoadingSpinner.style.display = 'block';
+
+            // Simulate OTP verification (will be replaced with Supabase)
+            setTimeout(() => {
+                // For demo: any 6-digit code is valid
+                if (/^\d{6}$/.test(otp)) {
+                    otpError.innerHTML = '<strong>✓ OTP verified!</strong> Logging in...';
+                    otpError.style.color = '#0b6b3a';
+                    otpError.style.borderLeft = '4px solid #0b6b3a';
+
+                    // Redirect after 1.5 seconds
+                    setTimeout(() => {
+                        window.location.href = 'Dashboard.html';
+                    }, 1500);
+                } else {
+                    otpError.textContent = 'Invalid OTP. Please try again.';
+                    clearOTPInputs();
+                    verifyBtn.style.display = 'block';
+                    otpLoadingSpinner.style.display = 'none';
+                    document.getElementById('otp1').focus();
+                }
+            }, 800);
+        }
+
+        function handleResendOTP() {
+            const resendBtn = document.getElementById('resendBtn');
+            const otpError = document.getElementById('otpError');
+
+            resendBtn.disabled = true;
+            resendBtn.textContent = 'Resending...';
+
+            // Simulate resend (will be replaced with Supabase)
+            setTimeout(() => {
+                otpError.innerHTML = '<strong>✓</strong> New code sent to ' + currentEmail;
+                otpError.style.color = '#0b6b3a';
+                resendBtn.textContent = 'Resend Code';
+                clearOTPInputs();
+                document.getElementById('otp1').focus();
+
+                // Restart timer
+                document.querySelector('.otp-timer').classList.remove('expired');
+                document.getElementById('verifyBtn').disabled = false;
+                startOTPTimer();
+            }, 500);
+        }
+
+        function goBackToLogin() {
+            if (otpTimerInterval) {
+                clearInterval(otpTimerInterval);
+            }
+            document.getElementById('loginSection').style.display = 'block';
+            document.getElementById('otpSection').style.display = 'none';
+            document.getElementById('loginForm').reset();
+            document.getElementById('errorMessage').style.display = 'none';
+            clearOTPInputs();
+        }
+
+        // OTP Input event listeners setup
+        document.addEventListener('DOMContentLoaded', () => {
+            for (let i = 1; i <= 6; i++) {
+                const input = document.getElementById('otp' + i);
+
+                input.addEventListener('input', function() {
+                    handleOTPInput('otp' + i);
+                });
+
+                input.addEventListener('keydown', function(e) {
+                    if (e.key === 'Backspace') {
+                        e.preventDefault();
+                        this.value = '';
+                        handleOTPBackspace('otp' + i);
+                    }
+                });
+
+                input.addEventListener('paste', function(e) {
+                    e.preventDefault();
+                    const paste = (e.clipboardData || window.clipboardData).getData('text');
+                    const digits = paste.replace(/[^0-9]/g, '').slice(0, 6);
+
+                    for (let j = 0; j < digits.length && j < 6; j++) {
+                        document.getElementById('otp' + (j + 1)).value = digits[j];
+                        document.getElementById('otp' + (j + 1)).classList.add('filled');
+                    }
+
+                    if (digits.length >= 6) {
+                        document.getElementById('otp6').focus();
+                    }
+                });
+            }
+        });
 
         // Real-time validation
         document.getElementById('email').addEventListener('blur', function() {
