@@ -581,48 +581,84 @@ function passDataToPayment() {
     const selectedScopes = Array.from(document.querySelectorAll('input[name="scope"]:checked'))
         .map(checkbox => checkbox.value);
 
-    // Count only VALID (complete) auditors
+    // Count only VALID (complete) people from each section
+    const presidentCount = countValidAuditors('presidentContainer');
+    const overallCount = countValidAuditors('overallContainer');
+    const shariahBoardCount = countValidAuditors('shariahContainer');
     const technicalAuditorCount = countValidAuditors('technicalContainer');
     const halalAuditorCount = countValidAuditors('halalContainer');
-    const totalAuditors = technicalAuditorCount + halalAuditorCount;
+    const shariahAuditorCount = countValidAuditors('shariahAuditorContainer');
 
-    // Validation
-    if (selectedScopes.length === 0) {
-        alert('Please select at least one scope');
+    // ===== SECTION 1: President/Chairman =====
+    const presidentCards = document.querySelectorAll('#presidentContainer .person-card');
+    if (presidentCards.length === 0) {
+        alert('Section 1: Please add at least one President / Chairman');
+        return;
+    }
+    if (presidentCount < presidentCards.length) {
+        alert('Section 1: Please complete all President / Chairman information fields');
         return;
     }
 
-    // Check if technical auditors are complete
+    // ===== SECTION 2: Overall In-Charge =====
+    const overallCards = document.querySelectorAll('#overallContainer .person-card');
+    if (overallCards.length === 0) {
+        alert('Section 2: Please add at least one Halal Certification Overall In-Charge');
+        return;
+    }
+    if (overallCount < overallCards.length) {
+        alert('Section 2: Please complete all Overall In-Charge information fields');
+        return;
+    }
+
+    // ===== SECTION 3: Shariah Advisory Board =====
+    const shariahBoardCards = document.querySelectorAll('#shariahContainer .person-card');
+    if (shariahBoardCards.length === 0) {
+        alert('Section 3: Please add at least one Shariah Advisory Board member');
+        return;
+    }
+    if (shariahBoardCount < shariahBoardCards.length) {
+        alert('Section 3: Please complete all Shariah Advisory Board member information fields');
+        return;
+    }
+
+    // ===== SECTION 4: Technical Auditors =====
     const technicalCards = document.querySelectorAll('#technicalContainer .person-card');
-    if (technicalCards.length > 0 && technicalAuditorCount < technicalCards.length) {
-        alert('Please complete all Technical Auditor information fields');
+    if (technicalCards.length === 0) {
+        alert('Section 4: Please add at least one Technical Auditor');
+        return;
+    }
+    if (technicalAuditorCount < technicalCards.length) {
+        alert('Section 4: Please complete all Technical Auditor information fields');
         return;
     }
 
-    // Check if halal auditors are complete
+    // ===== SECTION 5: Halal & Shariah Auditors =====
     const halalCards = document.querySelectorAll('#halalContainer .person-card');
-    if (halalCards.length > 0 && halalAuditorCount < halalCards.length) {
-        alert('Please complete all Halal Auditor information fields');
+    if (halalCards.length === 0) {
+        alert('Section 5: Please add at least one Halal Auditor');
+        return;
+    }
+    if (halalAuditorCount < halalCards.length) {
+        alert('Section 5: Please complete all Halal Auditor information fields');
         return;
     }
 
-    // Check if shariah auditors are complete
-    const shariahCards = document.querySelectorAll('#shariahAuditorContainer .person-card');
-    let shariahCount = 0;
-    if (shariahCards.length > 0) {
-        shariahCount = countValidAuditors('shariahAuditorContainer');
-        if (shariahCount < shariahCards.length) {
-            alert('Please complete all Shariah Auditor information fields');
-            return;
-        }
+    // ===== SECTION 6: Scope =====
+    if (selectedScopes.length === 0) {
+        alert('Section 6: Please select at least one scope of Halal Certification Activities');
+        return;
     }
 
-    // Save to localStorage
+    // ===== All validations passed =====
     const paymentData = {
         selectedScopes: selectedScopes,
-        halalAuditorCount: halalAuditorCount,
+        presidentCount: presidentCount,
+        overallCount: overallCount,
+        shariahBoardCount: shariahBoardCount,
         technicalAuditorCount: technicalAuditorCount,
-        shariahAuditorCount: shariahCount
+        halalAuditorCount: halalAuditorCount,
+        shariahAuditorCount: shariahAuditorCount
     };
 
     localStorage.setItem('paymentData', JSON.stringify(paymentData));
