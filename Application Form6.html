@@ -24,6 +24,23 @@
         body {
             padding-top: 80px;
         }
+        .auditor-inputs {
+            display: flex;
+            gap: 20px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+        .auditor-inputs label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .auditor-inputs input {
+            width: 80px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
     </style>
 </head>
 
@@ -224,12 +241,33 @@ document.addEventListener("DOMContentLoaded", () => {
             <input type="text" name="otherScope" placeholder="Specify other scope">
             </label>
  </div>
+
+ <!-- ================================================= -->
+ <!-- 7. NUMBER OF AUDITORS -->
+ <!-- ================================================= -->
  <div class="section-box">
-    <h2>7. Signature of the authorized representative/person who will sign on your halal certificate for each branch</h2>
+    <h2>7. Number of Auditors</h2>
+    <p>Please specify the number of Halal Auditors and Technical Auditors</p>
+
+    <div class="auditor-inputs">
+        <label>
+            Number of Halal Auditors:
+            <input type="number" id="halalAuditorCount" name="halalAuditorCount" min="0" value="0" required>
+        </label>
+
+        <label>
+            Number of Technical Auditors:
+            <input type="number" id="technicalAuditorCount" name="technicalAuditorCount" min="0" value="0" required>
+        </label>
+    </div>
+ </div>
+
+ <div class="section-box">
+    <h2>8. Signature of the authorized representative/person who will sign on your halal certificate for each branch</h2>
     <p>Please provide the signature of the authorized representative/person who will sign on your halal certificate for each branch. This information is crucial for the recognition process and will be used to verify the authenticity of your halal certificates.</p>
     <input type="file" name="signature" accept="image/*" required>
     <p>Note: The signature must be clear and legible. It should be in a commonly used image format (e.g., JPEG, PNG) and should not exceed the maximum file size specified.</p>
-    
+
  </div>
 <!-- ================================================= -->
 <!-- BUTTON -->
@@ -245,8 +283,8 @@ document.addEventListener("DOMContentLoaded", () => {
     </button>
 
 
-    <button type="Next"
-            class="Next-btn" onclick="window.location.href='Payment Form7.html'">
+    <button type="button"
+            class="Next-btn" onclick="passDataToPayment()">
 
             Next
 
@@ -518,6 +556,34 @@ function addPerson(containerId){
 function removePerson(button){
 
     button.parentElement.remove();
+}
+
+function passDataToPayment() {
+    // Get selected scopes
+    const selectedScopes = Array.from(document.querySelectorAll('input[name="scope"]:checked'))
+        .map(checkbox => checkbox.value);
+
+    // Get auditor counts
+    const halalAuditorCount = parseInt(document.getElementById('halalAuditorCount').value) || 0;
+    const technicalAuditorCount = parseInt(document.getElementById('technicalAuditorCount').value) || 0;
+
+    // Validation
+    if (selectedScopes.length === 0) {
+        alert('Please select at least one scope');
+        return;
+    }
+
+    // Save to localStorage
+    const paymentData = {
+        selectedScopes: selectedScopes,
+        halalAuditorCount: halalAuditorCount,
+        technicalAuditorCount: technicalAuditorCount
+    };
+
+    localStorage.setItem('paymentData', JSON.stringify(paymentData));
+
+    // Navigate to Payment Form7
+    window.location.href = 'Payment Form7.html';
 }
 
 </script>

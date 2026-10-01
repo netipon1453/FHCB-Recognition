@@ -55,30 +55,23 @@ document.addEventListener("DOMContentLoaded", () => {
   <h2>Fee Calculation and Payment</h2>
 
   <div class="section">
-    <h3>1. Select Scope</h3>
-
-    <label><input type="checkbox" class="scope" value="Food"> Food</label>
-    <label><input type="checkbox" class="scope" value="Chemical and Biological Products"> Chemical and Biological Products</label>
-    <label><input type="checkbox" class="scope" value="Cosmetics"> Cosmetics</label>
-    <label><input type="checkbox" class="scope" value="Pharmaceuticals"> Pharmaceuticals</label>
-    <label><input type="checkbox" class="scope" value="Beverages"> Beverages</label>
-    <label><input type="checkbox" class="scope" value="Health Supplements"> Health Supplements</label>
-    <label><input type="checkbox" class="scope" value="Slaughterhouses and Animal Products"> Slaughterhouses and Animal Products</label>
-    <label><input type="checkbox" class="scope" value="Others"> Others</label>
+    <h3>1. Selected Scope</h3>
+    <div id="selectedScopesDisplay" style="margin: 10px 0; padding: 10px; background: #f5f5f5; border-radius: 4px;">
+      <p id="scopesList">Loading...</p>
+    </div>
   </div>
 
   <div class="section">
     <h3>2. Number of Auditors</h3>
 
-    <label>
-      Number of Halal Auditors
-      <input type="number" id="halalAuditor" min="0" value="0">
-    </label>
+    <div style="padding: 10px; background: #f5f5f5; border-radius: 4px;">
+      <p>Number of Halal Auditors: <strong id="displayHalalAuditor">0</strong></p>
+      <p>Number of Technical Auditors: <strong id="displayTechnicalAuditor">0</strong></p>
+    </div>
 
-    <label>
-      Number of Technical Auditors
-      <input type="number" id="technicalAuditor" min="0" value="0">
-    </label>
+    <p style="margin-top: 15px; font-size: 12px; color: #666;">
+      Data is automatically loaded from your Application Form. To modify, please go back to Form 6.
+    </p>
   </div>
 
   <div class="section fee-box">
@@ -153,7 +146,7 @@ document.addEventListener("DOMContentLoaded", () => {
             class="Previous-btn"
             onclick="window.location.href='Application Form6.html'">
 
-        Previous
+        Back to Form 6
 
     </button>
 
@@ -164,10 +157,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 </div>
 <script>
-  const scopes = document.querySelectorAll(".scope");
-  const halalAuditorInput = document.getElementById("halalAuditor");
-  const technicalAuditorInput = document.getElementById("technicalAuditor");
-
   const scopeCountText = document.getElementById("scopeCount");
   const scopeFeeText = document.getElementById("scopeFee");
   const auditorFeeText = document.getElementById("auditorFee");
@@ -177,17 +166,47 @@ document.addEventListener("DOMContentLoaded", () => {
   const creditCardSection = document.getElementById("creditCardSection");
   const transferSection = document.getElementById("transferSection");
 
+  let paymentData = {
+    selectedScopes: [],
+    halalAuditorCount: 0,
+    technicalAuditorCount: 0
+  };
+
+  // Load data from localStorage (from Form6)
+  function loadPaymentData() {
+    const savedData = localStorage.getItem('paymentData');
+    if (savedData) {
+      paymentData = JSON.parse(savedData);
+    }
+
+    // Display scopes
+    const scopesList = document.getElementById('scopesList');
+    if (paymentData.selectedScopes.length > 0) {
+      scopesList.innerHTML = paymentData.selectedScopes
+        .map(scope => `<div>✓ ${scope}</div>`)
+        .join('');
+    } else {
+      scopesList.innerHTML = '<p style="color: #999;">No scopes selected</p>';
+    }
+
+    // Display auditor counts
+    document.getElementById('displayHalalAuditor').textContent = paymentData.halalAuditorCount;
+    document.getElementById('displayTechnicalAuditor').textContent = paymentData.technicalAuditorCount;
+
+    // Calculate fee
+    calculateFee();
+  }
+
   function calculateFee() {
-    const selectedScopes = document.querySelectorAll(".scope:checked").length;
+    const selectedScopesCount = paymentData.selectedScopes.length;
+    const halalAuditor = paymentData.halalAuditorCount;
+    const technicalAuditor = paymentData.technicalAuditorCount;
 
     let scopeFee = 0;
 
-    if (selectedScopes >= 1) {
-      scopeFee = 1500 + ((selectedScopes - 1) * 200);
+    if (selectedScopesCount >= 1) {
+      scopeFee = 1500 + ((selectedScopesCount - 1) * 200);
     }
-
-    const halalAuditor = parseInt(halalAuditorInput.value) || 0;
-    const technicalAuditor = parseInt(technicalAuditorInput.value) || 0;
 
     let auditorFee = 0;
     const totalAuditors = halalAuditor + technicalAuditor;
@@ -204,18 +223,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const totalFee = scopeFee + auditorFee;
 
-    scopeCountText.textContent = selectedScopes;
+    scopeCountText.textContent = selectedScopesCount;
     scopeFeeText.textContent = scopeFee.toFixed(2);
     auditorFeeText.textContent = auditorFee.toFixed(2);
     totalFeeText.textContent = totalFee.toFixed(2);
   }
 
-  scopes.forEach(scope => {
-    scope.addEventListener("change", calculateFee);
-  });
-
-  halalAuditorInput.addEventListener("input", calculateFee);
-  technicalAuditorInput.addEventListener("input", calculateFee);
+  // Load data when page loads
+  document.addEventListener('DOMContentLoaded', loadPaymentData);
 
   paymentMethods.forEach(method => {
     method.addEventListener("change", function () {
@@ -230,11 +245,10 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   function submitPayment() {
-    const selectedScopes = document.querySelectorAll(".scope:checked").length;
     const selectedPayment = document.querySelector('input[name="paymentMethod"]:checked');
 
-    if (selectedScopes === 0) {
-      alert("Please select at least one scope.");
+    if (paymentData.selectedScopes.length === 0) {
+      alert("No scopes selected. Please go back to Form 6.");
       return;
     }
 
@@ -266,10 +280,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     alert("Payment submitted successfully.");
+    localStorage.removeItem('paymentData');
     window.location.href = "./Dashboard.html";
   }
-
-  calculateFee();
 </script>
 
 </body>
